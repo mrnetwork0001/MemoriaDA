@@ -1,64 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Share+Tech+Mono&family=JetBrains+Mono:wght@400..800&display=swap');
+
 /* ============================================================
-   MEMORIA DA — Design System & Global Styles
-   Theme: Mission Control Terminal / Glassmorphic Dark
+   MEMORIA DA — Cyberpunk / Glitch Design System
+   Theme: High-Tech, Low-Life / Digital Dystopia
    ============================================================ */
 
-/* ---------- CSS Variables (Design Tokens) ---------- */
 :root {
-  /* Core Palette */
-  --bg-void: #05060a;
-  --bg-deep: #0a0c14;
-  --bg-surface: #0e1019;
-  --bg-panel: rgba(14, 17, 30, 0.65);
-  --bg-panel-hover: rgba(20, 24, 42, 0.75);
-  --bg-glass: rgba(16, 20, 38, 0.45);
-  --bg-glass-strong: rgba(16, 20, 38, 0.72);
-
-  /* Borders */
-  --border-subtle: rgba(56, 72, 120, 0.18);
-  --border-medium: rgba(80, 100, 160, 0.22);
-  --border-glow: rgba(0, 224, 255, 0.15);
-
-  /* Accent — Neon Cyan (Primary) */
-  --accent-cyan: #00e0ff;
-  --accent-cyan-dim: rgba(0, 224, 255, 0.55);
-  --accent-cyan-glow: 0 0 12px rgba(0, 224, 255, 0.3), 0 0 40px rgba(0, 224, 255, 0.08);
-  --accent-cyan-glow-strong: 0 0 18px rgba(0, 224, 255, 0.5), 0 0 60px rgba(0, 224, 255, 0.15);
-
-  /* Accent — Electric Purple (Secondary) */
-  --accent-purple: #a855f7;
-  --accent-purple-dim: rgba(168, 85, 247, 0.55);
-  --accent-purple-glow: 0 0 12px rgba(168, 85, 247, 0.3), 0 0 40px rgba(168, 85, 247, 0.08);
-
-  /* Accent — Status Greens */
-  --accent-green: #22d97f;
-  --accent-green-dim: rgba(34, 217, 127, 0.5);
-  --accent-green-glow: 0 0 10px rgba(34, 217, 127, 0.25);
-
-  /* Accent — Warning / Alert */
-  --accent-amber: #f59e0b;
-  --accent-red: #ef4444;
-
+  /* Core Palette (Digital Dystopia) */
+  --bg-void: #0a0a0f;           /* Deep black void */
+  --bg-deep: #050508;
+  --bg-card: #12121a;           /* Card background */
+  --bg-muted: #1c1c2e;          /* Secondary backgrounds */
+  --bg-input: #08080c;
+  
+  /* Accents (Neon Flux) */
+  --accent-primary: #00ff88;    /* Acid Green */
+  --accent-secondary: #ff00ff;  /* Hot Magenta */
+  --accent-tertiary: #00d4ff;   /* Electric Cyan */
+  --accent-destructive: #ff3366; /* Glitch Red */
+  
   /* Text */
-  --text-primary: #e8ecf4;
+  --text-primary: #e0e0e0;      /* Foregound */
   --text-secondary: #8894b0;
-  --text-muted: #525e78;
-  --text-accent: var(--accent-cyan);
+  --text-muted: #4b5563;
+  --text-accent: var(--accent-primary);
 
   /* Typography */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  --font-heading: 'Orbitron', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Share Tech Mono', monospace;
+  --font-body: 'JetBrains Mono', monospace;
 
-  /* Radii */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  /* Borders & Radii */
+  --border-color: #2a2a3a;
+  --border-glow: 0 0 8px rgba(0, 255, 136, 0.3);
+  --radius-sm: 2px;
+  --radius-chamfer: 10px; /* For clip-path math */
 
+  /* Shadows (Neon Stacks) */
+  --neon-glow: 0 0 5px var(--accent-primary), 0 0 10px rgba(0, 255, 136, 0.2);
+  --neon-glow-secondary: 0 0 5px var(--accent-secondary), 0 0 10px rgba(255, 0, 255, 0.2);
+  --neon-glow-tertiary: 0 0 5px var(--accent-tertiary), 0 0 10px rgba(0, 212, 255, 0.2);
+  
   /* Transitions */
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-digital: all 150ms steps(4);
+  --transition-smooth: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Spacing */
   --gap-xs: 4px;
@@ -66,10 +51,9 @@
   --gap-md: 16px;
   --gap-lg: 24px;
   --gap-xl: 32px;
-  --gap-2xl: 48px;
 }
 
-/* ---------- Reset ---------- */
+/* ---------- Global Reset & Body ---------- */
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -79,136 +63,65 @@
 html {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+  scrollbar-gutter: stable;
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   background: var(--bg-void);
   color: var(--text-primary);
   min-height: 100vh;
   overflow-y: auto;
   position: relative;
+  letter-spacing: 0.05em;
 }
 
-#root {
-  min-height: 100vh;
-  position: relative;
-  z-index: 1;
-}
-
-/* ---------- Animated Background Grid ---------- */
+/* ---------- CRT Scanlines & Grid Overlays ---------- */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  z-index: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0, 224, 255, 0.04) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 80% 100%, rgba(168, 85, 247, 0.03) 0%, transparent 50%),
-    linear-gradient(180deg, var(--bg-void) 0%, var(--bg-deep) 100%);
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 1px,
+    rgba(0, 0, 0, 0.15) 1px,
+    rgba(0, 0, 0, 0.15) 2px
+  );
   pointer-events: none;
+  opacity: 0.5;
 }
 
-body::after {
+/* Background Grid Pattern */
+#root::before {
   content: '';
   position: fixed;
   inset: 0;
-  z-index: 0;
-  background-image:
-    linear-gradient(rgba(56,72,120,0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(56,72,120,0.06) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse 70% 60% at center, black 20%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse 70% 60% at center, black 20%, transparent 70%);
+  z-index: -1;
+  background-image: 
+    linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(circle at center, black, transparent 80%);
   pointer-events: none;
-  animation: gridPulse 8s ease-in-out infinite alternate;
-}
-
-@keyframes gridPulse {
-  0% { opacity: 0.4; }
-  100% { opacity: 0.8; }
-}
-
-/* ---------- Scrollbar ---------- */
-::-webkit-scrollbar {
-  width: 5px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(0, 224, 255, 0.15);
-  border-radius: 99px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 224, 255, 0.3);
-}
-
-/* ---------- Selection ---------- */
-::selection {
-  background: rgba(0, 224, 255, 0.2);
-  color: var(--text-primary);
-}
-
-/* ---------- Utility Classes ---------- */
-.glass-panel {
-  background: var(--bg-glass);
-  backdrop-filter: blur(18px) saturate(1.5);
-  -webkit-backdrop-filter: blur(18px) saturate(1.5);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-}
-
-.glass-panel-strong {
-  background: var(--bg-glass-strong);
-  backdrop-filter: blur(24px) saturate(1.6);
-  -webkit-backdrop-filter: blur(24px) saturate(1.6);
-  border: 1px solid var(--border-medium);
-  border-radius: var(--radius-lg);
-}
-
-.glow-border-cyan {
-  border-color: var(--border-glow);
-  box-shadow: var(--accent-cyan-glow);
-}
-
-.glow-border-purple {
-  border-color: rgba(168, 85, 247, 0.15);
-  box-shadow: var(--accent-purple-glow);
-}
-
-.text-gradient-cyan {
-  background: linear-gradient(135deg, var(--accent-cyan) 0%, #38bdf8 50%, var(--accent-purple) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.mono {
-  font-family: var(--font-mono);
 }
 
 /* ---------- Keyframes ---------- */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes blink { 50% { opacity: 0; } }
+
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 1px); }
+  40% { transform: translate(-2px, -1px); }
+  60% { transform: translate(2px, 1px); }
+  80% { transform: translate(2px, -1px); }
+  100% { transform: translate(0); }
 }
 
-@keyframes slideInLeft {
-  from { opacity: 0; transform: translateX(-16px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes slideInRight {
-  from { opacity: 0; transform: translateX(16px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+@keyframes rgbShift {
+  0%, 100% { text-shadow: -1.5px 0 var(--accent-secondary), 1.5px 0 var(--accent-tertiary); }
+  50% { text-shadow: 1.5px 0 var(--accent-secondary), -1.5px 0 var(--accent-tertiary); }
 }
 
 @keyframes scanline {
@@ -216,27 +129,52 @@ body::after {
   100% { transform: translateY(100vh); }
 }
 
-@keyframes glowPulse {
-  0%, 100% { box-shadow: var(--accent-cyan-glow); }
-  50% { box-shadow: var(--accent-cyan-glow-strong); }
+/* ---------- Utility Classes ---------- */
+.terminal-font { font-family: var(--font-mono); }
+.heading-font { font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 0.1em; }
+
+.text-gradient-cyan {
+  background: linear-gradient(135deg, var(--accent-tertiary), var(--accent-primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-@keyframes typewriter {
-  from { width: 0; }
-  to { width: 100%; }
+.text-gradient-magenta {
+  background: linear-gradient(135deg, var(--accent-secondary), var(--accent-tertiary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+/* Chamfered Corners (The Signiture Cut) */
+.cyber-chamfer {
+  clip-path: polygon(
+    0 var(--radius-chamfer), var(--radius-chamfer) 0,
+    calc(100% - var(--radius-chamfer)) 0, 100% var(--radius-chamfer),
+    100% calc(100% - var(--radius-chamfer)), calc(100% - var(--radius-chamfer)) 100%,
+    var(--radius-chamfer) 100%, 0 calc(100% - var(--radius-chamfer))
+  );
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
+.cyber-glitch-text {
+  position: relative;
+  display: inline-block;
+  animation: rgbShift 3s infinite;
 }
 
-@keyframes dataFlow {
-  0% { background-position: 0% 0%; }
-  100% { background-position: 100% 100%; }
+.cyber-glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-void);
+  clip-path: rect(0 0 0 0);
+  animation: glitch 2.5s infinite linear alternate-reverse;
 }
+
+/* Scrollbar Style */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-void); }
+::-webkit-scrollbar-thumb { background: var(--border-color); }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-primary); }

@@ -1,5 +1,5 @@
 /* ============================================================
-   APP — Root Layout & Dashboard Grid
+   APP — Cyberpunk Layout & Global Components
    ============================================================ */
 
 .app {
@@ -8,60 +8,51 @@
   height: 100vh;
   position: relative;
   overflow: hidden;
+  background: var(--bg-void);
 }
 
-/* ---------- Ambient Glow Orbs ---------- */
-.ambient-orb {
-  position: fixed;
-  border-radius: 50%;
-  filter: blur(80px);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.ambient-orb-1 {
-  width: 400px;
-  height: 400px;
-  background: rgba(0, 224, 255, 0.04);
-  top: -100px;
-  left: -100px;
-  animation: float 12s ease-in-out infinite;
-}
-
-.ambient-orb-2 {
-  width: 350px;
-  height: 350px;
-  background: rgba(168, 85, 247, 0.035);
-  bottom: -80px;
-  right: -80px;
-  animation: float 15s ease-in-out infinite reverse;
-}
-
-.ambient-orb-3 {
-  width: 250px;
-  height: 250px;
-  background: rgba(0, 224, 255, 0.025);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation: float 10s ease-in-out infinite 2s;
-}
-
-/* ---------- Scanline ---------- */
+/* ---------- Global HUD Elements ---------- */
 .scanline {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(0, 224, 255, 0.08), transparent);
-  z-index: 1000;
+  background: rgba(0, 255, 136, 0.1);
+  z-index: 10000;
   pointer-events: none;
   animation: scanline 8s linear infinite;
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
-/* ---------- Dashboard Grid ---------- */
+/* Ambient Glow Orbs - Cyber Edition */
+.ambient-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ambient-orb-1 {
+  width: 500px;
+  height: 500px;
+  background: rgba(0, 255, 136, 0.05);
+  top: -150px;
+  right: -150px;
+  animation: float 15s ease-in-out infinite;
+}
+
+.ambient-orb-2 {
+  width: 400px;
+  height: 400px;
+  background: rgba(255, 0, 255, 0.04);
+  bottom: -100px;
+  left: -100px;
+  animation: float 18s ease-in-out infinite reverse;
+}
+
+/* ---------- Dashboard Shell ---------- */
 .dashboard {
   flex: 1;
   display: grid;
@@ -71,53 +62,63 @@
   min-height: 0;
   position: relative;
   z-index: 1;
+  background: radial-gradient(circle at center, rgba(10, 10, 15, 0) 0%, rgba(5, 5, 8, 0.8) 100%);
 }
 
-/* ---------- Footer ---------- */
+/* ---------- Cyber Footer ---------- */
 .app-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px var(--gap-lg);
-  border-top: 1px solid var(--border-subtle);
-  background: var(--bg-glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  padding: 6px var(--gap-lg);
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-deep);
   flex-shrink: 0;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
+  font-family: var(--font-mono);
   color: var(--text-muted);
   position: relative;
   z-index: 1;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .footer-left, .footer-right {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 12px;
 }
 
 .footer-brand {
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  font-weight: 800;
+  color: var(--accent-primary);
+  text-shadow: 0 0 5px var(--accent-primary);
 }
 
 .footer-sep {
   opacity: 0.3;
+  color: var(--accent-tertiary);
 }
 
 .footer-0g {
-  font-weight: 800;
-  font-size: 0.75rem;
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  font-weight: 900;
+  color: var(--accent-tertiary);
+  background: linear-gradient(90deg, var(--accent-tertiary), var(--accent-primary));
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* ---------- Responsive ---------- */
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .dashboard {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr 1.2fr;
+    overflow-y: auto;
   }
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(20px, -20px); }
 }

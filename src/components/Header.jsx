@@ -46,9 +46,11 @@ const Header = ({ wallet }) => {
               </svg>
             </div>
             <div className="logo-text">
-              <h1 className="logo-title">MEMORIA<span className="logo-da">DA</span></h1>
-              <span className="logo-subtitle">Decentralized Agent Memory Protocol</span>
-            </div>
+            <h1 className="logo-title heading-font cyber-glitch-text" data-text="MEMORIA DA">
+              MEMORIA<span className="logo-da">DA</span>
+            </h1>
+            <span className="logo-subtitle terminal-font">❯ Decentralized Memory Protocol</span>
+          </div>
           </div>
         </Link>
       </div>

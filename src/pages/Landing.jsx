@@ -7,33 +7,33 @@ import LandingArchitecture from '../components/LandingArchitecture';
 const Landing = () => {
   return (
     <div className="landing-page" id="landing-root">
-      {/* Ambient Glow Orbs - Consistent with Dashboard */}
-      <div className="ambient-orb ambient-orb-1" />
-      <div className="ambient-orb ambient-orb-2" />
-      <div className="ambient-orb ambient-orb-3" />
-
+      {/* Global HUD Overlay */}
+      <div className="scanline" />
+      
       {/* Hero Section */}
       <LandingHero />
 
-      {/* Problem Section */}
+      {/* Problem Section (Glitch Themed) */}
       <section className="landing-section problem-section" id="problem">
         <div className="section-container">
-          <h2 className="section-title text-gradient-amber">AI Agents Are Stateless. That's a $100B Problem.</h2>
+          <h2 className="section-title heading-font cyber-glitch-text" data-text="SYST_CRITICAL: AI_AMNESIA">
+            SYST_CRITICAL: AI_AMNESIA
+          </h2>
           <div className="pain-grid">
-            <div className="pain-card glass">
-              <div className="pain-icon">⚠️</div>
-              <h3>Centralized Memory</h3>
-              <p>Agents rely on AWS or Pinecone. One provider outage means total agent amnesia.</p>
+            <div className="pain-card cyber-chamfer">
+              <div className="pain-icon text-accent-secondary">01</div>
+              <h3 className="heading-font">Centralized Void</h3>
+              <p className="terminal-font">Agents rely on corporate silos. One outage means total amnesia. Your data is leased, not owned.</p>
             </div>
-            <div className="pain-card glass">
-              <div className="pain-icon">🕵️</div>
-              <h3>No Verifiability</h3>
-              <p>You can't prove what an agent remembers. No cryptographic audit trail for memory retrieval.</p>
+            <div className="pain-card cyber-chamfer">
+              <div className="pain-icon text-accent-tertiary">02</div>
+              <h3 className="heading-font">Audit Blackout</h3>
+              <p className="terminal-font">No cryptographic proof. No audit trail. You cannot prove what an agent remembers or why.</p>
             </div>
-            <div className="pain-card glass">
-              <div className="pain-icon">🧱</div>
-              <h3>Walled Gardens</h3>
-              <p>Memory is locked to specific frameworks. No interoperability between agent ecosystems.</p>
+            <div className="pain-card cyber-chamfer">
+              <div className="pain-icon text-accent-primary">03</div>
+              <h3 className="heading-font">Isolation Protocols</h3>
+              <p className="terminal-font">Memory is locked to specific frameworks. No interoperability. No continuity across the sprawl.</p>
             </div>
           </div>
         </div>
@@ -42,22 +42,26 @@ const Landing = () => {
       {/* Solution Section */}
       <section className="landing-section solution-section" id="solution">
         <div className="section-container">
-          <h2 className="section-title text-gradient-cyan">Permanent. Verifiable. Universal.</h2>
+          <div className="solution-header">
+            <h2 className="section-title heading-font">PERMANENT. VERIFIABLE. UNIVERSAL.</h2>
+            <div className="terminal-output terminal-font">❯ INITIALIZING_MEMORIA_DA... [OK]</div>
+          </div>
+          
           <div className="solution-grid">
-            <div className="solution-card glass-cyan">
-              <div className="solution-icon">🌐</div>
-              <h3>Decentralized Storage</h3>
-              <p>Every memory vector is stored on 0G's decentralized network. No single point of failure.</p>
+            <div className="solution-card holographic">
+              <div className="solution-glow" />
+              <h3 className="heading-font">0G_STORAGE</h3>
+              <p className="terminal-font">Every memory vector is committed to 0G's decentralized network. Immutable. Distributed. Eternal.</p>
             </div>
-            <div className="solution-card glass-cyan">
-              <div className="solution-icon">🛡️</div>
-              <h3>Merkle-Verified</h3>
-              <p>Every memory has a cryptographic root hash. Fully auditable and tamper-proof storage.</p>
+            <div className="solution-card holographic">
+              <div className="solution-glow" />
+              <h3 className="heading-font">MERKLE_PROOF</h3>
+              <p className="terminal-font">Cryptographic root hashes ensure data integrity. Fully auditable storage that cannot be tampered with.</p>
             </div>
-            <div className="solution-card glass-cyan">
-              <div className="solution-icon">🧩</div>
-              <h3>Framework Agnostic</h3>
-              <p>Works with OpenClaw, LangChain, AutoGPT — and any agent framework of the future.</p>
+            <div className="solution-card holographic">
+              <div className="solution-glow" />
+              <h3 className="heading-font">NEURAL_BRIDGE</h3>
+              <p className="terminal-font">Framework agnostic. Works with any agent ecosystem on the network. The universal memory standard.</p>
             </div>
           </div>
         </div>
@@ -69,58 +73,31 @@ const Landing = () => {
       {/* Features Grid */}
       <LandingFeatures />
 
-      {/* Built on 0G */}
+      {/* Integration */}
       <section className="landing-section og-section" id="og-integration">
-        <div className="section-container">
-          <h2 className="section-title">Powered by the 0G Ecosystem</h2>
-          <div className="og-pill">
-            <span className="og-logo">0G</span>
-            <span className="og-plus">+</span>
-            <span className="og-brand">Memoria DA</span>
+        <div className="section-container cyber-chamfer">
+          <h2 className="section-title heading-font">POWERED_BY_0G_SYSTEM</h2>
+          <div className="og-visual">
+             <div className="og-node heading-font">0G_CHAIN</div>
+             <div className="og-link-pulse" />
+             <div className="og-node heading-font">MEMORIA_DA</div>
+             <div className="og-link-pulse" />
+             <div className="og-node heading-font">0G_STORAGE</div>
           </div>
-          <div className="og-grid">
-            <div className="og-item">
-              <h4>0G Storage</h4>
-              <p>Decentralized blob storage for high-dimensional memory vectors.</p>
-            </div>
-            <div className="og-item">
-              <h4>0G Chain</h4>
-              <p>MemoriaRegistry smart contract on a high-throughput settlement layer.</p>
-            </div>
-            <div className="og-item">
-              <h4>0G Memory</h4>
-              <p>Persistent memory layer for cross-session agent continuity.</p>
-            </div>
-          </div>
-          <a href="https://0g.ai" target="_blank" rel="noopener noreferrer" className="og-link">Learn more about 0G →</a>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="landing-section cta-section" id="cta">
-        <div className="section-container">
-          <h2 className="cta-title">Give Your Agents Memory That Lasts Forever.</h2>
-          <div className="cta-buttons">
-            <button className="btn-primary-large" onClick={() => window.location.href = '/app'}>
-              Launch App →
-            </button>
-          </div>
-          <div className="cta-links">
-            <a href="#">GitHub</a>
-            <a href="#">0G Docs</a>
-            <a href="#">Twitter / X</a>
+          <div className="og-cta">
+            <a href="https://0g.ai" target="_blank" rel="noopener noreferrer" className="btn-cyber terminal-font">
+              VIEW_0G_DOCS__❯
+            </a>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="landing-footer">
+      <footer className="landing-footer terminal-font">
         <div className="footer-content">
-          <div className="footer-brand">Memoria DA</div>
-          <div className="footer-text">Built for the 0G APAC Hackathon — Track 1: Agentic Infrastructure</div>
-          <div className="footer-links">
-            <span>Powered by 0G Storage & Chain</span>
-          </div>
+          <div className="footer-brand heading-font">MEMORIA_DA // 0G_APAC_TRACK_1</div>
+          <div className="footer-status">SYSTEM_STATUS: OPERATIONAL</div>
+          <div className="footer-copyright">© 2026 MRNETWORK // NEURAL_LINK_ACTIVE</div>
         </div>
       </footer>
     </div>

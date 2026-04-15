@@ -264,31 +264,24 @@ const AgentChat = ({ onMemoryEvent, wallet, storage }) => {
 
       {/* Input */}
       <div className="chat-input-container">
-        <div className="chat-input-wrapper">
+        <form onSubmit={(e) => { e.preventDefault(); handleSend(); }} className="chat-input-wrapper">
+          <div className="input-prefix terminal-font">❯</div>
           <input
-            ref={inputRef}
             type="text"
-            className="chat-input"
-            id="chat-input"
-            placeholder={isLive
-              ? "Ask the agent... (memories stored LIVE on 0G Storage)"
-              : "Ask the agent... (connect wallet for real 0G storage)"
-            }
+            className="chat-input terminal-font"
+            placeholder="COMM_LINK_ESTABLISHED: ENTER COMMAND..."
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-            onKeyDown={handleKeyDown}
+            disabled={isTyping || !wallet?.isConnected}
           />
           <button 
-            className="send-button" 
-            id="send-button"
-            onClick={handleSend}
-            disabled={!inputValue.trim() || storage?.isUploading}
+            type="submit" 
+            className="chat-send-btn cyber-chamfer"
+            disabled={isTyping || !wallet?.isConnected || !inputValue.trim()}
           >
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <path d="M3 9h12M11 5l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+            {isTyping ? '...' : 'SEND'}
           </button>
-        </div>
+        </form>
         <div className="input-hint">
           <span>Press <kbd>Enter</kbd> to send</span>
           <span className={`storage-badge ${isLive ? 'storage-badge-live' : ''}`}>

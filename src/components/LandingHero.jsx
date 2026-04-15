@@ -1,52 +1,83 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './LandingHero.css';
 
 const LandingHero = () => {
   return (
     <section className="landing-hero" id="hero">
-      <div className="hero-content section-container">
-        <div className="hero-text">
-          <h1 className="hero-title">
-            The Memory Layer for <span className="text-gradient-cyan">Autonomous AI</span>
+      {/* Dynamic Background */}
+      <div className="hero-background">
+        <div className="grid-overlay" />
+        <div className="data-streams">
+          {Array.from({ length: 8 }).map((_, i) => (
+             <div key={i} className="stream" style={{ '--delay': `${i * 0.7}s`, '--left': `${i * 12}%` }} />
+          ))}
+        </div>
+      </div>
+
+      <div className="hero-grid-container">
+        {/* Left Content (Aligned Left) */}
+        <div className="hero-content-left">
+          <div className="hero-badge terminal-font">
+            <span className="blink">●</span> SYSTEM_READY: 0G_GALILEO_ACTIVE
+          </div>
+          
+          <h1 className="hero-main-title heading-font cyber-glitch-text" data-text="UNIVER_SAL MASTER MEMORY">
+            UNIVER_SAL<br/>
+            <span className="text-gradient-cyan">MASTER MEMORY</span>
           </h1>
-          <p className="hero-subtitle">
-            Memoria DA replaces centralized databases with decentralized, verifiable vector storage on 0G — 
-            giving every AI agent permanent, tamper-proof memory.
+          
+          <p className="hero-desc terminal-font">
+            ❮ Decentralized Agent Memory Protocol ❯<br/>
+            Neural-link storage and verifiable vector retrieval powered by the 0G high-performance network.
           </p>
-          <div className="hero-actions">
-            <button className="btn-primary-large" onClick={() => window.location.href = '/app'}>
-              Launch App →
-            </button>
-            <button className="btn-secondary-large">
-              View on GitHub
-            </button>
+
+          <div className="hero-cta-wrapper">
+            <Link to="/app" className="btn-hero-primary heading-font">
+              ENTER_SYSTEM__❯
+            </Link>
+            <a href="#architecture" className="btn-hero-secondary terminal-font">
+              VIEW_PROTO_SPEC
+            </a>
+          </div>
+
+          <div className="hero-metrics terminal-font">
+            <div className="metric">
+              <span className="m-label">THROUGHPUT_</span>
+              <span className="m-val">🚀 MAX</span>
+            </div>
+            <div className="metric">
+              <span className="m-label">LATENCY_</span>
+              <span className="m-val">~42ms</span>
+            </div>
+            <div className="metric">
+              <span className="m-label">VERSION_</span>
+              <span className="m-val">v0.1.0-α</span>
+            </div>
           </div>
         </div>
-        
-        <div className="hero-visual">
-          <div className="orbital-system">
-            <div className="central-node">
-              <div className="brain-glow"></div>
-              <div className="brain-icon">🧠</div>
-            </div>
+
+        {/* Right Visual (Rotating Orbital) */}
+        <div className="hero-visual-right">
+          <div className="orbital-system-cyber">
+            <div className="orbit-path orbit-inner" />
+            <div className="orbit-path orbit-mid" />
+            <div className="orbit-path orbit-outer" />
             
-            <div className="orbit orbit-1">
-              <div className="agent-node node-1">🤖</div>
-            </div>
-            <div className="orbit orbit-2">
-              <div className="agent-node node-2">👾</div>
-            </div>
-            <div className="orbit orbit-3">
-               <div className="agent-node node-3">💠</div>
+            <div className="central-neural-core">
+              <div className="core-pulse" />
+              <div className="core-icon">🧠</div>
+              <div className="core-label heading-font">MEMORIA_CORE</div>
             </div>
 
-            <div className="data-stream-container">
-               <div className="data-stream ds-1"></div>
-               <div className="data-stream ds-2"></div>
-            </div>
-
-            <div className="storage-sphere">
-               <div className="sphere-logo">0G</div>
+            {/* Orbital Nodes */}
+            <div className="orbital-node node-agent-1">🤖</div>
+            <div className="orbital-node node-agent-2">👾</div>
+            <div className="orbital-node node-chip">💠</div>
+            
+            <div className="storage-sphere-0g">
+              <div className="sphere-inner heading-font">0G</div>
+              <div className="sphere-glow" />
             </div>
           </div>
         </div>

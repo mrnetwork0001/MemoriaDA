@@ -4,47 +4,56 @@ import './LandingFeatures.css';
 const LandingFeatures = () => {
   const features = [
     {
-      title: "0G Storage Native",
+      id: "01",
+      title: "0G_STORAGE_NATIVE",
       desc: "Direct blob upload and download via the @0gfoundation/0g-ts-sdk.",
-      icon: "📦"
+      badge: "STORAGE_LAYER"
     },
     {
-      title: "On-Chain Registry",
+      id: "02",
+      title: "CHAIN_REGISTRY",
       desc: "Solidity contract maps Agent ID to Storage Root for permanent records.",
-      icon: "🔗"
+      badge: "ON_CHAIN_LINK"
     },
     {
-      title: "Vector Embeddings",
+      id: "03",
+      title: "VECTOR_EMBEDDINGS",
       desc: "1536-dimensional cosine similarity search for semantic memory retrieval.",
-      icon: "⚡"
+      badge: "AI_LOGIC"
     },
     {
-      title: "Live Terminal",
+      id: "04",
+      title: "LIVE_HUD_TERMINAL",
       desc: "Real-time data feed shows every storage operation and Merkle proof.",
-      icon: "🖥️"
+      badge: "READ_OUT"
     },
     {
-      title: "Wallet-Gated",
+      id: "05",
+      title: "WALLET_PROTOCOL",
       desc: "Secure MetaMask integration with auto chain-switch to 0G Galileo.",
-      icon: "🔐"
+      badge: "AUTH_LINK"
     },
     {
-      title: "Open Protocol",
+      id: "06",
+      title: "OPEN_COMM_STANDARD",
       desc: "MIT-licensed, framework-agnostic, and fully composable design.",
-      icon: "🌍"
+      badge: "NETWORK"
     }
   ];
 
   return (
     <section className="landing-features" id="features">
-      <div className="section-container">
-        <h2 className="section-title">Built for the <span className="text-gradient-cyan">Agentic Future</span></h2>
+      <div className="features-container">
+        <h2 className="section-title heading-font">BUILT_FOR_THE_AGENTIC_SPRAWL</h2>
         <div className="features-grid">
           {features.map((f, i) => (
-            <div key={i} className="feature-card glass">
-              <div className="feature-icon">{f.icon}</div>
-              <h3>{f.title}</h3>
-              <p>{f.desc}</p>
+            <div key={i} className="feature-card">
+              <span className="feature-badge terminal-font">{f.badge}</span>
+              <div className="feature-icon-wrapper">
+                <span className="terminal-font">{f.id}</span>
+              </div>
+              <h3 className="heading-font">{f.title}</h3>
+              <p className="terminal-font">{f.desc}</p>
             </div>
           ))}
         </div>
