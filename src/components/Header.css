@@ -129,6 +129,7 @@
 .header-right {
   display: flex;
   align-items: center;
+  gap: var(--gap-sm, 8px);
 }
 
 @media (max-width: 900px) {

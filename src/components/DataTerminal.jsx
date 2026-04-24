@@ -1,18 +1,24 @@
 import { useState, useEffect, useRef } from 'react';
+import { getActiveNetwork } from '../config/network';
+import memoryStore from '../services/memoryStore';
 import './DataTerminal.css';
 
-const INITIAL_LOGS = [
-  { id: 1, type: 'INIT', message: 'Memoria DA Protocol v0.1.0-α loaded', timestamp: '02:14:00.001', status: 'success' },
-  { id: 2, type: 'CONNECT', message: '0G Storage indexer ready  ❯  endpoint: turbo.0g.ai', timestamp: '02:14:00.342', status: 'success' },
-  { id: 3, type: 'CONNECT', message: '0G Chain RPC linked  ❯  chain_id: 16600', timestamp: '02:14:00.891', status: 'success' },
-  { id: 4, type: 'READY', message: '✦ Neural Link Operational. Awaiting Commands.', timestamp: '02:14:03.001', status: 'success' },
-];
+const buildInitialLogs = () => {
+  const net = getActiveNetwork();
+  return [
+    { id: 1, type: 'INIT', message: 'Memoria DA Protocol v0.1.0-α loaded', timestamp: '02:14:00.001', status: 'success' },
+    { id: 2, type: 'CONNECT', message: '0G Storage indexer ready  ❯  endpoint: turbo.0g.ai', timestamp: '02:14:00.342', status: 'success' },
+    { id: 3, type: 'CONNECT', message: `0G Chain RPC linked  ❯  ${net.chainName}  ❯  chain_id: ${net.chainId}`, timestamp: '02:14:00.891', status: 'success' },
+    { id: 4, type: 'READY', message: '✦ Neural Link Operational. Awaiting Commands.', timestamp: '02:14:03.001', status: 'success' },
+  ];
+};
 
 const DataTerminal = ({ memoryEvents, storageLogs, wallet, storage }) => {
   const [activeTab, setActiveTab] = useState('logs');
-  const [logs, setLogs] = useState(INITIAL_LOGS);
+  const [logs, setLogs] = useState(() => buildInitialLogs());
+  const [memoryIndex, setMemoryIndex] = useState(() => memoryStore.getAll());
   const terminalRef = useRef(null);
-  const logIdCounter = useRef(INITIAL_LOGS.length + 1);
+  const logIdCounter = useRef(buildInitialLogs().length + 1);
 
   // Auto-scroll on new logs
   useEffect(() => {
@@ -32,23 +38,86 @@ const DataTerminal = ({ memoryEvents, storageLogs, wallet, storage }) => {
     }
   }, [storageLogs]);
 
-  // Handle memory events
+  // Handle memory events — enhanced with new event types
   useEffect(() => {
     if (memoryEvents && memoryEvents.length > 0) {
       const last = memoryEvents[memoryEvents.length - 1];
       const now = new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
       
-      setLogs(prev => [...prev.slice(-100), {
-        id: logIdCounter.current++,
-        type: 'REGISTRY',
-        message: `MEMORY_COMMIT: ${last.rootHash?.slice(0, 12)}... [${last.blobSize}B]`,
-        timestamp: now,
-        status: 'success'
-      }]);
+      let logEntry = null;
+
+      switch (last.type) {
+        case 'QUERY':
+          logEntry = {
+            type: 'QUERY',
+            message: `User query  ❯  "${last.query}"`,
+            status: 'info',
+          };
+          break;
+
+        case 'MEMORY_SEARCH':
+          logEntry = {
+            type: 'RECALL',
+            message: `Memory search  ❯  ${last.results} relevant memories  ❯  top_sim: ${last.topSimilarity}`,
+            status: 'success',
+          };
+          break;
+
+        case 'COMPUTE_INFERENCE':
+          logEntry = {
+            type: 'COMPUTE',
+            message: `0G Compute inference  ❯  model: ${last.model}  ❯  chat_id: ${last.chatId?.slice(0, 16)}...  ❯  verified: ${last.verified}`,
+            status: 'success',
+          };
+          break;
+
+        case 'STORE_COMPLETE':
+          logEntry = {
+            type: 'STORE',
+            message: `Memory stored  ❯  root: ${last.rootHash?.slice(0, 14)}...  ❯  ${last.blobSize}B  ❯  ${last.elapsed}s`,
+            status: 'success',
+          };
+          break;
+
+        case 'CHAIN_COMMIT':
+          logEntry = {
+            type: 'CHAIN',
+            message: `Root anchored on-chain  ❯  block: #${last.blockNumber}  ❯  root: ${last.rootHash?.slice(0, 14)}...`,
+            status: 'success',
+          };
+          break;
+
+        case 'ERROR':
+          logEntry = {
+            type: 'ERROR',
+            message: `Pipeline error  ❯  ${last.error}`,
+            status: 'error',
+          };
+          break;
+
+        default:
+          logEntry = {
+            type: last.type || 'EVENT',
+            message: `${last.type}: ${last.rootHash?.slice(0, 12) || 'unknown'}`,
+            status: 'info',
+          };
+      }
+
+      if (logEntry) {
+        setLogs(prev => [...prev.slice(-100), {
+          id: logIdCounter.current++,
+          timestamp: now,
+          ...logEntry,
+        }]);
+      }
+
+      // Refresh memory index whenever events come in
+      setMemoryIndex(memoryStore.getAll());
     }
   }, [memoryEvents]);
 
   const isLive = wallet?.isConnected && wallet?.isCorrectChain;
+  const totalMemories = memoryStore.count;
 
   return (
     <div className="data-terminal cyber-chamfer" id="data-terminal-root">
@@ -77,7 +146,16 @@ const DataTerminal = ({ memoryEvents, storageLogs, wallet, storage }) => {
         </button>
         <button 
           className={`terminal-tab terminal-font ${activeTab === 'memory' ? 'active' : ''}`}
-          onClick={() => setActiveTab('memory')}
+          onClick={() => { setActiveTab('memory'); setMemoryIndex(memoryStore.getAll()); }}
+        >
+          MEMORY_INDEX
+          {totalMemories > 0 && (
+            <span className="tab-badge">{totalMemories}</span>
+          )}
+        </button>
+        <button 
+          className={`terminal-tab terminal-font ${activeTab === 'registry' ? 'active' : ''}`}
+          onClick={() => setActiveTab('registry')}
         >
           REGISTRY_SYNC
         </button>
@@ -89,7 +167,7 @@ const DataTerminal = ({ memoryEvents, storageLogs, wallet, storage }) => {
             {logs.map((log) => (
               <div key={log.id} className={`log-entry status-${log.status} terminal-font`}>
                 <span className="log-time">[{log.timestamp}]</span>
-                <span className="log-type">{log.type}</span>
+                <span className={`log-type log-type-${log.type?.toLowerCase()}`}>{log.type}</span>
                 <span className="log-msg">❯ {log.message}</span>
               </div>
             ))}
@@ -98,21 +176,67 @@ const DataTerminal = ({ memoryEvents, storageLogs, wallet, storage }) => {
               <span className="blink">_</span>
             </div>
           </div>
+        ) : activeTab === 'memory' ? (
+          <div className="memory-index-list">
+            {memoryIndex.length === 0 ? (
+              <div className="empty-state terminal-font">
+                <div className="empty-icon">🧠</div>
+                <div>NO_MEMORIES_STORED</div>
+                <div className="empty-hint">Chat with the agent to create memories</div>
+              </div>
+            ) : (
+              memoryIndex.map((mem, idx) => {
+                const isOnChain = mem.metadata?.onChain;
+                const preview = mem.content?.slice(0, 100)?.replace(/\n/g, ' ') || '';
+                const time = new Date(mem.timestamp).toLocaleTimeString('en-US', {
+                  hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit',
+                });
+                const rootShort = mem.rootHash?.startsWith('local_')
+                  ? `LOCAL_${mem.rootHash.slice(6, 14)}`
+                  : `${mem.rootHash?.slice(0, 10)}...${mem.rootHash?.slice(-6)}`;
+
+                return (
+                  <div key={mem.id} className={`memory-entry ${isOnChain ? 'memory-on-chain' : ''}`}>
+                    <div className="memory-entry-header">
+                      <span className="memory-entry-idx terminal-font">MEM_{String(memoryIndex.length - idx).padStart(3, '0')}</span>
+                      <span className="memory-entry-time terminal-font">{time}</span>
+                      {isOnChain && (
+                        <span className="memory-chain-badge terminal-font">
+                          ⛓ BLK #{mem.metadata.blockNumber}
+                        </span>
+                      )}
+                    </div>
+                    <div className="memory-entry-root terminal-font">{rootShort}</div>
+                    <div className="memory-entry-preview">{preview}...</div>
+                    <div className="memory-entry-meta terminal-font">
+                      <span>DIM: {mem.embedding?.length || '?'}</span>
+                      <span>AGENT: {mem.agentId}</span>
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
         ) : (
           <div className="memory-grid">
             {memoryEvents.length === 0 && (
-              <div className="empty-state terminal-font">NO_RECORDS_FOUND</div>
+              <div className="empty-state terminal-font">NO_REGISTRY_EVENTS</div>
             )}
-            {memoryEvents.map((mem) => (
-              <div key={mem.rootHash} className="memory-card cyber-chamfer-sm">
+            {memoryEvents
+              .filter(m => m.type === 'STORE_COMPLETE' || m.type === 'CHAIN_COMMIT')
+              .map((mem, idx) => (
+              <div key={`${mem.rootHash}-${idx}`} className="memory-card cyber-chamfer-sm">
                 <div className="mem-header terminal-font">
-                  <span className="mem-id">ROOT_HASH</span>
+                  <span className="mem-id">{mem.type === 'CHAIN_COMMIT' ? '⛓ ON_CHAIN' : '📦 STORED'}</span>
                   <span className="mem-time">{new Date(mem.timestamp).toLocaleTimeString()}</span>
                 </div>
-                <div className="mem-hash terminal-font">{mem.rootHash.slice(0, 24)}...</div>
+                <div className="mem-hash terminal-font">
+                  {mem.rootHash ? `${mem.rootHash.slice(0, 24)}...` : 'pending'}
+                </div>
                 <div className="mem-details terminal-font">
                    <span>AGENT: {mem.agentId}</span>
-                   <span>SIZE: {mem.blobSize}B</span>
+                   {mem.blobSize && <span>SIZE: {mem.blobSize}B</span>}
+                   {mem.blockNumber && <span>BLOCK: #{mem.blockNumber}</span>}
                 </div>
               </div>
             ))}
@@ -122,7 +246,7 @@ const DataTerminal = ({ memoryEvents, storageLogs, wallet, storage }) => {
       
       <div className="terminal-footer">
         <span className="terminal-font">ID: {wallet?.address ? wallet.formatAddress(wallet.address) : 'ANONYMOUS'}</span>
-        <span className="terminal-font">{logs.length} EV_LOGGED</span>
+        <span className="terminal-font">{totalMemories} MEM | {logs.length} EV</span>
       </div>
     </div>
   );

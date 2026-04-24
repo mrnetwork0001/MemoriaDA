@@ -15,12 +15,11 @@ export const DEFAULT_TOP_K = 10;
 
 // Storage
 export const UPLOAD_OPTIONS = {
-  taskSize: 10,
+  taskSize: 1,
   expectedReplica: 1,
-  finalityRequired: true,
+  finalityRequired: false,
   tags: '0x',
   skipTx: false,
-  fee: BigInt(0),
 };
 
 // MemoriaRegistry ABI (for the on-chain Agent → StorageRoot mapping)

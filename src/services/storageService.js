@@ -3,6 +3,7 @@
 // ============================================================
 
 import { NETWORK_CONFIG } from '../config/network';
+import { onNetworkChange } from '../config/network';
 import { UPLOAD_OPTIONS, EMBEDDING_DIMENSIONS } from '../config/constants';
 
 // Lazy-load the SDK to avoid polyfill issues at module init time
@@ -29,6 +30,12 @@ class StorageService {
     this.indexer = null;
     this.logs = [];
     this.logListeners = new Set();
+
+    // Reset indexer when network changes
+    onNetworkChange(() => {
+      this.indexer = null;
+      this._emitLog('CONNECT', 'Network changed — indexer reset, will reconnect on next operation', 'info');
+    });
   }
 
   // Subscribe to log events (for the Data Terminal)

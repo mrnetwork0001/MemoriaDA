@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import WalletConnector from './WalletConnector';
+import NetworkSwitcher from './NetworkSwitcher';
 import './Header.css';
 
-const Header = ({ wallet }) => {
+const Header = ({ wallet, networkHook }) => {
   const [blockHeight, setBlockHeight] = useState(4_821_337);
   const [uptime, setUptime] = useState(0);
 
@@ -20,6 +21,14 @@ const Header = ({ wallet }) => {
     const m = Math.floor((seconds % 3600) / 60);
     const s = seconds % 60;
     return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  };
+
+  const handleNetworkSwitch = (key) => {
+    // Disconnect wallet when switching networks so user reconnects cleanly
+    if (wallet?.isConnected) {
+      wallet.disconnect();
+    }
+    networkHook.switchNetwork(key);
   };
 
   return (
@@ -73,7 +82,12 @@ const Header = ({ wallet }) => {
       </div>
 
       <div className="header-right">
-        <WalletConnector wallet={wallet} />
+        <NetworkSwitcher
+          networkKey={networkHook.networkKey}
+          onSwitch={handleNetworkSwitch}
+          disabled={false}
+        />
+        <WalletConnector wallet={wallet} networkKey={networkHook.networkKey} />
       </div>
     </header>
   );

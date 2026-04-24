@@ -154,3 +154,43 @@
   color: var(--text-muted);
   text-transform: uppercase;
 }
+
+/* Compute Badge */
+.compute-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.55rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent-secondary);
+  padding: 3px 8px;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  background: rgba(168, 85, 247, 0.06);
+  text-transform: uppercase;
+}
+
+.compute-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-secondary);
+  box-shadow: 0 0 6px var(--accent-secondary);
+  animation: pulse-purple 2s ease-in-out infinite;
+}
+
+@keyframes pulse-purple {
+  0%, 100% { box-shadow: 0 0 4px rgba(168, 85, 247, 0.4); }
+  50% { box-shadow: 0 0 10px rgba(168, 85, 247, 0.8); }
+}
+
+/* Memory recall badge on messages */
+.memory-recall-badge {
+  font-size: 0.55rem;
+  color: var(--accent-secondary);
+  padding: 1px 6px;
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  background: rgba(168, 85, 247, 0.05);
+  margin-left: auto;
+}

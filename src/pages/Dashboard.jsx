@@ -4,12 +4,16 @@ import AgentChat from '../components/AgentChat';
 import DataTerminal from '../components/DataTerminal';
 import useWallet from '../hooks/useWallet';
 import useStorage from '../hooks/useStorage';
+import useRegistry from '../hooks/useRegistry';
+import useNetwork from '../hooks/useNetwork';
 import '../App.css';
 
 function Dashboard() {
   const [memoryEvents, setMemoryEvents] = useState([]);
   const wallet = useWallet();
   const storage = useStorage();
+  const registry = useRegistry();
+  const networkHook = useNetwork();
 
   const handleMemoryEvent = (event) => {
     setMemoryEvents(prev => [...prev, event]);
@@ -25,17 +29,18 @@ function Dashboard() {
       {/* Scanline Effect */}
       <div className="scanline" />
 
-      <Header wallet={wallet} />
+      <Header wallet={wallet} networkHook={networkHook} />
       
       <main className="dashboard" id="dashboard-main">
         <AgentChat
           onMemoryEvent={handleMemoryEvent}
           wallet={wallet}
           storage={storage}
+          registry={registry}
         />
         <DataTerminal
           memoryEvents={memoryEvents}
-          storageLogs={storage.logs}
+          storageLogs={[...storage.logs, ...registry.logs]}
           wallet={wallet}
           storage={storage}
         />

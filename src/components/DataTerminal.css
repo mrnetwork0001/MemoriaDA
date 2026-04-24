@@ -191,3 +191,122 @@
   color: var(--text-muted);
   letter-spacing: 2px;
 }
+
+.empty-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  opacity: 0.5;
+}
+
+.empty-hint {
+  margin-top: 8px;
+  font-size: 0.6rem;
+  opacity: 0.5;
+  letter-spacing: 0.1em;
+}
+
+/* Tab Badge */
+.tab-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  font-size: 0.5rem;
+  font-weight: 800;
+  background: var(--accent-secondary);
+  color: var(--bg-void);
+  border-radius: 8px;
+  padding: 0 4px;
+  margin-left: 6px;
+}
+
+/* Enhanced Log Type Colors */
+.log-type-query { color: var(--accent-tertiary); }
+.log-type-recall { color: var(--accent-secondary); }
+.log-type-compute { color: var(--accent-secondary); background: rgba(168, 85, 247, 0.1); }
+.log-type-store { color: var(--accent-primary); }
+.log-type-chain { color: var(--accent-primary); background: rgba(0, 255, 136, 0.1); }
+.log-type-error { color: var(--accent-destructive); }
+
+/* ─── Memory Index Tab ──────────────────────────────── */
+.memory-index-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.memory-entry {
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--accent-tertiary);
+  transition: var(--transition-digital);
+}
+
+.memory-entry:hover {
+  background: rgba(0, 212, 255, 0.03);
+  border-color: var(--accent-tertiary);
+}
+
+.memory-entry.memory-on-chain {
+  border-left-color: var(--accent-primary);
+}
+
+.memory-entry-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.memory-entry-idx {
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: var(--accent-tertiary);
+  letter-spacing: 0.1em;
+}
+
+.memory-entry-time {
+  font-size: 0.55rem;
+  color: var(--text-muted);
+}
+
+.memory-chain-badge {
+  font-size: 0.5rem;
+  font-weight: 800;
+  color: var(--accent-primary);
+  background: rgba(0, 255, 136, 0.08);
+  padding: 1px 6px;
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  margin-left: auto;
+  letter-spacing: 0.05em;
+}
+
+.memory-entry-root {
+  font-size: 0.7rem;
+  color: var(--accent-tertiary);
+  font-weight: 600;
+  margin-bottom: 4px;
+  letter-spacing: 0.02em;
+}
+
+.memory-entry-preview {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-bottom: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.memory-entry-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 0.55rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}

@@ -3,7 +3,11 @@
 // ============================================================
 
 import { BrowserProvider } from 'ethers';
-import { ZG_CHAIN, NETWORK_CONFIG } from '../config/network';
+import {
+  getActiveNetwork,
+  buildChainParam,
+  onNetworkChange,
+} from '../config/network';
 
 class WalletService {
   constructor() {
@@ -12,6 +16,16 @@ class WalletService {
     this.address = null;
     this.chainId = null;
     this.listeners = new Set();
+
+    // Auto-react to network config changes
+    onNetworkChange(() => {
+      if (this.address) {
+        // Re-switch chain when user toggles network
+        this.switchTo0GChain().catch(err => {
+          console.warn('[Wallet] Auto chain-switch failed:', err.message);
+        });
+      }
+    });
   }
 
   // Subscribe to state changes
@@ -26,11 +40,12 @@ class WalletService {
   }
 
   getState() {
+    const net = getActiveNetwork();
     return {
       address: this.address,
       chainId: this.chainId,
       isConnected: !!this.address,
-      isCorrectChain: this.chainId === NETWORK_CONFIG.chainId,
+      isCorrectChain: this.chainId === net.chainId,
       provider: this.provider,
       signer: this.signer,
     };
@@ -72,21 +87,23 @@ class WalletService {
     }
   }
 
-  // Switch to 0G Galileo Testnet
+  // Switch to the currently-selected 0G chain (testnet or mainnet)
   async switchTo0GChain() {
     if (!this.isMetaMaskInstalled()) throw new Error('MetaMask not installed');
+
+    const chainParam = buildChainParam();
 
     try {
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
-        params: [{ chainId: ZG_CHAIN.chainId }],
+        params: [{ chainId: chainParam.chainId }],
       });
     } catch (switchError) {
       // Chain not added yet — add it
       if (switchError.code === 4902) {
         await window.ethereum.request({
           method: 'wallet_addEthereumChain',
-          params: [ZG_CHAIN],
+          params: [chainParam],
         });
       } else {
         throw switchError;

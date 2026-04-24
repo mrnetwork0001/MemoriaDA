@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { NETWORK_CONFIG } from '../config/network';
+import { getActiveNetwork } from '../config/network';
 import './WalletConnector.css';
 
-const WalletConnector = ({ wallet }) => {
+const WalletConnector = ({ wallet, networkKey }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const {
     isConnected,
@@ -15,6 +15,8 @@ const WalletConnector = ({ wallet }) => {
     switchChain,
     formatAddress,
   } = wallet;
+
+  const net = getActiveNetwork();
 
   if (!isConnected) {
     return (
@@ -53,7 +55,7 @@ const WalletConnector = ({ wallet }) => {
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
           <path d="M2 5l5-3 5 3M2 9l5 3 5-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
-        <span>Switch to 0G</span>
+        <span>Switch to {net.label}</span>
       </button>
     );
   }
@@ -77,7 +79,7 @@ const WalletConnector = ({ wallet }) => {
             <span className="dropdown-label">Connected to</span>
             <span className="dropdown-chain">
               <span className="chain-dot" />
-              {NETWORK_CONFIG.chainName}
+              {net.chainName}
             </span>
           </div>
           <div className="dropdown-address">
@@ -85,7 +87,7 @@ const WalletConnector = ({ wallet }) => {
           </div>
           <div className="dropdown-links">
             <a
-              href={`${NETWORK_CONFIG.blockExplorer}/address/${address}`}
+              href={`${net.blockExplorer}/address/${address}`}
               target="_blank"
               rel="noopener noreferrer"
               className="dropdown-link"
@@ -96,17 +98,19 @@ const WalletConnector = ({ wallet }) => {
               </svg>
               View on Explorer
             </a>
-            <a
-              href={NETWORK_CONFIG.faucet}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="dropdown-link"
-            >
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path d="M6 1v5M3 8a3 3 0 106 0" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-              </svg>
-              Get Testnet A0GI
-            </a>
+            {net.faucet && (
+              <a
+                href={net.faucet}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="dropdown-link"
+              >
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M6 1v5M3 8a3 3 0 106 0" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+                </svg>
+                Get Testnet A0GI
+              </a>
+            )}
           </div>
           <button className="dropdown-disconnect" onClick={() => { disconnect(); setShowDropdown(false); }}>
             Disconnect
