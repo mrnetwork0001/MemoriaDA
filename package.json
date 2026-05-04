@@ -9,7 +9,10 @@
     "dev:all": "concurrently \"npm run dev\" \"npm run server\"",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "compile": "npx hardhat compile",
+    "deploy:testnet": "node scripts/deploy.js",
+    "deploy:mainnet": "node scripts/deploy-mainnet.js"
   },
   "dependencies": {
     "@0gfoundation/0g-ts-sdk": "^1.2.1",

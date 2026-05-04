@@ -51,6 +51,11 @@
   --gap-md: 16px;
   --gap-lg: 24px;
   --gap-xl: 32px;
+
+  /* Color aliases (for component shorthand) */
+  --cyan: #00d4ff;
+  --purple: #a855f7;
+  --green: #00ff88;
 }
 
 /* ---------- Global Reset & Body ---------- */
@@ -178,3 +183,24 @@ body::before {
 ::-webkit-scrollbar-track { background: var(--bg-void); }
 ::-webkit-scrollbar-thumb { background: var(--border-color); }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent-primary); }
+
+/* ---------- Glass Panel ---------- */
+.glass-panel-strong {
+  background: rgba(12, 12, 20, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 255, 136, 0.12);
+  box-shadow:
+    0 0 20px rgba(0, 0, 0, 0.5),
+    inset 0 0 40px rgba(0, 255, 136, 0.02);
+}
+
+/* ---------- Blink Utility ---------- */
+.blink {
+  animation: blink 1s step-start infinite;
+}
+
+/* ---------- Mono ---------- */
+.mono {
+  font-family: var(--font-mono);
+}

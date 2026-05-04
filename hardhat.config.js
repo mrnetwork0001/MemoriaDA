@@ -7,8 +7,14 @@ export default {
     zgGalileo: {
       type: 'http',
       url: "https://evmrpc-testnet.0g.ai",
-      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      accounts: (process.env.PRIVATE_KEY || process.env.VITE_PRIVATE_KEY) ? [process.env.PRIVATE_KEY || process.env.VITE_PRIVATE_KEY] : [],
       chainId: 16602,
+    },
+    zgMainnet: {
+      type: 'http',
+      url: "https://evmrpc.0g.ai",
+      accounts: (process.env.PRIVATE_KEY || process.env.VITE_PRIVATE_KEY) ? [process.env.PRIVATE_KEY || process.env.VITE_PRIVATE_KEY] : [],
+      chainId: 16661,
     },
   },
 };

@@ -236,7 +236,7 @@ const AgentChat = ({ onMemoryEvent, wallet, storage, registry }) => {
               );
 
               if (registryReceipt) {
-                addSystemMsg(`✓ Memory anchored on 0G Chain — Block #${registryReceipt.blockNumber}`);
+                addSystemMsg(`✓ Memory anchored on 0G Chain — Block #${registryReceipt.blockNumber} — Fee: 0.001 0G`);
                 onMemoryEvent?.({
                   type: 'CHAIN_COMMIT',
                   agentId: AGENT_ID,

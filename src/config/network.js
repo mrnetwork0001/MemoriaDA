@@ -22,8 +22,8 @@ export const NETWORKS = {
     indexerRpc: 'https://indexer-storage-testnet-turbo.0g.ai',
     flowContractAddress: '0xbD75117F80b4E22698D0Cd7612d92BDb8eaff628',
 
-    // Memoria DA Registry
-    registryAddress: '0x532Aa5A41ffC5DD039CA1Bc53db7c26F86EfE4A7',
+    // Memoria DA Registry (V2 — NFT + Micropayments)
+    registryAddress: '0x85d31A4a95035708972Ffbe1Be6f1c31a350b7f3',
   },
 
   mainnet: {
@@ -43,9 +43,9 @@ export const NETWORKS = {
 
     // Storage
     indexerRpc: 'https://indexer-storage-turbo.0g.ai',
-    flowContractAddress: '', // To be set after mainnet deploy
+    flowContractAddress: '0x62D4144dB0F0a6fBBaeb6296c785C71B3D57C526',
 
-    // Memoria DA Registry — to be deployed on mainnet
+    // Memoria DA Registry — deploy with: node scripts/deploy-mainnet.js
     registryAddress: '',
   },
 };

@@ -2,6 +2,9 @@ import { useState } from 'react';
 import Header from '../components/Header';
 import AgentChat from '../components/AgentChat';
 import DataTerminal from '../components/DataTerminal';
+import MemoryExplorer from '../components/MemoryExplorer';
+import DeveloperSDK from '../components/DeveloperSDK';
+import MerkleVerifier from '../components/MerkleVerifier';
 import useWallet from '../hooks/useWallet';
 import useStorage from '../hooks/useStorage';
 import useRegistry from '../hooks/useRegistry';
@@ -9,6 +12,7 @@ import useNetwork from '../hooks/useNetwork';
 import '../App.css';
 
 function Dashboard() {
+  const [activeTab, setActiveTab] = useState('playground'); // playground, explorer, sdk, verify
   const [memoryEvents, setMemoryEvents] = useState([]);
   const wallet = useWallet();
   const storage = useStorage();
@@ -31,19 +35,66 @@ function Dashboard() {
 
       <Header wallet={wallet} networkHook={networkHook} />
       
+      {/* Navigation Tabs */}
+      <div className="dashboard-nav">
+        <button 
+          className={`nav-tab ${activeTab === 'playground' ? 'active' : ''}`}
+          onClick={() => setActiveTab('playground')}
+        >
+          AGENT PLAYGROUND
+        </button>
+        <button 
+          className={`nav-tab ${activeTab === 'explorer' ? 'active' : ''}`}
+          onClick={() => setActiveTab('explorer')}
+        >
+          GLOBAL EXPLORER
+        </button>
+        <button 
+          className={`nav-tab ${activeTab === 'sdk' ? 'active' : ''}`}
+          onClick={() => setActiveTab('sdk')}
+        >
+          DEVELOPER SDK
+        </button>
+        <button 
+          className={`nav-tab ${activeTab === 'verify' ? 'active' : ''}`}
+          onClick={() => setActiveTab('verify')}
+        >
+          ⛓ VERIFY
+        </button>
+      </div>
+
       <main className="dashboard" id="dashboard-main">
-        <AgentChat
-          onMemoryEvent={handleMemoryEvent}
-          wallet={wallet}
-          storage={storage}
-          registry={registry}
-        />
-        <DataTerminal
-          memoryEvents={memoryEvents}
-          storageLogs={[...storage.logs, ...registry.logs]}
-          wallet={wallet}
-          storage={storage}
-        />
+        {activeTab === 'playground' && (
+          <>
+            <AgentChat
+              onMemoryEvent={handleMemoryEvent}
+              wallet={wallet}
+              storage={storage}
+              registry={registry}
+            />
+            <DataTerminal
+              memoryEvents={memoryEvents}
+              storageLogs={[...storage.logs, ...registry.logs]}
+              wallet={wallet}
+              storage={storage}
+            />
+          </>
+        )}
+        {activeTab === 'explorer' && (
+          <div className="full-width-tab">
+            <MemoryExplorer wallet={wallet} networkHook={networkHook} />
+          </div>
+        )}
+        {activeTab === 'sdk' && (
+          <div className="full-width-tab">
+            <DeveloperSDK />
+          </div>
+        )}
+        {activeTab === 'verify' && (
+          <div className="full-width-tab">
+            <MerkleVerifier wallet={wallet} networkHook={networkHook} />
+          </div>
+        )}
       </main>
 
       {/* Footer */}

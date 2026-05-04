@@ -1,0 +1,123 @@
+.developer-sdk {
+  padding: 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: rgba(4, 9, 20, 0.6);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+  overflow-y: auto;
+}
+
+.sdk-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.sdk-header h2 {
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem 0;
+  letter-spacing: 2px;
+}
+
+.sdk-subtitle {
+  color: var(--cyan);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.sdk-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.sdk-section h3 {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem 0;
+}
+
+.sdk-section p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0 0 1rem 0;
+}
+
+.code-block-wrapper {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.code-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--border-color);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.code-lang {
+  color: var(--cyan);
+}
+
+.code-file {
+  color: var(--text-secondary);
+}
+
+.code-block {
+  margin: 0;
+  padding: 1.2rem;
+  overflow-x: auto;
+}
+
+.code-block code {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: #e2e8f0;
+  line-height: 1.6;
+  white-space: pre;
+}
+
+/* Very basic syntax highlighting simulation */
+.code-block code {
+  color: #cdd6f4;
+}
+
+.sdk-cta {
+  margin-top: 1rem;
+  padding: 1.5rem;
+  background: rgba(0, 224, 255, 0.05);
+  border: 1px dashed rgba(0, 224, 255, 0.3);
+  border-radius: 6px;
+  text-align: center;
+}
+
+.sdk-cta p {
+  color: var(--text-primary);
+  margin: 0 0 1rem 0;
+}
+
+.npm-install {
+  display: inline-block;
+  background: #000;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.npm-install .prompt {
+  color: var(--purple);
+  margin-right: 0.5rem;
+}
