@@ -31,14 +31,14 @@ Memoria DA is a full-stack decentralized memory protocol for AI agents. It solve
 | 0G Component | How It's Used | Code Reference |
 |---|---|---|
 | **0G Storage** | Direct blob upload/download via `@0gfoundation/0g-ts-sdk`. Memory vectors serialized as JSON Merkle blobs. | [`storageService.js`](./src/services/storageService.js) |
-| **0G Chain** | `MemoriaRegistry.sol` smart contract maps Agent IDs → Storage root hashes. Deployed on both testnet and mainnet. | [`MemoriaRegistry.sol`](./contracts/MemoriaRegistry.sol) |
+| **0G Chain** | `MemoriaRegistryV2.sol` — ERC-721 Agent Identity NFTs, micropayment fees, on-chain memory verification. | [`MemoriaRegistryV2.sol`](./contracts/MemoriaRegistryV2.sol) |
 | **0G Compute** | Backend broker via `@0glabs/0g-serving-broker` for TEE-verified sealed inference. Qwen 2.5 7B model. | [`computeService.js`](./server/computeService.js) |
 
 ### Deployed Contracts
 
 | Network | Contract Address | Explorer |
 |---|---|---|
-| **0G Testnet (Galileo)** | `0x532Aa5A41ffC5DD039CA1Bc53db7c26F86EfE4A7` | [View on Explorer](https://explorer.0g.ai/testnet/address/0x532Aa5A41ffC5DD039CA1Bc53db7c26F86EfE4A7) |
+| **0G Testnet (Galileo)** | `0x85d31A4a95035708972Ffbe1Be6f1c31a350b7f3` | [View on Explorer](https://chainscan-galileo.0g.ai/address/0x85d31A4a95035708972Ffbe1Be6f1c31a350b7f3) |
 | **0G Mainnet** | *(deploy with `npm run deploy:mainnet`)* | *(pending deployment)* |
 
 > **Note:** Update this section with the mainnet contract address after running `npm run deploy:mainnet`.
@@ -183,7 +183,8 @@ After mainnet deployment, update `src/config/network.js` → `mainnet.registryAd
 ```
 memoria-app/
 ├── contracts/
-│   └── MemoriaRegistry.sol       # On-chain Agent → Storage Root mapping
+│   ├── MemoriaRegistry.sol       # V1 — Simple Agent → Root mapping
+│   └── MemoriaRegistryV2.sol     # V2 — ERC-721 NFTs + Micropayments + Verification
 ├── scripts/
 │   ├── deploy.js                 # Deploy to Galileo testnet
 │   └── deploy-mainnet.js         # Deploy to 0G Mainnet
@@ -242,15 +243,64 @@ memoria-app/
 ## Key Features
 
 - **🧠 Decentralized Memory Storage** — Every agent conversation stored as a Merkle-verified blob on 0G Storage
-- **⛓️ On-Chain Audit Trail** — Root hashes anchored to 0G Chain via `MemoriaRegistry` smart contract
+- **⛓️ On-Chain Audit Trail** — Root hashes anchored to 0G Chain via `MemoriaRegistryV2` smart contract
+- **🎨 Agent Identity NFTs (ERC-721)** — Every registered agent receives a unique, fully on-chain SVG identity NFT
+- **💰 Micropayment Economy** — Each memory write charges a 0.001 0G fee, creating a self-sustaining protocol revenue model
+- **🔐 Cryptographic Verifier** — On-chain verification tool to prove agent memory has not been tampered with
 - **🔍 Semantic Memory Retrieval** — Cosine-similarity search across stored embeddings for context-aware AI
 - **🔒 Sealed AI Inference** — TEE-verified chat completions via 0G Compute Network
 - **🌐 Multi-Network Support** — Seamless switching between 0G Testnet and Mainnet
-- **📊 Real-Time HUD** — Live terminal showing every storage operation, Merkle proof, and chain transaction
-- **🔌 Framework Agnostic** — Universal memory standard compatible with any agent ecosystem
+- **📊 Global Memory Explorer** — Etherscan-style registry browser showing all agents, NFTs, roots, and fees
+- **🔌 Developer SDK Vision** — Framework-agnostic integration for OpenClaw, ElizaOS, AutoGPT, and beyond
+
+---
+
+## 💼 Business Model & Vision
+
+### The Problem
+
+AI agents today suffer from **amnesia**. Every restart wipes their context. Memory is locked inside centralized providers (OpenAI, Anthropic) — it's not portable, not verifiable, and not owned by the user. As autonomous agents become the backbone of Web3, this is a critical infrastructure gap.
+
+### The Solution
+
+Memoria DA is a **universal memory standard** that gives any AI agent permanent, verifiable, decentralized memory — regardless of the framework it runs on.
+
+### Business Model Canvas
+
+| Dimension | Memoria DA |
+|---|---|
+| **Target Users** | AI agent developers (OpenClaw, ElizaOS, AutoGPT), enterprises running autonomous agent fleets |
+| **Pain Point** | Agents lose context between sessions; memory is centralized, unverifiable, not user-owned |
+| **Value Proposition** | "Give any AI agent permanent, verifiable, decentralized memory with 3 lines of code" |
+| **Revenue Model** | **Micropayments** — every `updateMemoryRoot()` charges 0.001 0G. At scale: 1M agents × 100 writes/day = 100,000 0G/day in protocol revenue |
+| **Distribution** | npm SDK (`@memoria/sdk`), framework plugin marketplaces, developer documentation |
+| **Retention / Moat** | Once an agent's lifetime memory is anchored on-chain, switching protocols means losing all historical context — **strong data gravity lock-in** |
+| **Key Partners** | 0G (infrastructure provider), OpenClaw, ElizaOS, AutoGPT (framework integrations) |
+| **Network Effects** | More agents using the registry → more valuable the shared memory graph becomes |
+
+### Revenue Projections
+
+```
+Phase 1 (Hackathon):  Prove the technology works on 0G Testnet + Mainnet ✅
+Phase 2 (SDK):        Publish @memoria/sdk on npm, onboard 100 agent developers
+Phase 3 (Growth):     1,000+ registered agents, each writing ~50 memories/day
+                      → 50,000 micropayments/day × 0.001 0G = 50 0G/day protocol revenue
+Phase 4 (Scale):      1M+ agents, enterprise partnerships, premium tiers
+                      → Self-sustaining protocol economy with governance token
+```
+
+### Why 0G?
+
+Memoria DA **could not exist** without 0G's modular infrastructure:
+
+- **0G Storage** provides the high-throughput DA layer needed to store millions of memory vectors at low cost
+- **0G Chain** provides the settlement layer for anchoring tamper-proof Merkle roots
+- **0G Compute** provides sealed TEE inference, ensuring agent responses are cryptographically verifiable
+- No other L1/L2 offers all three components in a single, composable stack
 
 ---
 
 ## 📜 License
 
 MIT License — © 2026 MRNETWORK
+
