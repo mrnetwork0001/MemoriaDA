@@ -318,3 +318,6 @@ start().catch(err => {
   console.log('[Server] Fatal:', err.message || err);
   process.exit(1);
 });
+
+// Keep process alive — 0G Compute SDK can drain the event loop after init
+process.stdin.resume();
