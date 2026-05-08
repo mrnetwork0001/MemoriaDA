@@ -142,7 +142,8 @@ const DataTerminal = ({ memoryEvents, storageLogs, wallet, storage }) => {
         },
       };
 
-      const res = await fetch('/api/state/snapshot', {
+      const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || '';
+      const res = await fetch(`${BACKEND_URL}/api/state/snapshot`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(statePayload),

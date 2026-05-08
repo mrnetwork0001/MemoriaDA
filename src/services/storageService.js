@@ -6,6 +6,8 @@ import { NETWORK_CONFIG } from '../config/network';
 import { onNetworkChange } from '../config/network';
 import { UPLOAD_OPTIONS, EMBEDDING_DIMENSIONS } from '../config/constants';
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || '';
+
 // Lazy-load the SDK to avoid polyfill issues at module init time
 let _sdk = null;
 async function getSDK() {
@@ -105,7 +107,7 @@ class StorageService {
       this._emitLog('UPLOAD', `Uploading to 0G Storage via backend  ❯  blob_size: ${(blobSize / 1024).toFixed(1)} KB  ❯  indexer: turbo`, 'info');
 
       const networkKey = NETWORK_CONFIG.key || 'testnet';
-      const uploadRes = await fetch('/api/storage/upload', {
+      const uploadRes = await fetch(`${BACKEND_URL}/api/storage/upload`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ payload: memoryPayload, network: networkKey }),

@@ -188,7 +188,7 @@ GET /api/memory/global
             </div>
             <pre className="code-block">
               <code>{`// Query the MemoriaDA Global Registry
-const res = await fetch("http://localhost:3001/api/memory/global");
+const res = await fetch("https://api.memoriada.xyz/api/memory/global");
 const { agents, totalAgents } = await res.json();
 
 console.log(\`\${totalAgents} agents on the network:\`);
