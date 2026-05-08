@@ -17,6 +17,7 @@ const DataTerminal = ({ memoryEvents, storageLogs, wallet, storage }) => {
   const [activeTab, setActiveTab] = useState('logs');
   const [logs, setLogs] = useState(() => buildInitialLogs());
   const [memoryIndex, setMemoryIndex] = useState(() => memoryStore.getAll());
+  const [snapshotStatus, setSnapshotStatus] = useState(null); // null | 'saving' | 'saved' | 'error'
   const terminalRef = useRef(null);
   const logIdCounter = useRef(buildInitialLogs().length + 1);
 
@@ -118,6 +119,55 @@ const DataTerminal = ({ memoryEvents, storageLogs, wallet, storage }) => {
 
   const isLive = wallet?.isConnected && wallet?.isCorrectChain;
   const totalMemories = memoryStore.count;
+
+  const handleSaveState = async () => {
+    setSnapshotStatus('saving');
+    try {
+      const allMemories = memoryStore.getAll();
+      const topics = allMemories
+        .slice(0, 5)
+        .map(m => m.content?.slice(0, 50))
+        .filter(Boolean);
+
+      const statePayload = {
+        agentId: 'agent_0xClaw_7f3a',
+        state: {
+          totalMemories: allMemories.length,
+          totalLogs: logs.length,
+          sessionStarted: logs[0]?.timestamp || 'unknown',
+          walletConnected: wallet?.isConnected || false,
+          recentTopics: topics,
+          onChainMemories: allMemories.filter(m => m.metadata?.onChain).length,
+          capturedAt: new Date().toISOString(),
+        },
+      };
+
+      const res = await fetch('/api/state/snapshot', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(statePayload),
+      });
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.error);
+
+      const now = new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      setLogs(prev => [...prev.slice(-100), {
+        id: logIdCounter.current++,
+        timestamp: now,
+        type: 'STATE',
+        message: `Agent state snapshot saved  ❯  root: ${data.rootHash?.slice(0, 14)}...  ❯  ${data.blockLabel}`,
+        status: 'success',
+      }]);
+
+      setSnapshotStatus('saved');
+      setTimeout(() => setSnapshotStatus(null), 3000);
+    } catch (err) {
+      console.error('[State] Snapshot error:', err);
+      setSnapshotStatus('error');
+      setTimeout(() => setSnapshotStatus(null), 3000);
+    }
+  };
 
   return (
     <div className="data-terminal cyber-chamfer" id="data-terminal-root">
@@ -247,6 +297,13 @@ const DataTerminal = ({ memoryEvents, storageLogs, wallet, storage }) => {
       <div className="terminal-footer">
         <span className="terminal-font">ID: {wallet?.address ? wallet.formatAddress(wallet.address) : 'ANONYMOUS'}</span>
         <span className="terminal-font">{totalMemories} MEM | {logs.length} EV</span>
+        <button
+          className="save-state-btn terminal-font"
+          onClick={handleSaveState}
+          disabled={snapshotStatus === 'saving'}
+        >
+          {snapshotStatus === 'saving' ? '⏳ SAVING...' : snapshotStatus === 'saved' ? '✅ SAVED' : snapshotStatus === 'error' ? '❌ FAILED' : '📸 SAVE STATE'}
+        </button>
       </div>
     </div>
   );

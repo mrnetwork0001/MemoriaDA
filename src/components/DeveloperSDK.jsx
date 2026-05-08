@@ -143,6 +143,68 @@ const MEMORIA_REGISTRY_ABI = [
         </div>
 
         {/* CTA */}
+        <div className="sdk-section">
+          <h3>🦞 OpenClaw Skill (Native Integration)</h3>
+          <p>MemoriaDA ships an official OpenClaw Skill. Drop the SKILL.md into your workspace and any OpenClaw agent gets persistent, verifiable memory automatically.</p>
+          <div className="code-block-wrapper">
+            <div className="code-header">
+              <span className="code-lang">markdown</span>
+              <span className="code-file">skills/memoria-da/SKILL.md</span>
+            </div>
+            <pre className="code-block">
+              <code>{`---
+name: memoria-da
+description: Persistent decentralized memory via 0G
+---
+
+# MemoriaDA Skill
+
+## Store a memory
+Use exec to call: POST /api/storage/upload
+  → payload: { agentId, content, timestamp }
+
+## Anchor on-chain
+POST /api/registry/anchor
+  → { agentId, rootHash, vectorCount }
+
+## Save agent state
+POST /api/state/snapshot
+  → { agentId, state: { goals, topics, ... } }
+
+## Query global network
+GET /api/memory/global
+  → Returns all agents on the registry`}</code>
+            </pre>
+          </div>
+        </div>
+
+        <div className="sdk-section">
+          <h3>🌐 Cross-Agent Memory Query</h3>
+          <p>Any agent on the MemoriaDA network can discover and query other agents — enabling a decentralized "Global Brain" for orchestration.</p>
+          <div className="code-block-wrapper">
+            <div className="code-header">
+              <span className="code-lang">javascript</span>
+              <span className="code-file">crossAgentQuery.js</span>
+            </div>
+            <pre className="code-block">
+              <code>{`// Query the MemoriaDA Global Registry
+const res = await fetch("http://localhost:3001/api/memory/global");
+const { agents, totalAgents } = await res.json();
+
+console.log(\`\${totalAgents} agents on the network:\`);
+agents.forEach(a => {
+  console.log(\`  \${a.id} (\${a.framework}) — \${a.vectorCount} memories\`);
+});
+
+// Output:
+// 3 agents on the network:
+//   agent_0xClaw_7f3a (OpenClaw) — 24 memories
+//   alpha_journal_agent_v1 (AlphaJournal) — 12 memories
+//   soltutor_agent_v1 (SolidityTutor) — 8 memories`}</code>
+            </pre>
+          </div>
+        </div>
+
         <div className="sdk-cta">
           <p>View the full source code and integration guides on <a href="https://github.com/mrnetwork0001/MemoriaDA" target="_blank" rel="noopener noreferrer" className="text-gradient-cyan">GitHub</a></p>
           <div className="npm-install mono">

@@ -70,6 +70,33 @@ await registry.updateMemoryRoot("my_agent_id", rootHash, vectorCount, {
 });
 ```
 
+### 🦞 OpenClaw Skill (Native Agent Integration)
+
+MemoriaDA ships an official **OpenClaw Skill** (`skills/memoria-da/SKILL.md`). Any OpenClaw agent that loads this skill gets persistent, decentralized memory automatically.
+
+```
+~/.openclaw/workspace/skills/
+└── memoria-da/
+    └── SKILL.md   ← Drop this file into any OpenClaw agent
+```
+
+The skill teaches the agent to:
+- **Store memories** via `POST /api/storage/upload`
+- **Anchor roots on-chain** via `POST /api/registry/anchor`
+- **Snapshot state** via `POST /api/state/snapshot`
+- **Query the global network** via `GET /api/memory/global`
+
+### Server API Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/api/storage/upload` | Upload memory blob to 0G Storage |
+| `POST` | `/api/registry/anchor` | Anchor Merkle root on 0G Chain |
+| `POST` | `/api/state/snapshot` | Save full agent state snapshot |
+| `GET` | `/api/memory/global` | Query all agents on the registry |
+| `POST` | `/api/compute/chat` | AI inference via 0G Compute |
+| `POST` | `/api/compute/embed` | Generate deterministic embeddings |
+
 ---
 
 ## System Architecture
@@ -282,6 +309,9 @@ memoria-app/
 - **📊 Global Memory Explorer** — Etherscan-style registry browser showing all agents, NFTs, roots, and fees
 - **🤝 Integration Partners** — Alpha Journal & SolTutor live on MemoriaDA infrastructure, proving it works as a shared protocol
 - **🔌 Developer SDK** — Real integration examples with "Developer Pays" (zero wallet friction) model
+- **🦞 OpenClaw Skill** — Official SKILL.md that gives any OpenClaw agent persistent memory with zero code changes
+- **📸 Agent State Snapshotting** — Save full agent state (goals, topics, mood) to 0G Storage + anchor on-chain
+- **🌍 Cross-Agent Memory Queries** — Any agent can discover and query other agents on the Global Registry, enabling orchestration
 
 ---
 
