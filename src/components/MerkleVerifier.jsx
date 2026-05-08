@@ -2,6 +2,7 @@ import { useState } from 'react';
 import registryService from '../services/registryService';
 import memoryStore from '../services/memoryStore';
 import { ethers } from 'ethers';
+import { NETWORK_CONFIG } from '../config/network';
 import './MerkleVerifier.css';
 
 function MerkleVerifier({ wallet, networkHook }) {
@@ -65,6 +66,43 @@ function MerkleVerifier({ wallet, networkHook }) {
   const formatTime = (ts) => {
     if (!ts) return 'Never';
     return new Date(ts * 1000).toLocaleString();
+  };
+
+  const exportProof = () => {
+    if (!result) return;
+    const proof = {
+      protocol: 'memoria-da',
+      version: '1.0.0',
+      type: 'memory-integrity-proof',
+      timestamp: new Date().toISOString(),
+      verification: {
+        agentId,
+        submittedRoot: rootHash,
+        onChainRoot: typeof result.storedRoot === 'string' ? result.storedRoot : ethers.hexlify(result.storedRoot),
+        isValid: result.isValid,
+        lastUpdated: result.agentData?.lastUpdated ? formatTime(result.agentData.lastUpdated) : null,
+      },
+      agent: result.agentData ? {
+        tokenId: result.agentData.tokenId,
+        framework: result.agentData.framework,
+        owner: result.agentData.owner,
+        vectorCount: result.agentData.vectorCount,
+        totalFeePaid: `${result.agentData.totalFeePaid} 0G`,
+      } : null,
+      chain: {
+        network: NETWORK_CONFIG.chainName,
+        chainId: NETWORK_CONFIG.chainId,
+        registryContract: NETWORK_CONFIG.registryAddress,
+        explorer: `${NETWORK_CONFIG.blockExplorer}/address/${NETWORK_CONFIG.registryAddress}`,
+      },
+    };
+    const blob = new Blob([JSON.stringify(proof, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `memoria-proof-${agentId}-${Date.now()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -193,6 +231,11 @@ function MerkleVerifier({ wallet, networkHook }) {
               </div>
             </div>
           )}
+
+          {/* Export Proof Button */}
+          <button className="export-proof-btn terminal-font" onClick={exportProof}>
+            📥 DOWNLOAD MEMORY PROOF (.json)
+          </button>
         </div>
       )}
     </div>

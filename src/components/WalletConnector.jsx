@@ -47,16 +47,19 @@ const WalletConnector = ({ wallet, networkKey }) => {
 
   if (!isCorrectChain) {
     return (
-      <button
-        className="wallet-switch-btn"
-        id="wallet-switch-btn"
-        onClick={switchChain}
-      >
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-          <path d="M2 5l5-3 5 3M2 9l5 3 5-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-        <span>Switch to {net.label}</span>
-      </button>
+      <div className="wallet-switch-wrapper">
+        <button
+          className="wallet-switch-btn"
+          id="wallet-switch-btn"
+          onClick={switchChain}
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 5l5-3 5 3M2 9l5 3 5-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <span>Switch to {net.label}</span>
+        </button>
+        {error && <div className="wallet-switch-error">{error}</div>}
+      </div>
     );
   }
 

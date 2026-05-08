@@ -92,6 +92,7 @@ class WalletService {
     if (!this.isMetaMaskInstalled()) throw new Error('MetaMask not installed');
 
     const chainParam = buildChainParam();
+    console.log('[Wallet] Switching to chain:', chainParam.chainName, chainParam.chainId);
 
     try {
       await window.ethereum.request({
@@ -99,18 +100,29 @@ class WalletService {
         params: [{ chainId: chainParam.chainId }],
       });
     } catch (switchError) {
-      // Chain not added yet — add it
-      if (switchError.code === 4902) {
+      // User rejected the switch
+      const code = switchError?.code ?? switchError?.data?.originalError?.code;
+      if (code === 4001) throw new Error('Chain switch rejected by user.');
+
+      // Chain not in wallet — try adding it
+      // Different wallets use different codes: 4902, -32603, or no code at all
+      console.log('[Wallet] Chain not found, attempting to add...', switchError?.code, switchError?.message);
+      try {
         await window.ethereum.request({
           method: 'wallet_addEthereumChain',
           params: [chainParam],
         });
-      } else {
-        throw switchError;
+      } catch (addError) {
+        const addCode = addError?.code ?? addError?.data?.originalError?.code;
+        if (addCode === 4001) throw new Error('User rejected adding the 0G network.');
+        console.error('[Wallet] Failed to add chain:', addError);
+        throw new Error(`Could not add 0G network: ${addError?.message || 'Unknown error'}`);
       }
     }
 
     // Re-initialize after chain switch
+    // Small delay to let MetaMask finish the internal switch
+    await new Promise(r => setTimeout(r, 500));
     this.provider = new BrowserProvider(window.ethereum);
     this.signer = await this.provider.getSigner();
     const network = await this.provider.getNetwork();

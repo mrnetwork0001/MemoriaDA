@@ -43,7 +43,7 @@
 }
 
 .sdk-section p {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--text-secondary);
   line-height: 1.5;
   margin: 0 0 1rem 0;
@@ -82,17 +82,65 @@
 
 .code-block code {
   font-family: var(--font-mono);
-  font-size: 0.85rem;
-  color: #e2e8f0;
+  font-size: 0.8rem;
+  color: #cdd6f4;
   line-height: 1.6;
   white-space: pre;
 }
 
-/* Very basic syntax highlighting simulation */
-.code-block code {
-  color: #cdd6f4;
+/* Partners Grid */
+.partners-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
 }
 
+.partner-card {
+  background: rgba(0, 255, 136, 0.03);
+  border: 1px solid rgba(0, 255, 136, 0.15);
+  padding: 1.2rem;
+  border-radius: 6px;
+  transition: var(--transition-digital);
+}
+
+.partner-card:hover {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.1);
+}
+
+.partner-name {
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.partner-framework {
+  font-size: 0.65rem;
+  color: var(--accent-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.6rem;
+  padding: 1px 6px;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  background: rgba(168, 85, 247, 0.08);
+  display: inline-block;
+}
+
+.partner-desc {
+  font-size: 0.8rem !important;
+  color: var(--text-secondary) !important;
+  margin-bottom: 0.6rem !important;
+  line-height: 1.4 !important;
+}
+
+.partner-agent {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+/* CTA */
 .sdk-cta {
   margin-top: 1rem;
   padding: 1.5rem;
@@ -113,7 +161,7 @@
   padding: 0.8rem 1.5rem;
   border-radius: 4px;
   color: var(--text-primary);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 

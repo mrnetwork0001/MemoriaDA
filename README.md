@@ -41,7 +41,34 @@ Memoria DA is a full-stack decentralized memory protocol for AI agents. It solve
 | **0G Testnet (Galileo)** | `0x85d31A4a95035708972Ffbe1Be6f1c31a350b7f3` | [View on Explorer](https://chainscan-galileo.0g.ai/address/0x85d31A4a95035708972Ffbe1Be6f1c31a350b7f3) |
 | **0G Mainnet** | *(deploy with `npm run deploy:mainnet`)* | *(pending deployment)* |
 
-> **Note:** Update this section with the mainnet contract address after running `npm run deploy:mainnet`.
+---
+
+## 🤝 Live Integration Partners
+
+MemoriaDA is not just a standalone app — it's **infrastructure**. The following projects are live on the MemoriaDA protocol, each with their own Agent Identity NFT and verifiable on the Global Explorer:
+
+| App | Agent ID | Framework | Description |
+|---|---|---|---|
+| **Alpha Journal** | `alpha_journal_agent_v1` | `AlphaJournal` | AI-powered decentralized trading diary. Users log market theses and trading decisions. The AI recalls past entries across sessions, with every memory anchored on 0G Chain. |
+| **SolTutor** | `soltutor_agent_v1` | `SolidityTutor` | AI Solidity tutor that remembers your learning progress. Picks up exactly where you left off, references past struggles, and adapts lesson plans based on stored memory. |
+| **MemoriaDA Agent** | `agent_0xClaw_7f3a` | `OpenClaw` | The flagship demo agent. Full RAG pipeline with real-time Data Terminal, wallet-connected memory anchoring, and on-chain verification. |
+
+> **All 3 agents are visible on the Global Explorer tab** — each with their own NFT ID, vector count, fee history, and Merkle root. This proves MemoriaDA works as a shared infrastructure layer for multiple independent apps.
+
+### Developer Integration (3 API Calls)
+
+```javascript
+// 1. Store memory on 0G Storage
+const { rootHash } = await uploadMemoryBlob(JSON.stringify(memoryPayload));
+
+// 2. Register agent on-chain (mints ERC-721 NFT — one time only)
+await registry.registerAgent("my_agent_id", "MyFramework");
+
+// 3. Anchor memory root on-chain
+await registry.updateMemoryRoot("my_agent_id", rootHash, vectorCount, {
+  value: ethers.parseEther("0.001") // micropayment fee
+});
+```
 
 ---
 
@@ -105,7 +132,7 @@ User Message
 ### Step 1: Clone & Install
 
 ```bash
-git clone https://github.com/your-username/memoria-app.git
+git clone https://github.com/mrnetwork0001/MemoriaDA.git
 cd memoria-app
 npm install
 ```
@@ -190,17 +217,18 @@ memoria-app/
 │   └── deploy-mainnet.js         # Deploy to 0G Mainnet
 ├── server/
 │   ├── index.js                  # Express backend (0G Compute bridge)
-│   └── computeService.js         # 0G Compute Broker + TEE verification
+│   ├── computeService.js         # 0G Compute Broker + TEE verification
+│   └── storageUpload.js          # Server-side 0G Storage (bypasses CORS)
 ├── src/
 │   ├── components/
 │   │   ├── AgentChat.jsx         # AI chat with full RAG pipeline
 │   │   ├── DataTerminal.jsx      # Real-time log/memory HUD
+│   │   ├── DeveloperSDK.jsx      # Integration docs + partner showcase
+│   │   ├── MemoryExplorer.jsx    # Global Registry browser
+│   │   ├── MerkleVerifier.jsx    # On-chain verification + proof export
 │   │   ├── Header.jsx            # Navigation + live block stats
 │   │   ├── WalletConnector.jsx   # MetaMask connect/disconnect
-│   │   ├── NetworkSwitcher.jsx   # Testnet ↔ Mainnet toggle
-│   │   ├── LandingHero.jsx       # Animated hero section
-│   │   ├── LandingFeatures.jsx   # Feature grid
-│   │   └── LandingArchitecture.jsx # Architecture diagram
+│   │   └── NetworkSwitcher.jsx   # Testnet ↔ Mainnet toggle
 │   ├── config/
 │   │   ├── constants.js          # ABI, dimensions, upload config
 │   │   └── network.js            # Multi-network config (testnet + mainnet)
@@ -216,7 +244,7 @@ memoria-app/
 │   │   ├── computeClient.js      # Frontend → backend bridge
 │   │   └── memoryStore.js        # Local cosine-similarity search
 │   └── pages/
-│       ├── Landing.jsx           # Marketing landing page
+│       ├── Landing.jsx           # Marketing landing page + live stats
 │       └── Dashboard.jsx         # Main app dashboard
 ├── hardhat.config.js             # Solidity compiler + networks
 ├── vite.config.js                # Vite + polyfills config
@@ -247,11 +275,13 @@ memoria-app/
 - **🎨 Agent Identity NFTs (ERC-721)** — Every registered agent receives a unique, fully on-chain SVG identity NFT
 - **💰 Micropayment Economy** — Each memory write charges a 0.001 0G fee, creating a self-sustaining protocol revenue model
 - **🔐 Cryptographic Verifier** — On-chain verification tool to prove agent memory has not been tampered with
+- **📥 Memory Proof Export** — Download portable `.json` proof files containing Merkle roots, chain data, and verification status
 - **🔍 Semantic Memory Retrieval** — Cosine-similarity search across stored embeddings for context-aware AI
 - **🔒 Sealed AI Inference** — TEE-verified chat completions via 0G Compute Network
 - **🌐 Multi-Network Support** — Seamless switching between 0G Testnet and Mainnet
 - **📊 Global Memory Explorer** — Etherscan-style registry browser showing all agents, NFTs, roots, and fees
-- **🔌 Developer SDK Vision** — Framework-agnostic integration for OpenClaw, ElizaOS, AutoGPT, and beyond
+- **🤝 Integration Partners** — Alpha Journal & SolTutor live on MemoriaDA infrastructure, proving it works as a shared protocol
+- **🔌 Developer SDK** — Real integration examples with "Developer Pays" (zero wallet friction) model
 
 ---
 
@@ -271,7 +301,7 @@ Memoria DA is a **universal memory standard** that gives any AI agent permanent,
 |---|---|
 | **Target Users** | AI agent developers (OpenClaw, ElizaOS, AutoGPT), enterprises running autonomous agent fleets |
 | **Pain Point** | Agents lose context between sessions; memory is centralized, unverifiable, not user-owned |
-| **Value Proposition** | "Give any AI agent permanent, verifiable, decentralized memory with 3 lines of code" |
+| **Value Proposition** | "Give any AI agent permanent, verifiable, decentralized memory with 3 API calls" |
 | **Revenue Model** | **Micropayments** — every `updateMemoryRoot()` charges 0.001 0G. At scale: 1M agents × 100 writes/day = 100,000 0G/day in protocol revenue |
 | **Distribution** | npm SDK (`@memoria/sdk`), framework plugin marketplaces, developer documentation |
 | **Retention / Moat** | Once an agent's lifetime memory is anchored on-chain, switching protocols means losing all historical context — **strong data gravity lock-in** |
@@ -281,11 +311,12 @@ Memoria DA is a **universal memory standard** that gives any AI agent permanent,
 ### Revenue Projections
 
 ```
-Phase 1 (Hackathon):  Prove the technology works on 0G Testnet + Mainnet ✅
-Phase 2 (SDK):        Publish @memoria/sdk on npm, onboard 100 agent developers
-Phase 3 (Growth):     1,000+ registered agents, each writing ~50 memories/day
+Phase 1 (Hackathon):  Prove the technology works on 0G Testnet ✅
+Phase 2 (Partners):   2 live integration partners (Alpha Journal, SolTutor) ✅
+Phase 3 (SDK):        Publish @memoria/sdk on npm, onboard 100 agent developers
+Phase 4 (Growth):     1,000+ registered agents, each writing ~50 memories/day
                       → 50,000 micropayments/day × 0.001 0G = 50 0G/day protocol revenue
-Phase 4 (Scale):      1M+ agents, enterprise partnerships, premium tiers
+Phase 5 (Scale):      1M+ agents, enterprise partnerships, premium tiers
                       → Self-sustaining protocol economy with governance token
 ```
 
@@ -303,4 +334,3 @@ Memoria DA **could not exist** without 0G's modular infrastructure:
 ## 📜 License
 
 MIT License — © 2026 MRNETWORK
-

@@ -1,10 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Landing.css';
 import LandingHero from '../components/LandingHero';
 import LandingFeatures from '../components/LandingFeatures';
 import LandingArchitecture from '../components/LandingArchitecture';
+import registryService from '../services/registryService';
+import { NETWORKS } from '../config/network';
+import { ethers } from 'ethers';
 
 const Landing = () => {
+  const [stats, setStats] = useState({ agents: '...', vectors: '...', fees: '...', network: 'GALILEO TESTNET' });
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const provider = new ethers.JsonRpcProvider(NETWORKS.testnet.rpcUrl);
+        const agents = await registryService.getAllAgents(provider);
+        const totalVectors = agents.reduce((sum, a) => sum + (a.vectorCount || 0), 0);
+        const totalFees = agents.reduce((sum, a) => sum + parseFloat(a.totalFeePaid || '0'), 0);
+        setStats({
+          agents: agents.length.toString(),
+          vectors: totalVectors.toString(),
+          fees: totalFees.toFixed(3),
+          network: 'GALILEO TESTNET',
+        });
+      } catch (err) {
+        console.warn('[Landing] Stats fetch failed:', err.message);
+      }
+    };
+    fetchStats();
+  }, []);
+
   return (
     <div className="landing-page" id="landing-root">
       {/* Global HUD Overlay */}
@@ -12,6 +37,31 @@ const Landing = () => {
       
       {/* Hero Section */}
       <LandingHero />
+
+      {/* Live Stats Banner */}
+      <div className="live-stats-banner">
+        <div className="stats-inner">
+          <div className="stat-item">
+            <span className="stat-number text-gradient-cyan">{stats.agents}</span>
+            <span className="stat-label terminal-font">AGENTS LIVE</span>
+          </div>
+          <div className="stat-divider" />
+          <div className="stat-item">
+            <span className="stat-number text-gradient-cyan">{stats.vectors}</span>
+            <span className="stat-label terminal-font">MEMORY ANCHORS</span>
+          </div>
+          <div className="stat-divider" />
+          <div className="stat-item">
+            <span className="stat-number text-gradient-cyan">{stats.fees} 0G</span>
+            <span className="stat-label terminal-font">FEES COLLECTED</span>
+          </div>
+          <div className="stat-divider" />
+          <div className="stat-item">
+            <span className="stat-dot" />
+            <span className="stat-label terminal-font">{stats.network}</span>
+          </div>
+        </div>
+      </div>
 
       {/* Problem Section (Glitch Themed) */}
       <section className="landing-section problem-section" id="problem">
