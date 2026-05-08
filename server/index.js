@@ -5,6 +5,8 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import computeService from './computeService.js';
 import { uploadMemoryBlob } from './storageUpload.js';
 
@@ -278,6 +280,13 @@ app.get('/api/memory/global', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+// ─── Serve Frontend ─────────────────────────────────────────
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use(express.static(path.join(__dirname, '../dist')));
+app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../dist/index.html')));
 
 // ─── Startup ────────────────────────────────────────────────
 
