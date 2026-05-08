@@ -194,3 +194,30 @@
   background: rgba(168, 85, 247, 0.05);
   margin-left: auto;
 }
+
+/* Explorer link inside system messages */
+.system-message-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--accent-primary);
+  text-decoration: none;
+  padding: 1px 7px;
+  border: 1px solid rgba(0, 255, 136, 0.35);
+  background: rgba(0, 255, 136, 0.06);
+  text-transform: uppercase;
+  transition: var(--transition-digital);
+  white-space: nowrap;
+}
+
+.system-message-link:hover {
+  background: rgba(0, 255, 136, 0.15);
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
+  color: #fff;
+}

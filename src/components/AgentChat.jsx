@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { DEFAULT_AGENT_FRAMEWORK } from '../config/constants';
+import { NETWORK_CONFIG } from '../config/network';
 import computeClient from '../services/computeClient';
 import memoryStore from '../services/memoryStore';
 import './AgentChat.css';
@@ -87,11 +88,12 @@ const AgentChat = ({ onMemoryEvent, wallet, storage, registry }) => {
     }
   }, [wallet?.isConnected, wallet?.isCorrectChain]);
 
-  const addSystemMsg = (content) => {
+  const addSystemMsg = (content, link = null) => {
     setMessages(prev => [...prev, {
       id: Date.now() + Math.random(),
       role: 'system',
       content,
+      link,
       timestamp: new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' }),
     }]);
   };
@@ -197,96 +199,106 @@ const AgentChat = ({ onMemoryEvent, wallet, storage, registry }) => {
         agentResponse = buildFallbackReply(userContent, relevantMemories);
       }
 
-      // ── STEP 5: Store on 0G Storage (if wallet connected) ─
-      if (wallet?.isConnected && wallet?.isCorrectChain && wallet?.signer) {
-        setStatusLabel('Storing on 0G…');
-        try {
-          uploadResult = await storage.storeMemory({
-            agentId: AGENT_ID,
-            content: `User: ${userContent}\nAgent: ${agentResponse}`,
-            embedding: queryEmbedding,
-            metadata: {
-              framework: DEFAULT_AGENT_FRAMEWORK,
-              sessionId: `session_${Date.now().toString(36)}`,
-              messageType: 'conversation',
-              memoryCount: memoryStore.count + 1,
-            },
-          }, wallet.signer);
+      // ── STEP 5: Show agent response immediately ────────────
+      // Don't wait for storage/registry — show reply right away
+      setStatusLabel(null);
+      setIsTyping(false);
+      setMessages(prev => [...prev, {
+        id: Date.now() + 1,
+        role: 'agent',
+        content: agentResponse,
+        timestamp: now(),
+        memories: relevantMemories.length > 0 ? relevantMemories.length : undefined,
+      }]);
 
-          onMemoryEvent?.({
-            type: 'STORE_COMPLETE',
-            agentId: AGENT_ID,
-            rootHash: uploadResult.rootHash,
-            blobSize: uploadResult.blobSize,
-            elapsed: uploadResult.elapsed,
-            timestamp: new Date().toISOString(),
-          });
-
-          // ── STEP 6: Anchor on-chain ─────────────────────────
-          if (registry?.isDeployed) {
-            setStatusLabel('Anchoring on-chain…');
-            const registered = await registry.ensureAgentRegistered(
-              AGENT_ID, DEFAULT_AGENT_FRAMEWORK, wallet.signer
-            );
-
-            if (registered) {
-              const vectorCount = memoryStore.count + 1;
-              registryReceipt = await registry.commitMemoryRoot(
-                AGENT_ID, uploadResult.rootHash, vectorCount, wallet.signer
-              );
-
-              if (registryReceipt) {
-                addSystemMsg(`✓ Memory anchored on 0G Chain — Block #${registryReceipt.blockNumber} — Fee: 0.001 0G`);
-                onMemoryEvent?.({
-                  type: 'CHAIN_COMMIT',
-                  agentId: AGENT_ID,
-                  rootHash: uploadResult.rootHash,
-                  blockNumber: registryReceipt.blockNumber,
-                  timestamp: new Date().toISOString(),
-                });
-              }
-            }
-          }
-        } catch (err) {
-          console.log('[AgentChat] Storage pipeline error:', err.message);
-          // Show a clean, short error — not the raw JSON dump
-          const shortMsg = err.message?.includes('coalesce')
-            ? 'Transaction failed — RPC returned invalid params. Memory saved locally.'
-            : err.message?.length > 80
-            ? err.message.slice(0, 80) + '...'
-            : err.message;
-          addSystemMsg(`⚠️ Storage: ${shortMsg}`);
-        }
-      }
-
-      // ── STEP 7: Save to local memory index ───────────────
+      // ── STEP 6: Save to local memory index immediately ─────
       memoryStore.addMemory({
-        rootHash: uploadResult?.rootHash || `local_${Date.now().toString(36)}`,
+        rootHash: `local_${Date.now().toString(36)}`,
         content: `User: ${userContent}\nAgent: ${agentResponse}`,
         embedding: queryEmbedding,
         agentId: AGENT_ID,
-        metadata: {
-          onChain: !!registryReceipt,
-          blockNumber: registryReceipt?.blockNumber,
-        },
+        metadata: { onChain: false },
       });
+
+      // ── STEP 7: Storage + Registry run in background ───────
+      // MetaMask popup appears while user is already reading the response
+      if (wallet?.isConnected && wallet?.isCorrectChain && wallet?.signer) {
+        (async () => {
+          try {
+            const uploadResult = await storage.storeMemory({
+              agentId: AGENT_ID,
+              content: `User: ${userContent}\nAgent: ${agentResponse}`,
+              embedding: queryEmbedding,
+              metadata: {
+                framework: DEFAULT_AGENT_FRAMEWORK,
+                sessionId: `session_${Date.now().toString(36)}`,
+                messageType: 'conversation',
+                memoryCount: memoryStore.count,
+              },
+            }, wallet.signer);
+
+            onMemoryEvent?.({
+              type: 'STORE_COMPLETE',
+              agentId: AGENT_ID,
+              rootHash: uploadResult.rootHash,
+              blobSize: uploadResult.blobSize,
+              elapsed: uploadResult.elapsed,
+              timestamp: new Date().toISOString(),
+            });
+
+            if (registry?.isDeployed) {
+              const registered = await registry.ensureAgentRegistered(
+                AGENT_ID, DEFAULT_AGENT_FRAMEWORK, wallet.signer
+              );
+              if (registered) {
+                const registryReceipt = await registry.commitMemoryRoot(
+                  AGENT_ID, uploadResult.rootHash, memoryStore.count, wallet.signer
+                );
+                if (registryReceipt) {
+                  const txHash = registryReceipt.transactionHash || registryReceipt.hash;
+                  const explorerUrl = txHash ? `${NETWORK_CONFIG.txExplorer}${txHash}` : null;
+                  const blockLabel = registryReceipt.blockNumber
+                    ? `Block #${registryReceipt.blockNumber}`
+                    : 'TX Confirmed';
+                  addSystemMsg(
+                    `✓ Memory anchored on 0G Chain — ${blockLabel} — Fee: 0.001 0G`,
+                    explorerUrl ? { href: explorerUrl, label: 'View in Explorer ↗' } : null
+                  );
+                  onMemoryEvent?.({
+                    type: 'CHAIN_COMMIT',
+                    agentId: AGENT_ID,
+                    rootHash: uploadResult.rootHash,
+                    blockNumber: registryReceipt.blockNumber,
+                    timestamp: new Date().toISOString(),
+                  });
+                } else {
+                  const regErr = registry.error || 'Registry call failed — check Data Terminal';
+                  addSystemMsg(`⚠️ Chain anchor skipped: ${regErr.slice(0, 100)}`);
+                }
+              }
+            }
+          } catch (err) {
+            console.log('[AgentChat] Background storage error:', err.message);
+            const shortMsg = err.message?.includes('coalesce')
+              ? 'RPC returned invalid params. Memory saved locally.'
+              : err.message?.length > 80 ? err.message.slice(0, 80) + '...' : err.message;
+            addSystemMsg(`⚠️ Storage: ${shortMsg}`);
+          }
+        })();
+      }
 
     } catch (err) {
       console.error('[AgentChat] Pipeline error:', err);
       addSystemMsg(`⚠️ Error: ${err.message}`);
-      agentResponse = 'I encountered an error processing your request. Please try again.';
+      setStatusLabel(null);
+      setIsTyping(false);
+      setMessages(prev => [...prev, {
+        id: Date.now() + 1,
+        role: 'agent',
+        content: 'I encountered an error processing your request. Please try again.',
+        timestamp: now(),
+      }]);
     }
-
-    // ── Display agent response ──────────────────────────────
-    setStatusLabel(null);
-    setIsTyping(false);
-    setMessages(prev => [...prev, {
-      id: Date.now() + 1,
-      role: 'agent',
-      content: agentResponse,
-      timestamp: now(),
-      memories: retrievedMemories.length > 0 ? retrievedMemories.length : undefined,
-    }]);
   };
 
   const handleKeyDown = (e) => {
@@ -358,6 +370,16 @@ const AgentChat = ({ onMemoryEvent, wallet, storage, registry }) => {
                   <path d="M7 4v3.5M7 9.5v0.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
                 </svg>
                 <span>{msg.content}</span>
+                {msg.link && (
+                  <a
+                    href={msg.link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="system-message-link"
+                  >
+                    {msg.link.label}
+                  </a>
+                )}
               </div>
             ) : (
               <>

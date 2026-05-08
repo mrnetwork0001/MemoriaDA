@@ -6,15 +6,20 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import computeService from './computeService.js';
+import { uploadMemoryBlob } from './storageUpload.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Middleware
+const ALLOWED_ORIGINS = [
+  /^https?:\/\/localhost(:\d+)?$/,
+  /^https:\/\/memoria-app\.vercel\.app$/,
+  /^https:\/\/.*\.vercel\.app$/,
+];
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow any localhost port in development
-    if (!origin || /^https?:\/\/localhost(:\d+)?$/.test(origin)) {
+    if (!origin || ALLOWED_ORIGINS.some(re => re.test(origin))) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
@@ -56,6 +61,20 @@ app.post('/api/compute/embed', (req, res) => {
     res.json({ embedding, dimensions: embedding.length, model: 'local-deterministic' });
   } catch (err) {
     console.log('[Server] Embed error:', err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Upload memory blob to 0G Storage (server-side, bypasses browser CORS)
+app.post('/api/storage/upload', async (req, res) => {
+  try {
+    const { payload, network } = req.body;
+    if (!payload) return res.status(400).json({ error: 'payload is required' });
+    const payloadJson = typeof payload === 'string' ? payload : JSON.stringify(payload);
+    const result = await uploadMemoryBlob(payloadJson, network || 'testnet');
+    res.json(result);
+  } catch (err) {
+    console.error('[Storage] Upload error:', err.message);
     res.status(500).json({ error: err.message });
   }
 });

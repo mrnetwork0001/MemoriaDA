@@ -101,41 +101,25 @@ class StorageService {
 
       this._emitLog('VECTOR', `Embedding serialized  ❯  size: ${(blobSize / 1024).toFixed(1)} KB  ❯  segments: ${Math.ceil(blobSize / 256)}`, 'info');
 
-      // 2. Create a ZgBlob from the browser Blob
-      const sdk = await getSDK();
-      const ZgBlob = sdk.Blob || sdk.ZgBlob;
-      const zgBlob = new ZgBlob(nativeBlob);
+      // 2–4. Upload via backend server (avoids browser CORS block on 0G Storage nodes)
+      this._emitLog('UPLOAD', `Uploading to 0G Storage via backend  ❯  blob_size: ${(blobSize / 1024).toFixed(1)} KB  ❯  indexer: turbo`, 'info');
 
-      // 3. Generate Merkle tree to get root hash
-      const [tree, treeErr] = await zgBlob.merkleTree();
-      if (treeErr) {
-        this._emitLog('ERROR', `Merkle tree generation failed: ${treeErr.message}`, 'error');
-        throw treeErr;
+      const networkKey = NETWORK_CONFIG.key || 'testnet';
+      const uploadRes = await fetch('/api/storage/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ payload: memoryPayload, network: networkKey }),
+      });
+
+      if (!uploadRes.ok) {
+        const errData = await uploadRes.json().catch(() => ({ error: `HTTP ${uploadRes.status}` }));
+        this._emitLog('ERROR', `Upload failed: ${errData.error}`, 'error');
+        throw new Error(errData.error || `Storage upload failed (${uploadRes.status})`);
       }
 
-      const rootHash = tree.rootHash();
-      this._emitLog('MERKLE', `Merkle tree generated  ❯  root: ${rootHash.slice(0, 10)}...${rootHash.slice(-6)}`, 'success');
+      const { rootHash, tx, blobSize: serverBlobSize } = await uploadRes.json();
 
-      // 4. Upload to 0G Storage
-      this._emitLog('UPLOAD', `Uploading to 0G Storage  ❯  blob_size: ${(blobSize / 1024).toFixed(1)} KB  ❯  indexer: turbo`, 'info');
-
-      const indexer = await this._getIndexer();
-      const [tx, uploadErr] = await indexer.upload(
-        zgBlob,
-        NETWORK_CONFIG.rpcUrl,
-        signer,
-        UPLOAD_OPTIONS
-      );
-
-      if (uploadErr) {
-        // Handle known 0G Testnet RPC viem polling error
-        if (uploadErr.message && (uploadErr.message.includes('eth_getTransactionReceipt') || uploadErr.message.includes('Missing or invalid parameters'))) {
-          this._emitLog('WARN', 'Storage tx broadcasted, but receipt polling failed (testnet RPC issue). Proceeding...', 'warning');
-        } else {
-          this._emitLog('ERROR', `Upload failed: ${uploadErr.message}`, 'error');
-          throw uploadErr;
-        }
-      }
+      this._emitLog('MERKLE', `Merkle root received  ❯  root: ${rootHash.slice(0, 10)}...${rootHash.slice(-6)}`, 'success');
 
       const elapsed = ((performance.now() - startTime) / 1000).toFixed(2);
       this._emitLog('CONFIRM', `✓ Memory committed to 0G Storage  ❯  root: ${rootHash.slice(0, 10)}...${rootHash.slice(-6)}  ❯  ${elapsed}s`, 'success');
@@ -146,7 +130,7 @@ class StorageService {
 
       return {
         rootHash,
-        blobSize,
+        blobSize: serverBlobSize || blobSize,
         tx,
         elapsed: parseFloat(elapsed),
       };

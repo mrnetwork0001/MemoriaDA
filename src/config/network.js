@@ -15,7 +15,8 @@ export const NETWORKS = {
       decimals: 18,
     },
     rpcUrl: 'https://evmrpc-testnet.0g.ai',
-    blockExplorer: 'https://explorer.0g.ai/testnet',
+    blockExplorer: 'https://chainscan-galileo.0g.ai',
+    txExplorer: 'https://chainscan-galileo.0g.ai/tx/',
     faucet: 'https://faucet.0g.ai',
 
     // Storage
@@ -39,6 +40,7 @@ export const NETWORKS = {
     },
     rpcUrl: 'https://evmrpc.0g.ai',
     blockExplorer: 'https://chainscan.0g.ai',
+    txExplorer: 'https://chainscan.0g.ai/tx/',
     faucet: null, // No faucet for mainnet
 
     // Storage
