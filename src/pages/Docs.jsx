@@ -1,8 +1,78 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { DOCS_SECTIONS } from './docsContent';
-import { IconBolt, IconChain, IconNeural, IconBox, IconGlobe, IconLock } from '../components/TerminalIcons';
+import { IconBolt, IconChain, IconNeural, IconBox, IconGlobe, IconLock, IconSnapshot } from '../components/TerminalIcons';
+import { NETWORKS } from '../config/network';
 import './Docs.css';
+
+const ContractDeploymentInfo = () => {
+  const [network, setNetwork] = useState('testnet');
+  const [copied, setCopied] = useState(false);
+
+  const netData = NETWORKS[network];
+  const address = netData.registryAddress || 'NOT_YET_DEPLOYED';
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(address);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="contract-deployment-card">
+      <div className="deployment-tabs">
+        <button 
+          className={`deploy-tab ${network === 'testnet' ? 'active' : ''}`}
+          onClick={() => setNetwork('testnet')}
+        >
+          0G_GALILEO_TESTNET
+        </button>
+        <button 
+          className={`deploy-tab ${network === 'mainnet' ? 'active' : ''}`}
+          onClick={() => setNetwork('mainnet')}
+        >
+          0G_MAINNET
+        </button>
+      </div>
+
+      <div className="deployment-details">
+        <table className="docs-table">
+          <tbody>
+            <tr>
+              <td className="td-label">NETWORK</td>
+              <td>{netData.chainName}</td>
+            </tr>
+            <tr>
+              <td className="td-label">CHAIN_ID</td>
+              <td className="td-code">{netData.chainId} ({netData.chainIdHex})</td>
+            </tr>
+            <tr>
+              <td className="td-label">CONTRACT</td>
+              <td className="td-address-cell">
+                <code className="full-address mono">{address}</code>
+                <button 
+                  className={`copy-addr-btn ${copied ? 'copied' : ''}`}
+                  onClick={handleCopy}
+                  title="Copy Address"
+                >
+                  {copied ? 'COPIED!' : <IconSnapshot size={12} />}
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td className="td-label">EXPLORER</td>
+              <td>
+                <a href={`${netData.blockExplorer}/address/${address}`} target="_blank" rel="noreferrer" className="text-link">
+                  VIEW_ON_CHAINSCAN ❯
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
 
 const Docs = () => {
   const [activeId, setActiveId] = useState(DOCS_SECTIONS[0].id);
@@ -89,6 +159,9 @@ const Docs = () => {
             className="docs-body-render" 
             dangerouslySetInnerHTML={{ __html: activeSection.content }} 
           />
+
+          {/* Custom interactive component for contracts section */}
+          {activeId === 'contracts' && <ContractDeploymentInfo />}
         </div>
 
         {/* ── Pagination Footer ── */}

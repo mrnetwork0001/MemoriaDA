@@ -177,13 +177,6 @@ export const DOCS_SECTIONS = [
     title: "ONCHAIN REGISTRY",
     subtitle: "Technical details of the MemoriaRegistryV2 contract.",
     content: `
-      <h2 class="docs-h2">Deployment Info</h2>
-      <table class="docs-table">
-        <tr><td>Network</td><td>0G Galileo Testnet</td></tr>
-        <tr><td>Chain ID</td><td>16602</td></tr>
-        <tr><td>Contract</td><td class="td-code">0x85d31A4a95035...b7f3</td></tr>
-      </table>
-
       <h2 class="docs-h2">Key Functions (ABI)</h2>
       <div class="code-block-wrapper">
         <div class="code-header"><span class="code-lang">solidity</span></div>

@@ -11,6 +11,119 @@
   background: transparent;
 }
 
+/* ── Interactive Contract Section ── */
+.contract-deployment-card {
+  margin: 32px 0;
+  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.deployment-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+  background: #fafafa;
+}
+
+.deploy-tab {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #888;
+  cursor: pointer;
+  transition: all 80ms steps(2);
+  border-right: 1px solid var(--border-color);
+}
+
+.deploy-tab:last-child { border-right: none; }
+
+.deploy-tab.active {
+  background: #fff;
+  color: #7c3aed;
+  font-weight: 800;
+  box-shadow: inset 0 -2px 0 #7c3aed;
+}
+
+.deploy-tab:hover:not(.active) {
+  background: #f3e8ff;
+  color: #000;
+}
+
+.deployment-details {
+  padding: 0;
+}
+
+.deployment-details .docs-table {
+  margin: 0;
+  border: none;
+}
+
+.td-label {
+  width: 140px;
+  font-weight: 800;
+  color: #555;
+  font-size: 0.62rem;
+  letter-spacing: 0.05em;
+  background: #fafafa;
+}
+
+.td-address-cell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.full-address {
+  font-size: 0.68rem;
+  color: #000;
+  word-break: break-all;
+  line-height: 1.4;
+}
+
+.copy-addr-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  color: #7c3aed;
+  cursor: pointer;
+  transition: all 80ms steps(2);
+  border-radius: 4px;
+}
+
+.copy-addr-btn:hover {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.copy-addr-btn.copied {
+  width: auto;
+  padding: 0 10px;
+  font-size: 0.55rem;
+  font-weight: 800;
+  background: #2a8a4a;
+  color: #fff;
+  border-color: #2a8a4a;
+}
+
+.text-link {
+  color: #7c3aed;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.text-link:hover { text-decoration: underline; }
+
 /* ── Sidebar ─────────────────────────────────────────────── */
 .docs-sidebar {
   width: 260px;
