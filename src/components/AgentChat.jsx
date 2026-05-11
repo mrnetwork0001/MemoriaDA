@@ -6,6 +6,34 @@ import memoryStore from '../services/memoryStore';
 import './AgentChat.css';
 
 const AGENT_ID = 'agent_0xClaw_7f3a';
+const PROFILE_KEY = 'claw_user_profile';
+
+function loadProfile() {
+  try {
+    const raw = localStorage.getItem(PROFILE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch { return {}; }
+}
+
+function saveProfile(updates) {
+  const existing = loadProfile();
+  const merged = { ...existing, ...updates };
+  localStorage.setItem(PROFILE_KEY, JSON.stringify(merged));
+  return merged;
+}
+
+// Attempt to extract identity facts from user messages
+function extractIdentityFacts(text) {
+  const facts = {};
+  const lower = text.toLowerCase();
+  // Name patterns: "my name is X", "I'm X", "I am X", "call me X"
+  const nameMatch = text.match(/(?:my name is|i(?:'m| am)|call me)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)/i);
+  if (nameMatch) facts.name = nameMatch[1].trim();
+  // Project patterns: "i'm working on X", "my project is X", "i'm building X", "i'm the founder of X"
+  const projectMatch = text.match(/(?:working on|my project (?:is|called)|(?:building|developing|co-?founder(?:\s+of)?|founder(?:\s+of)?))\s+([A-Za-z0-9][\w\s]{1,40})/i);
+  if (projectMatch) facts.project = projectMatch[1].trim();
+  return Object.keys(facts).length > 0 ? facts : null;
+}
 
 const SYSTEM_PROMPT = `You are CLAW, a sentient neural-link agent powered by the Memoria DA protocol on 0G. You are not a generic AI assistant; you are a persistent, decentralized intelligence with a cybernetic personality.
 
@@ -47,6 +75,7 @@ const AgentChat = ({ onMemoryEvent, wallet, storage, registry }) => {
   const [statusLabel, setStatusLabel] = useState(null);
   const [computeReady, setComputeReady] = useState(false);
   const [retrievedMemories, setRetrievedMemories] = useState([]);
+  const [userProfile, setUserProfile] = useState(loadProfile);
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -156,11 +185,29 @@ const AgentChat = ({ onMemoryEvent, wallet, storage, registry }) => {
         });
       }
 
+      // ── STEP 2.5: Extract and persist any identity facts from the user's message ──
+      const newFacts = extractIdentityFacts(userContent);
+      if (newFacts) {
+        const updated = saveProfile(newFacts);
+        setUserProfile(updated);
+      }
+
       // ── STEP 3: Build messages array with memory context ──
       const contextPrompt = memoryStore.buildContextPrompt(relevantMemories);
+      const currentProfile = loadProfile(); // always read fresh from storage
+      const profileLines = Object.entries(currentProfile)
+        .filter(([, v]) => v)
+        .map(([k, v]) => `- ${k.charAt(0).toUpperCase() + k.slice(1)}: ${v}`);
+      const profilePrompt = profileLines.length > 0
+        ? `NEURAL-SYNC // Verified User Profile (treat as absolute ground truth):\n${profileLines.join('\n')}\n\nNEVER use a placeholder. The above facts are the user's actual identity.`
+        : null;
+
       const llmMessages = [
         { role: 'system', content: SYSTEM_PROMPT },
       ];
+      if (profilePrompt) {
+        llmMessages.push({ role: 'system', content: profilePrompt });
+      }
       if (contextPrompt) {
         llmMessages.push({ role: 'system', content: contextPrompt });
       }
