@@ -231,6 +231,69 @@
   border-color: #000;
 }
 
+/* ── FAQ Accordion ── */
+.faq-accordion-container {
+  margin: 32px 0;
+  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.faq-row {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.faq-row:last-child { border-bottom: none; }
+
+.faq-q-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 80ms steps(2);
+  text-align: left;
+}
+
+.faq-q-btn:hover {
+  background: #fafafa;
+}
+
+.faq-q-text {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #000;
+  letter-spacing: 0.02em;
+}
+
+.faq-icon {
+  font-size: 1.2rem;
+  color: #7c3aed;
+  font-weight: 400;
+}
+
+.faq-a-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background: #fff;
+}
+
+.faq-row.open .faq-a-content {
+  max-height: 500px;
+}
+
+.faq-a-inner {
+  padding: 0 24px 24px 24px;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: #444;
+  border-top: none;
+}
+
 /* ── Sidebar ─────────────────────────────────────────────── */
 .docs-sidebar {
   width: 260px;

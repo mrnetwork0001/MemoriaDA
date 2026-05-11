@@ -5,6 +5,80 @@ import { IconBolt, IconChain, IconNeural, IconBox, IconGlobe, IconLock, IconSnap
 import { NETWORKS } from '../config/network';
 import './Docs.css';
 
+const FAQAccordion = () => {
+  const [openIdx, setOpenIdx] = useState(null);
+
+  const faqs = [
+    {
+      q: "Is Memoria DA live on 0G Mainnet?",
+      a: "Yes. Following the 0G Protocol upgrade, Memoria DA is now fully operational on the 0G Mainnet. All hackathon submissions must use the Mainnet RPC and contract addresses found in the 'Smart Contracts' section."
+    },
+    {
+      q: "How do I ensure my app is Mainnet-ready?",
+      a: "Switch your provider RPC to 'https://evmrpc.0g.ai' and ensure your agent registry transactions are pointing to the Mainnet contract. You should also ensure your server-side wallets have a sufficient 0G balance for production-grade anchoring."
+    },
+    {
+      q: "What are the gas costs on 0G Mainnet?",
+      a: "Mainnet anchoring fees are dynamic but generally hover around 0.001 0G per memory commit. Our 'Developer Pays' model is highly recommended for Mainnet to ensure users don't face high friction during agent interactions."
+    },
+    {
+      q: "Does Mainnet support the same features as Galileo?",
+      a: "Yes, all core features including NFT-based identity, Merkle anchoring, and 0G Storage blob integration are 1:1 compatible between Galileo and Mainnet."
+    },
+    {
+      q: "Is my data private on Memoria DA?",
+      a: "By default, data on 0G Storage is public (but hashed). For private memories, we recommend encrypting your JSON payload using the agent's public key before calling the upload API."
+    },
+    {
+      q: "Can I delete a memory?",
+      a: "Onchain anchors are immutable. However, you can 'prune' your local state and update the Merkle root to exclude certain data. The old data will remain in 0G Storage until the rent expires, but it will no longer be part of the 'active' memory root."
+    },
+    {
+      q: "What is the cost for 1,000 memories?",
+      a: "Approximately 1 0G token total. Our goal is to keep memory extremely affordable for millions of autonomous agents."
+    },
+    {
+      q: "How do I get 0G tokens for anchoring?",
+      a: "During the Galileo Testnet phase, you can use the official 0G Faucet (faucet.0g.ai) or use our 'Developer Pays' model where the backend handles token acquisition via Khalani intents."
+    },
+    {
+      q: "Is it compatible with Eliza or Autonolas?",
+      a: "Yes. Memoria DA is framework-agnostic. We provide a drop-in adapter for Eliza and a custom 'Skill' for OpenClaw. For Autonolas, you can use our REST API within your agent's service layer."
+    },
+    {
+      q: "What is the maximum size of a single memory?",
+      a: "There is no hard limit on 0G Storage, but for optimal semantic retrieval performance, we recommend keeping individual text chunks under 8,000 tokens (approx. 32KB)."
+    },
+    {
+      q: "Can multiple agents share the same memory?",
+      a: "Yes! By sharing the agentId and the private key (if encrypted), multiple agents can subscribe to the same memory root. This is useful for 'Swarm' architectures."
+    },
+    {
+      q: "Does Memoria DA support multi-chain anchoring?",
+      a: "Currently, we anchor natively to the 0G Chain. Support for Ethereum (L1) and Arbitrum (L2) anchors is on the roadmap for Q4 2024."
+    }
+  ];
+
+  return (
+    <div className="faq-accordion-container">
+      {faqs.map((f, idx) => (
+        <div key={idx} className={`faq-row ${openIdx === idx ? 'open' : ''}`}>
+          <button 
+            className="faq-q-btn"
+            onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
+          >
+            <span className="faq-q-text">{f.q}</span>
+            <span className="faq-icon">{openIdx === idx ? '−' : '+'}</span>
+          </button>
+          <div className="faq-a-content">
+            <div className="faq-a-inner">{f.a}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 const PartnersShowcase = () => {
   const [openId, setOpenId] = useState(null);
 
@@ -250,6 +324,7 @@ const Docs = () => {
           {/* Custom interactive components */}
           {activeId === 'contracts' && <ContractDeploymentInfo />}
           {activeId === 'partners' && <PartnersShowcase />}
+          {activeId === 'faq' && <FAQAccordion />}
         </div>
 
         {/* ── Pagination Footer ── */}
