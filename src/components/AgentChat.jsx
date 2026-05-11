@@ -56,7 +56,7 @@ const MOCK_MESSAGES = [
   {
     id: 2,
     role: 'agent',
-    content: "Greetings. I am **CLAW**. My neural roots are anchored in the 0G Chain. Connect your wallet to enable decentralized memory storage. Once linked, every byte of our interaction will be immortalized as a vector embedding on-chain.",
+    content: "Greetings. I am **CLAW**. My neural roots are anchored in the 0G Chain. Connect your wallet to enable decentralized memory storage. Once linked, every byte of our interaction will be immortalized as a vector embedding onchain.",
     timestamp: '02:14:03',
   },
 ];

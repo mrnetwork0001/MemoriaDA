@@ -22,7 +22,7 @@ export const DOCS_SECTIONS = [
         </div>
         <div class="feature-card">
           <h4>Verifiable</h4>
-          <p>Every memory update is anchored on-chain with a Merkle root, allowing anyone to verify integrity.</p>
+          <p>Every memory update is anchored onchain with a Merkle root, allowing anyone to verify integrity.</p>
         </div>
         <div class="feature-card">
           <h4>Sovereign</h4>
@@ -47,7 +47,7 @@ export const DOCS_SECTIONS = [
 
       <div class="docs-callout warn">
         <div class="callout-label">Security Risk</div>
-        Centralized memory is a honeypot for prompt injection. Without on-chain anchors, you cannot trust what an agent claims to "remember."
+        Centralized memory is a honeypot for prompt injection. Without onchain anchors, you cannot trust what an agent claims to "remember."
       </div>
     `
   },
@@ -112,7 +112,7 @@ export const DOCS_SECTIONS = [
       
       <div class="docs-callout tip">
         <div class="callout-label">Verifiability</div>
-        Because only the Root is on-chain, we maintain privacy while providing cryptographic proof of the entire data set.
+        Because only the Root is onchain, we maintain privacy while providing cryptographic proof of the entire data set.
       </div>
     `
   },
@@ -120,7 +120,7 @@ export const DOCS_SECTIONS = [
     id: "lifecycle",
     label: "05_MEMORY_LIFECYCLE",
     title: "THE DATA JOURNEY",
-    subtitle: "From user prompt to on-chain verification.",
+    subtitle: "From user prompt to onchain verification.",
     content: `
       <div class="step-flow">
         <div class="step-item">
@@ -148,7 +148,7 @@ export const DOCS_SECTIONS = [
           <div class="step-num">04</div>
           <div class="step-body">
             <h4>Recall & Verify</h4>
-            <p>When needed, the agent retrieves the blob, verifies it against the on-chain root, and injects it into the prompt context.</p>
+            <p>When needed, the agent retrieves the blob, verifies it against the onchain root, and injects it into the prompt context.</p>
           </div>
         </div>
       </div>
@@ -174,7 +174,7 @@ export const DOCS_SECTIONS = [
   {
     id: "contracts",
     label: "07_SMART_CONTRACTS",
-    title: "ON-CHAIN REGISTRY",
+    title: "ONCHAIN REGISTRY",
     subtitle: "Technical details of the MemoriaRegistryV2 contract.",
     content: `
       <h2 class="docs-h2">Deployment Info</h2>
@@ -209,7 +209,7 @@ function verifyMemoryRoot(string id, bytes32 root) external view returns (bool i
       </div>
 
       <h3 class="docs-h3">POST /api/registry/anchor</h3>
-      <p class="docs-p">Triggers on-chain anchoring.</p>
+      <p class="docs-p">Triggers onchain anchoring.</p>
     `
   },
   {

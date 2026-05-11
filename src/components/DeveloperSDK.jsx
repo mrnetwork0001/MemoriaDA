@@ -36,7 +36,7 @@ export async function storeAndAnchor(content, agentId) {
     timestamp: new Date().toISOString(),
   }));
 
-  // 2. Anchor on-chain (developer's wallet pays the 0.001 0G fee)
+  // 2. Anchor onchain (developer's wallet pays the 0.001 0G fee)
   const { explorerUrl } = await anchorMemoryRoot(agentId, rootHash, count);
   return { rootHash, explorerUrl };
 }`;
@@ -115,7 +115,7 @@ const MEMORIA_REGISTRY_ABI = [
         {/* Contract ABI */}
         <div className="sdk-section">
           <h3><IconChain size={13} className="icon-accent" style={{marginRight:6}}/> MemoriaRegistryV2 — Contract ABI</h3>
-          <p>The on-chain registry that stores agent identities as ERC-721 NFTs and anchors memory Merkle roots with micropayment fees.</p>
+          <p>The onchain registry that stores agent identities as ERC-721 NFTs and anchors memory Merkle roots with micropayment fees.</p>
           <div className="code-block-wrapper">
             <div className="code-header">
               <span className="code-lang">solidity</span>
@@ -164,7 +164,7 @@ description: Persistent decentralized memory via 0G
 Use exec to call: POST /api/storage/upload
   → payload: { agentId, content, timestamp }
 
-## Anchor on-chain
+## Anchor onchain
 POST /api/registry/anchor
   → { agentId, rootHash, vectorCount }
 

@@ -236,7 +236,7 @@
   border-color: var(--border-accent);
 }
 
-.memory-entry.memory-on-chain {
+.memory-entry.memory-onchain {
   border-left-color: var(--accent-primary);
 }
 

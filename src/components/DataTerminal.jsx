@@ -84,7 +84,7 @@ const DataTerminal = ({ memoryEvents, storageLogs, wallet, storage }) => {
         case 'CHAIN_COMMIT':
           logEntry = {
             type: 'CHAIN',
-            message: `Root anchored on-chain  ❯  block: #${last.blockNumber}  ❯  root: ${last.rootHash?.slice(0, 14)}...`,
+            message: `Root anchored onchain  ❯  block: #${last.blockNumber}  ❯  root: ${last.rootHash?.slice(0, 14)}...`,
             status: 'success',
           };
           break;
@@ -248,7 +248,7 @@ const DataTerminal = ({ memoryEvents, storageLogs, wallet, storage }) => {
                   : `${mem.rootHash?.slice(0, 10)}...${mem.rootHash?.slice(-6)}`;
 
                 return (
-                  <div key={mem.id} className={`memory-entry ${isOnChain ? 'memory-on-chain' : ''}`}>
+                  <div key={mem.id} className={`memory-entry ${isOnChain ? 'memory-onchain' : ''}`}>
                     <div className="memory-entry-header">
                       <span className="memory-entry-idx terminal-font">MEM_{String(memoryIndex.length - idx).padStart(3, '0')}</span>
                       <span className="memory-entry-time terminal-font">{time}</span>

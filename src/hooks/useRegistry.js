@@ -23,10 +23,10 @@ export function useRegistry() {
     };
   }, []);
 
-  // Check & auto-register an agent if not yet on-chain
+  // Check & auto-register an agent if not yet onchain
   const ensureAgentRegistered = useCallback(async (agentId, framework, signer) => {
     if (!registryService.isDeployed()) {
-      console.warn('[useRegistry] Contract not deployed. Skipping on-chain registration.');
+      console.warn('[useRegistry] Contract not deployed. Skipping onchain registration.');
       return false;
     }
 
@@ -51,10 +51,10 @@ export function useRegistry() {
     }
   }, []);
 
-  // Anchor a memory root on-chain after a successful 0G Storage upload
+  // Anchor a memory root onchain after a successful 0G Storage upload
   const commitMemoryRoot = useCallback(async (agentId, rootHash, vectorCount, signer) => {
     if (!registryService.isDeployed()) {
-      console.warn('[useRegistry] Contract not deployed. Skipping on-chain commit.');
+      console.warn('[useRegistry] Contract not deployed. Skipping onchain commit.');
       return null;
     }
 

@@ -47,7 +47,7 @@ const LandingArchitecture = () => {
           </div>
           <div className="desc-item">
             <h4 className="heading-font">02. REGISTER</h4>
-            <p className="terminal-font">Root hash posted to MemoriaRegistry on 0G Chain → permanent, verifiable on-chain record.</p>
+            <p className="terminal-font">Root hash posted to MemoriaRegistry on 0G Chain → permanent, verifiable onchain record.</p>
           </div>
           <div className="desc-item">
             <h4 className="heading-font">03. RETRIEVE</h4>

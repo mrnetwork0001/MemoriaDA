@@ -127,7 +127,7 @@ class StorageService {
       this._emitLog('CONFIRM', `✓ Memory committed to 0G Storage  ❯  root: ${rootHash.slice(0, 10)}...${rootHash.slice(-6)}  ❯  ${elapsed}s`, 'success');
 
       if (tx) {
-        this._emitLog('TX', `On-chain tx confirmed  ❯  hash: ${typeof tx === 'string' ? tx.slice(0, 14) : '0x...'}`, 'success');
+        this._emitLog('TX', `Onchain tx confirmed  ❯  hash: ${typeof tx === 'string' ? tx.slice(0, 14) : '0x...'}`, 'success');
       }
 
       return {

@@ -33,7 +33,7 @@ function MerkleVerifier({ wallet, networkHook }) {
       // Use JsonRpcProvider for read-only verification queries
       const provider = new ethers.JsonRpcProvider(networkHook.network.rpcUrl);
 
-      // Verify memory root on-chain
+      // Verify memory root onchain
       const verification = await registryService.verifyMemoryRoot(
         agentId.trim(),
         rootHash.trim(),
@@ -49,7 +49,7 @@ function MerkleVerifier({ wallet, networkHook }) {
       });
     } catch (err) {
       setError(err.message.includes('Agent not found')
-        ? 'Agent ID not found on-chain. Ensure the agent is registered.'
+        ? 'Agent ID not found onchain. Ensure the agent is registered.'
         : err.message
       );
     } finally {
@@ -112,7 +112,7 @@ function MerkleVerifier({ wallet, networkHook }) {
         <h2 className="heading-font">CRYPTOGRAPHIC VERIFIER</h2>
         <p className="verifier-subtitle terminal-font">
           Verify that an agent's memory root has not been tampered with by checking
-          the on-chain Merkle root stored in the MemoriaRegistry smart contract.
+          the onchain Merkle root stored in the MemoriaRegistry smart contract.
         </p>
       </div>
 
@@ -155,10 +155,10 @@ function MerkleVerifier({ wallet, networkHook }) {
           {verifying ? (
             <>
               <span className="connect-spinner-small" />
-              VERIFYING ON-CHAIN...
+              VERIFYING ONCHAIN...
             </>
           ) : (
-            <><IconChain size={12} style={{marginRight:4}}/> VERIFY ON-CHAIN</>
+            <><IconChain size={12} style={{marginRight:4}}/> VERIFY ONCHAIN</>
           )}
         </button>
       </div>
@@ -181,8 +181,8 @@ function MerkleVerifier({ wallet, networkHook }) {
           </div>
           <div className="result-subtitle terminal-font">
             {result.isValid
-              ? 'The provided Merkle root matches the on-chain record. This memory has not been tampered with.'
-              : 'The provided root does NOT match the on-chain record. The memory may have been altered or the root is outdated.'}
+              ? 'The provided Merkle root matches the onchain record. This memory has not been tampered with.'
+              : 'The provided root does NOT match the onchain record. The memory may have been altered or the root is outdated.'}
           </div>
 
           <div className="verification-chain">
@@ -192,7 +192,7 @@ function MerkleVerifier({ wallet, networkHook }) {
             </div>
             <div className="chain-arrow">→</div>
             <div className="chain-step">
-              <div className="step-label terminal-font">ON-CHAIN ROOT</div>
+              <div className="step-label terminal-font">ONCHAIN ROOT</div>
               <div className="step-value mono">{formatHash(result.storedRoot)}</div>
             </div>
             <div className="chain-arrow">→</div>

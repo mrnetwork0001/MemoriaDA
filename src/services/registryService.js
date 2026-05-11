@@ -1,5 +1,5 @@
 // ============================================================
-// Registry Service — MemoriaRegistryV2 On-Chain Interactions
+// Registry Service — MemoriaRegistryV2 Onchain Interactions
 // ERC-721 NFTs, Micropayments, Verification
 // ============================================================
 
@@ -61,10 +61,10 @@ class RegistryService {
     }
   }
 
-  // ─── Register a new agent on-chain (mints NFT) ──────────────
+  // ─── Register a new agent onchain (mints NFT) ──────────────
 
   async registerAgent(agentId, framework, signer) {
-    this._emitLog('REGISTRY', `Registering agent on-chain  ❯  id: ${agentId}  ❯  framework: ${framework}`, 'info');
+    this._emitLog('REGISTRY', `Registering agent onchain  ❯  id: ${agentId}  ❯  framework: ${framework}`, 'info');
     const contract = this._getContract(signer);
 
     const tx = await contract.registerAgent(agentId, framework);
@@ -79,7 +79,7 @@ class RegistryService {
   // ─── Update Memory Root with micropayment ────────────────────
 
   async updateMemoryRoot(agentId, rootHash, vectorCount, signer) {
-    this._emitLog('CHAIN', `Anchoring memory root on-chain  ❯  agent: ${agentId}  ❯  root: ${rootHash.slice(0, 10)}...${rootHash.slice(-6)}`, 'info');
+    this._emitLog('CHAIN', `Anchoring memory root onchain  ❯  agent: ${agentId}  ❯  root: ${rootHash.slice(0, 10)}...${rootHash.slice(-6)}`, 'info');
     const contract = this._getContract(signer);
 
     // Convert root hash to bytes32 — handle both 32-byte hex strings and shorter values
@@ -119,9 +119,9 @@ class RegistryService {
       receipt = await tx.wait();
     } catch (waitErr) {
       const msg = waitErr?.message || '';
-      // Known 0G testnet quirk: receipt polling fails but TX is already on-chain
+      // Known 0G testnet quirk: receipt polling fails but TX is already onchain
       if (msg.includes('coalesce') || msg.includes('Missing or invalid parameters') || msg.includes('eth_getTransactionReceipt')) {
-        this._emitLog('WARN', `Receipt polling failed (known testnet RPC quirk) — TX confirmed on-chain  ❯  hash: ${tx.hash.slice(0, 14)}...`, 'warning');
+        this._emitLog('WARN', `Receipt polling failed (known testnet RPC quirk) — TX confirmed onchain  ❯  hash: ${tx.hash.slice(0, 14)}...`, 'warning');
         // Return a synthetic receipt — blockNumber null triggers "TX Confirmed" display
         receipt = { blockNumber: null, transactionHash: tx.hash, status: 1 };
       } else {
@@ -134,7 +134,7 @@ class RegistryService {
     return receipt;
   }
 
-  // ─── On-chain memory verification ────────────────────────────
+  // ─── Onchain memory verification ────────────────────────────
 
   async verifyMemoryRoot(agentId, rootHash, provider) {
     const contract = this._getContract(provider);
