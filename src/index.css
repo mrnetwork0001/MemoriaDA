@@ -20,9 +20,9 @@
   --accent-error:     #e02020;  /* Error state */
 
   /* ── Text — BLACK on white ───────────────────────────── */
-  --text-primary:   #0a0a0a;    /* Near-black main text */
-  --text-secondary: #333333;    /* Dark grey */
-  --text-muted:     #888888;    /* Mid-grey inactive */
+  --text-primary:   #000000;    /* Pure black main text */
+  --text-secondary: #1a1a1a;    /* Very dark grey */
+  --text-muted:     #555555;    /* Mid-grey — still readable */
   --text-accent:    #7c3aed;    /* Deep purple for accent text (readable on white) */
 
   /* ── Typography — Monospace ONLY ─────────────────────── */

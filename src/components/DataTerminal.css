@@ -40,13 +40,13 @@
 
 .dot-red    { background: var(--accent-error); }
 .dot-yellow { background: #d4a800; }
-.dot-green  { background: var(--accent-primary); box-shadow: var(--glow-primary); }
+.dot-green  { background: #7c3aed; box-shadow: 0 0 6px rgba(124,58,237,0.4); }
 
 .terminal-title {
   font-family: var(--font-mono);
   font-size: 0.65rem;
   font-weight: 700;
-  color: var(--text-muted);
+  color: #000000;
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
@@ -57,6 +57,7 @@
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  color: #000000;
 }
 
 .blink { animation: blink 1s step-end infinite; }
@@ -73,7 +74,7 @@
   background: transparent;
   border: none;
   border-right: 1px solid var(--border-color);
-  color: var(--text-muted);
+  color: #555555;
   font-family: var(--font-mono);
   font-size: 0.62rem;
   font-weight: 700;
@@ -91,7 +92,7 @@
 
 .terminal-tab:hover:not(.active) {
   background: var(--bg-muted);
-  color: var(--text-primary);
+  color: #000000;
 }
 
 /* Tab badge */
@@ -103,8 +104,8 @@
   height: 15px;
   font-size: 0.48rem;
   font-weight: 800;
-  background: var(--accent-primary);
-  color: var(--bg-void);
+  background: #7c3aed;
+  color: #ffffff;
   border-radius: 0;
   padding: 0 3px;
   margin-left: 5px;
@@ -137,36 +138,37 @@
   word-break: break-all;
 }
 
-.log-time { color: var(--text-muted); margin-right: 6px; }
+.log-time { color: #555555; margin-right: 6px; font-weight: 500; }
 .log-type {
-  background: rgba(255, 255, 255, 0.04);
+  background: #f3e8ff;
   padding: 0 4px;
   margin-right: 6px;
   font-weight: 700;
   font-size: 0.62rem;
   letter-spacing: 0.05em;
+  color: #000000;
 }
 
-.status-success { color: var(--accent-primary); text-shadow: var(--glow-text); }
-.status-info    { color: var(--text-secondary); }
-.status-error   { color: var(--accent-error); }
+.status-success { color: #7c3aed; font-weight: 700; }
+.status-info    { color: #000000; }
+.status-error   { color: #c00000; font-weight: 700; }
 
-/* Log type specific colors */
-.log-type-query   { color: var(--text-secondary); }
-.log-type-recall  { color: var(--accent-primary); }
-.log-type-compute { color: var(--accent-primary); background: var(--accent-dim); }
-.log-type-store   { color: var(--accent-primary); }
-.log-type-chain   { color: var(--accent-primary); background: var(--accent-dim); text-shadow: var(--glow-text); }
-.log-type-error   { color: var(--accent-error); }
-.log-type-state   { color: var(--accent-primary); background: var(--accent-dim); }
+/* Log type specific colors — ALL readable deep purple or black */
+.log-type-query   { color: #000000; }
+.log-type-recall  { color: #7c3aed; font-weight: 700; }
+.log-type-compute { color: #7c3aed; background: #f3e8ff; font-weight: 700; }
+.log-type-store   { color: #7c3aed; font-weight: 700; }
+.log-type-chain   { color: #7c3aed; background: #f3e8ff; font-weight: 700; }
+.log-type-error   { color: #c00000; font-weight: 700; }
+.log-type-state   { color: #7c3aed; background: #f3e8ff; font-weight: 700; }
 
 .terminal-cursor-line {
   margin-top: 6px;
-  color: var(--accent-primary);
-  text-shadow: var(--glow-text);
+  color: #7c3aed;
+  font-weight: 700;
 }
 
-.prefix { margin-right: 6px; font-weight: 900; }
+.prefix { margin-right: 6px; font-weight: 900; color: #7c3aed; }
 
 /* ── Memory Grid ─────────────────────────────────────────── */
 .memory-grid {
@@ -249,8 +251,7 @@
   font-family: var(--font-mono);
   font-size: 0.58rem;
   font-weight: 800;
-  color: var(--accent-primary);
-  text-shadow: var(--glow-text);
+  color: #7c3aed;
   letter-spacing: 0.08em;
 }
 
@@ -264,11 +265,10 @@
   font-family: var(--font-mono);
   font-size: 0.48rem;
   font-weight: 800;
-  color: var(--accent-primary);
-  text-shadow: var(--glow-text);
-  background: var(--accent-dim);
+  color: #7c3aed;
+  background: #f3e8ff;
   padding: 1px 5px;
-  border: 1px solid var(--border-accent);
+  border: 1px solid #c4a8f0;
   margin-left: auto;
   letter-spacing: 0.05em;
 }
@@ -276,8 +276,8 @@
 .memory-entry-root {
   font-family: var(--font-mono);
   font-size: 0.65rem;
-  color: var(--accent-primary);
-  font-weight: 600;
+  color: #7c3aed;
+  font-weight: 700;
   margin-bottom: 4px;
   letter-spacing: 0.02em;
 }
@@ -318,7 +318,7 @@
   letter-spacing: 0.1em;
 }
 
-.text-accent-primary { color: #7c3aed; }
+.text-accent-primary { color: #7c3aed; font-weight: 700; }
 
 /* ── Empty State ─────────────────────────────────────────── */
 .empty-state {
