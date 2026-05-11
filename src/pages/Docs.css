@@ -124,6 +124,113 @@
 
 .text-link:hover { text-decoration: underline; }
 
+/* ── Partners Showcase ── */
+.partners-showcase-container {
+  margin: 32px 0;
+}
+
+.partners-horizontal-list {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-color);
+  background: rgba(255,255,255,0.8);
+}
+
+.partner-item-wrap {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.partner-item-wrap:last-child { border-bottom: none; }
+
+.partner-btn-horizontal {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 80ms steps(2);
+}
+
+.partner-btn-horizontal:hover {
+  background: #f3e8ff;
+}
+
+.partner-num {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #e3c1ff;
+  margin-right: 16px;
+  -webkit-text-stroke: 1px #7c3aed;
+  font-family: var(--font-mono);
+}
+
+.partner-name-main {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #000;
+  letter-spacing: 0.1em;
+  flex: 1;
+  text-align: left;
+}
+
+.partner-chevron {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #7c3aed;
+}
+
+.partner-dropdown-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background: #fff;
+}
+
+.partner-item-wrap.open .partner-dropdown-content {
+  max-height: 400px;
+}
+
+.partner-inner-info {
+  padding: 0 20px 24px 52px;
+}
+
+.partner-tagline {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #7c3aed;
+  margin-bottom: 8px;
+  letter-spacing: 0.1em;
+}
+
+.partner-desc-text {
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 16px;
+  max-width: 600px;
+}
+
+.partner-visit-link {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #7c3aed;
+  text-decoration: none;
+  padding: 6px 14px;
+  border: 1px solid #7c3aed;
+  transition: all 80ms steps(2);
+}
+
+.partner-visit-link:hover {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
 /* ── Sidebar ─────────────────────────────────────────────── */
 .docs-sidebar {
   width: 260px;

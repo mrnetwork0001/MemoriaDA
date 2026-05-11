@@ -357,22 +357,7 @@ if (isValid) console.log("Memory integrity guaranteed.");
     title: "ECOSYSTEM ADOPTION",
     subtitle: "Projects already utilizing Memoria DA.",
     content: `
-      <p class="docs-p">Memoria DA is already being integrated into several high-impact AI projects within the 0G ecosystem.</p>
-
-      <div class="feature-grid">
-        <div class="feature-card">
-          <h4>AlphaJournal</h4>
-          <p>The first decentralized trading diary. It uses Memoria to ensure traders' market theses are immortalized and verifiable by their subscribers.</p>
-        </div>
-        <div class="feature-card">
-          <h4>SolTutor</h4>
-          <p>An AI Solidity mentor that tracks student progress. Memoria allows the tutor to "remember" where a student left off across different browser sessions.</p>
-        </div>
-        <div class="feature-card">
-          <h4>OpenClaw</h4>
-          <p>The lead orchestration framework for autonomous agents on 0G. Memoria provides the default long-term memory skill for all Claw agents.</p>
-        </div>
-      </div>
+      <p class="docs-p">Memoria DA is already being integrated into several high-impact AI projects within the 0G ecosystem. Click a partner below to explore the integration details.</p>
     `
   },
   {

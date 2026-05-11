@@ -5,6 +5,63 @@ import { IconBolt, IconChain, IconNeural, IconBox, IconGlobe, IconLock, IconSnap
 import { NETWORKS } from '../config/network';
 import './Docs.css';
 
+const PartnersShowcase = () => {
+  const [openId, setOpenId] = useState(null);
+
+  const partners = [
+    {
+      id: 'alpha',
+      name: 'ALPHAJOURNAL',
+      tagline: 'Decentralized Trading Diary',
+      desc: 'The first platform that allows traders to immortalize their market theses onchain. Every prediction and entry reason is anchored to 0G Storage via Memoria DA, creating a verifiable track record for subscribers.',
+      url: 'https://memoriada.xyz'
+    },
+    {
+      id: 'sol',
+      name: 'SOLTUTOR',
+      tagline: 'AI Solidity Mentor',
+      desc: 'SolTutor uses Memoria to maintain student progress. It remembers exactly which concepts you have mastered and where you left off, even across different devices or session resets.',
+      url: 'https://memoriada.xyz'
+    },
+    {
+      id: 'claw',
+      name: 'OPENCLAW',
+      tagline: 'Agent Orchestration',
+      desc: 'Memoria DA provides the native long-term memory skill for the OpenClaw ecosystem. Every autonomous agent in the network uses our registry to store and retrieve contextual history.',
+      url: 'https://memoriada.xyz'
+    }
+  ];
+
+  return (
+    <div className="partners-showcase-container">
+      <div className="partners-horizontal-list">
+        {partners.map((p, idx) => (
+          <div key={p.id} className={`partner-item-wrap ${openId === p.id ? 'open' : ''}`}>
+            <button 
+              className="partner-btn-horizontal"
+              onClick={() => setOpenId(openId === p.id ? null : p.id)}
+            >
+              <span className="partner-num">0{idx + 1}</span>
+              <span className="partner-name-main">{p.name}</span>
+              <span className="partner-chevron">{openId === p.id ? '−' : '+'}</span>
+            </button>
+            
+            <div className="partner-dropdown-content">
+              <div className="partner-inner-info">
+                <div className="partner-tagline terminal-font">{p.tagline}</div>
+                <p className="partner-desc-text">{p.desc}</p>
+                <a href={p.url} target="_blank" rel="noreferrer" className="partner-visit-link">
+                  VISIT_PROJECT_PAGE ❯
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const ContractDeploymentInfo = () => {
   const [network, setNetwork] = useState('testnet');
   const [copied, setCopied] = useState(false);
@@ -190,8 +247,9 @@ const Docs = () => {
             dangerouslySetInnerHTML={{ __html: activeSection.content }} 
           />
 
-          {/* Custom interactive component for contracts section */}
+          {/* Custom interactive components */}
           {activeId === 'contracts' && <ContractDeploymentInfo />}
+          {activeId === 'partners' && <PartnersShowcase />}
         </div>
 
         {/* ── Pagination Footer ── */}
