@@ -85,10 +85,40 @@ const Docs = () => {
   const prevSection = currentIndex > 0 ? DOCS_SECTIONS[currentIndex - 1] : null;
   const nextSection = currentIndex < DOCS_SECTIONS.length - 1 ? DOCS_SECTIONS[currentIndex + 1] : null;
 
-  // Scroll to top when section changes
+  // Copy to clipboard logic for code blocks
   useEffect(() => {
     const mainArea = document.getElementById('docs-main-area');
-    if (mainArea) mainArea.scrollTop = 0;
+    if (!mainArea) return;
+    mainArea.scrollTop = 0;
+
+    // Give the DOM a moment to render the innerHTML
+    const timer = setTimeout(() => {
+      const wrappers = mainArea.querySelectorAll('.code-block-wrapper');
+      wrappers.forEach(wrapper => {
+        const header = wrapper.querySelector('.code-header');
+        const codeBlock = wrapper.querySelector('.code-block');
+        
+        if (header && codeBlock && !header.querySelector('.auto-copy-btn')) {
+          const btn = document.createElement('button');
+          btn.className = 'copy-btn auto-copy-btn';
+          btn.innerText = 'COPY';
+          
+          btn.onclick = () => {
+            navigator.clipboard.writeText(codeBlock.innerText.trim());
+            btn.innerText = 'COPIED!';
+            btn.classList.add('copied');
+            setTimeout(() => {
+              btn.innerText = 'COPY';
+              btn.classList.remove('copied');
+            }, 2000);
+          };
+          
+          header.appendChild(btn);
+        }
+      });
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, [activeId]);
 
   const filteredSections = DOCS_SECTIONS.filter(s => 
