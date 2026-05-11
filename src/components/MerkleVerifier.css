@@ -8,10 +8,10 @@
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
-  background: var(--bg-void);
+  background: rgba(255,255,255,0.85);
   border: 1px solid var(--border-color);
   border-radius: 0;
-  backdrop-filter: none;
+  backdrop-filter: blur(6px);
   overflow-y: auto;
   font-family: var(--font-mono);
 }
@@ -24,8 +24,7 @@
 .verifier-header h2 {
   font-family: var(--font-mono);
   font-size: 0.9rem;
-  color: var(--accent-primary);
-  text-shadow: var(--glow-text);
+  color: #7c3aed;
   margin: 0 0 0.4rem 0;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -84,21 +83,21 @@
 .form-label::before { content: '> '; color: var(--accent-muted); }
 
 .form-input {
-  background: var(--bg-input);
+  background: #ffffff;
   border: 1px solid var(--border-color);
   border-radius: 0;
-  color: var(--text-primary);
+  color: #000000;
   padding: 0.65rem 0.9rem;
   font-family: var(--font-mono);
   font-size: 0.78rem;
   outline: none;
   transition: var(--transition-digital);
-  caret-color: var(--accent-primary);
+  caret-color: #7c3aed;
 }
 
 .form-input:focus {
-  border-color: var(--accent-primary);
-  box-shadow: var(--neon-glow);
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 2px rgba(124,58,237,0.1);
 }
 
 .form-input::placeholder { color: var(--text-muted); font-size: 0.7rem; }
@@ -106,8 +105,8 @@
 .verify-btn {
   padding: 0.85rem 2rem;
   background: transparent;
-  border: 1px solid var(--accent-primary);
-  color: var(--accent-primary);
+  border: 1px solid #000000;
+  color: #000000;
   font-family: var(--font-mono);
   font-size: 0.78rem;
   letter-spacing: 0.12em;
@@ -119,12 +118,11 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  text-shadow: var(--glow-text);
 }
 
 .verify-btn:hover:not(:disabled) {
-  background: var(--accent-primary);
-  color: var(--bg-void);
+  background: #000000;
+  color: #ffffff;
   text-shadow: none;
 }
 
@@ -198,7 +196,7 @@
   gap: 0.8rem;
   padding: 1rem;
   margin-bottom: 1rem;
-  background: var(--bg-card);
+  background: rgba(255,255,255,0.85);
   border: 1px solid var(--border-color);
   overflow-x: auto;
   border-radius: 0;
@@ -228,11 +226,11 @@
 
 .chain-arrow {
   font-size: 1rem;
-  color: var(--accent-primary);
+  color: #7c3aed;
   flex-shrink: 0;
 }
 
-.text-valid   { color: var(--accent-primary) !important; text-shadow: var(--glow-text); }
+.text-valid   { color: #7c3aed !important; }
 .text-invalid { color: var(--accent-error) !important; }
 
 /* ── Agent Details Grid ───────────────────────────────────── */

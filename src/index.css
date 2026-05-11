@@ -2,68 +2,69 @@
 
 /* ============================================================
    MEMORIA DA — Terminal CLI Design System
-   Palette: Black / White / #e3c1ff (Lavender Phosphor)
+   Palette: White (dot-grid bg) / Black (text) / #e3c1ff (accent)
    ============================================================ */
 
 :root {
-  /* ── Core Palette ─────────────────────────────────────── */
-  --bg-void:    #000000;        /* Pure black — body background */
-  --bg-deep:    #080808;        /* Near-black — elevated panels */
-  --bg-card:    #0f0f0f;        /* Card / pane background */
-  --bg-muted:   #141414;        /* Secondary surfaces */
-  --bg-input:   #050505;        /* Input fields */
+  /* ── Core Palette — LIGHT MODE ────────────────────────── */
+  --bg-void:    #ffffff;        /* Pure white — body background */
+  --bg-deep:    #f7f5fc;        /* Slight lavender tint — elevated panels */
+  --bg-card:    #ffffff;        /* Card background */
+  --bg-muted:   #f0edf8;        /* Secondary surfaces */
+  --bg-input:   #fafafa;        /* Input fields */
 
   /* ── Accent — Lavender Phosphor ───────────────────────── */
-  --accent-primary:   #e3c1ff;  /* Primary accent — phosphor lavender */
-  --accent-muted:     #7a5fa0;  /* Dimmed purple — borders, inactive */
-  --accent-dim:       #3a2a50;  /* Very dim — subtle backgrounds */
-  --accent-error:     #ff4466;  /* Error state */
+  --accent-primary:   #e3c1ff;  /* Primary accent */
+  --accent-muted:     #b08ad4;  /* Dimmed purple — borders */
+  --accent-dim:       #f3e8ff;  /* Very light lavender — subtle bg */
+  --accent-error:     #e02020;  /* Error state */
 
-  /* ── Text ─────────────────────────────────────────────── */
-  --text-primary:   #ffffff;    /* Pure white foreground */
-  --text-secondary: #aaaaaa;    /* Mid-grey secondary */
-  --text-muted:     #555555;    /* Inactive / dimmed */
-  --text-accent:    var(--accent-primary);
+  /* ── Text — BLACK on white ───────────────────────────── */
+  --text-primary:   #0a0a0a;    /* Near-black main text */
+  --text-secondary: #333333;    /* Dark grey */
+  --text-muted:     #888888;    /* Mid-grey inactive */
+  --text-accent:    #7c3aed;    /* Deep purple for accent text (readable on white) */
 
   /* ── Typography — Monospace ONLY ─────────────────────── */
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-  --font-heading: 'JetBrains Mono', monospace;  /* No Orbitron — pure mono */
+  --font-mono:    'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  --font-heading: 'JetBrains Mono', monospace;
   --font-body:    'JetBrains Mono', monospace;
 
-  /* ── Borders — 0 radius, 1px strict ─────────────────── */
-  --border-color:   #2a2a2a;
-  --border-accent:  rgba(227, 193, 255, 0.25);
-  --border-active:  rgba(227, 193, 255, 0.7);
+  /* ── Borders ─────────────────────────────────────────── */
+  --border-color:   #ddd8f0;
+  --border-accent:  rgba(179, 100, 255, 0.35);
+  --border-active:  rgba(179, 100, 255, 0.8);
   --radius-sm: 0px;
   --radius-chamfer: 0px;
 
-  /* ── Glows (phosphor persistence) ───────────────────── */
-  --glow-primary:   0 0 8px rgba(227, 193, 255, 0.5);
-  --glow-text:      0 0 6px rgba(227, 193, 255, 0.45);
-  --neon-glow:      0 0 5px rgba(227, 193, 255, 0.4), 0 0 12px rgba(227, 193, 255, 0.15);
-  --neon-glow-secondary: 0 0 5px rgba(255, 255, 255, 0.2);
+  /* ── Glows (soft purple on white) ───────────────────── */
+  --glow-primary:   0 0 8px rgba(179, 100, 255, 0.25);
+  --glow-text:      0 0 0px transparent; /* No text glow on light bg */
+  --neon-glow:      0 0 0px transparent;
+  --neon-glow-secondary: none;
 
-  /* ── Shadows — none (terminal has no shadows) ─────── */
-  --border-glow:    none;
+  /* ── Shadows — subtle on light bg ───────────────────── */
+  --border-glow: none;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.06);
 
-  /* ── Transitions ──────────────────────────────────── */
+  /* ── Transitions ──────────────────────────────────────── */
   --transition-digital: all 80ms steps(3);
   --transition-smooth:  all 200ms linear;
 
-  /* ── Spacing ──────────────────────────────────────── */
+  /* ── Spacing ──────────────────────────────────────────── */
   --gap-xs: 4px;
   --gap-sm: 8px;
   --gap-md: 16px;
   --gap-lg: 24px;
   --gap-xl: 32px;
 
-  /* ── Legacy aliases (keep components compiling) ──── */
-  --accent-secondary:    var(--text-primary);
-  --accent-tertiary:     var(--accent-primary);
+  /* ── Legacy aliases ───────────────────────────────────── */
+  --accent-secondary:    #7c3aed;
+  --accent-tertiary:     #b08ad4;
   --accent-destructive:  var(--accent-error);
-  --cyan:   var(--accent-primary);
-  --purple: var(--accent-primary);
-  --green:  var(--accent-primary);
+  --cyan:   #b08ad4;
+  --purple: #7c3aed;
+  --green:  #7c3aed;
 }
 
 /* ── Global Reset ──────────────────────────────────────── */
@@ -75,50 +76,35 @@
 
 html {
   font-size: 15px;
-  -webkit-font-smoothing: none;    /* intentional — retro crispness */
-  -moz-osx-font-smoothing: unset;
+  -webkit-font-smoothing: antialiased;
   scrollbar-gutter: stable;
 }
 
+/* ── Body — White dot-grid background ─────────────────── */
 body {
   font-family: var(--font-body);
-  background: var(--bg-void);
   color: var(--text-primary);
   min-height: 100vh;
   overflow-y: auto;
   letter-spacing: 0.03em;
   line-height: 1.5;
-}
 
-/* ── CRT Scanlines — pointer-events-none overlay ──────── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 0, 0, 0.18) 2px,
-    rgba(0, 0, 0, 0.18) 4px
+  /* DOT GRID — the main background pattern */
+  background-color: #ffffff;
+  background-image: radial-gradient(
+    circle,
+    #c8b8e8 1px,
+    transparent 1px
   );
-  pointer-events: none;
-  opacity: 0.4;
+  background-size: 24px 24px;
+  background-attachment: fixed;
 }
 
-/* ── Subtle character-grid background ──────────────────── */
-#root::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background-image:
-    linear-gradient(rgba(227, 193, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(227, 193, 255, 0.02) 1px, transparent 1px);
-  background-size: 32px 32px;
-  pointer-events: none;
-}
+/* Remove the dark CRT scanline overlay */
+body::before { display: none; }
+
+/* Remove dark grid from #root */
+#root::before { display: none; }
 
 /* ── Keyframes ─────────────────────────────────────────── */
 @keyframes blink {
@@ -127,22 +113,22 @@ body::before {
 }
 
 @keyframes cursor-blink {
-  0%, 49% { border-right-color: var(--accent-primary); }
+  0%, 49% { border-right-color: #7c3aed; }
   50%, 100% { border-right-color: transparent; }
 }
 
 @keyframes glitch {
   0%   { transform: translate(0, 0); }
-  20%  { transform: translate(-2px, 1px); clip-path: inset(20% 0 50% 0); }
-  40%  { transform: translate(2px, -1px); clip-path: inset(60% 0 10% 0); }
-  60%  { transform: translate(-1px, 2px); clip-path: inset(10% 0 80% 0); }
-  80%  { transform: translate(1px, -2px); clip-path: inset(80% 0 5% 0); }
-  100% { transform: translate(0, 0); clip-path: none; }
+  20%  { transform: translate(-2px, 1px); }
+  40%  { transform: translate(2px, -1px); }
+  60%  { transform: translate(-1px, 2px); }
+  80%  { transform: translate(1px, -2px); }
+  100% { transform: translate(0, 0); }
 }
 
 @keyframes rgbShift {
-  0%, 100% { text-shadow: -1px 0 rgba(227,193,255,0.7), 1px 0 rgba(255,255,255,0.5); }
-  50%       { text-shadow:  1px 0 rgba(227,193,255,0.7), -1px 0 rgba(255,255,255,0.5); }
+  0%, 100% { text-shadow: -1px 0 rgba(179,100,255,0.4), 1px 0 rgba(0,0,0,0.2); }
+  50%       { text-shadow:  1px 0 rgba(179,100,255,0.4), -1px 0 rgba(0,0,0,0.2); }
 }
 
 @keyframes scanline {
@@ -156,8 +142,8 @@ body::before {
 }
 
 @keyframes pulse-accent {
-  0%, 100% { box-shadow: 0 0 4px rgba(227, 193, 255, 0.3); }
-  50%       { box-shadow: 0 0 12px rgba(227, 193, 255, 0.8); }
+  0%, 100% { box-shadow: 0 0 4px rgba(179, 100, 255, 0.3); }
+  50%       { box-shadow: 0 0 10px rgba(179, 100, 255, 0.7); }
 }
 
 @keyframes shoot-h {
@@ -171,69 +157,57 @@ body::before {
 .terminal-font  { font-family: var(--font-mono); }
 .heading-font   { font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; }
 
-/* Replace gradient utilities with flat accent color */
 .text-gradient-cyan {
-  color: var(--accent-primary);
-  text-shadow: var(--glow-text);
+  color: #7c3aed;
+  -webkit-text-fill-color: unset;
+  background: none;
 }
+
 .text-gradient-magenta { color: var(--text-primary); }
 
-/* Phosphor glow on accent text */
-.accent-glow {
-  color: var(--accent-primary);
-  text-shadow: var(--glow-text);
-}
+.accent-glow { color: #7c3aed; }
 
-/* Blinking cursor block */
+/* Blinking cursor */
 .cursor::after {
   content: '█';
-  color: var(--accent-primary);
+  color: #7c3aed;
   animation: blink 1s step-end infinite;
   margin-left: 2px;
 }
 
-/* Blink utility */
 .blink { animation: blink 1s step-end infinite; }
 
-/* Glitch text */
-.cyber-glitch-text {
-  position: relative;
-  display: inline-block;
-}
-.cyber-glitch-text:hover {
-  animation: rgbShift 0.3s infinite;
-}
+.cyber-glitch-text { position: relative; display: inline-block; }
+.cyber-glitch-text:hover { animation: rgbShift 0.3s infinite; }
 
-/* Remove chamfer (no clip-path in terminal aesthetic) */
+/* No clip-path chamfer */
 .cyber-chamfer { clip-path: none !important; }
 
-/* Glass panel → flat terminal pane */
+/* Glass panel → flat white panel with border */
 .glass-panel-strong {
-  background: var(--bg-card);
+  background: #ffffff;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
   border: 1px solid var(--border-color);
-  box-shadow: none;
+  box-shadow: var(--card-shadow);
 }
 
-/* Mono alias */
 .mono { font-family: var(--font-mono); }
 
-/* ASCII box border helper */
+/* Terminal pane */
 .terminal-pane {
-  background: var(--bg-card);
+  background: #ffffff;
   border: 1px solid var(--border-accent);
   padding: var(--gap-lg);
 }
 
-/* Terminal title bar (+ --- TITLE --- +) */
+/* Title bar */
 .pane-titlebar {
   font-family: var(--font-mono);
   font-size: 0.65rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--accent-primary);
-  text-shadow: var(--glow-text);
+  color: #7c3aed;
   padding: 6px 12px;
   border-bottom: 1px solid var(--border-color);
   background: var(--bg-deep);
@@ -244,4 +218,4 @@ body::before {
 ::-webkit-scrollbar       { width: 3px; height: 3px; }
 ::-webkit-scrollbar-track { background: var(--bg-void); }
 ::-webkit-scrollbar-thumb { background: var(--accent-muted); }
-::-webkit-scrollbar-thumb:hover { background: var(--accent-primary); }
+::-webkit-scrollbar-thumb:hover { background: #7c3aed; }

@@ -10,8 +10,8 @@
   align-items: center;
   gap: var(--gap-sm);
   background: transparent;
-  border: 1px solid var(--border-accent);
-  color: var(--accent-primary);
+  border: 1px solid var(--border-color);
+  color: #000000;
   padding: 7px 14px;
   font-family: var(--font-mono);
   font-size: 0.68rem;
@@ -34,18 +34,17 @@
 }
 
 .wallet-btn:hover {
-  background: var(--accent-primary);
-  color: var(--bg-void);
-  border-color: var(--accent-primary);
+  background: #000000;
+  color: #ffffff;
+  border-color: #000000;
 }
 
 .wallet-btn:hover::before,
-.wallet-btn:hover::after { color: var(--bg-void); }
+.wallet-btn:hover::after { color: #ffffff; }
 
 .wallet-btn-connected {
-  border-color: var(--accent-primary);
-  color: var(--accent-primary);
-  text-shadow: var(--glow-text);
+  border-color: #7c3aed;
+  color: #7c3aed;
 }
 
 .wallet-btn-connected::before { content: ''; }
@@ -71,12 +70,14 @@
   top: calc(100% + 8px);
   right: 0;
   width: 240px;
-  background: var(--bg-card);
+  background: rgba(255,255,255,0.95);
   border: 1px solid var(--border-accent);
   padding: 16px;
   z-index: 1000;
   clip-path: none;
   animation: slide-up 0.15s steps(3);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  backdrop-filter: blur(10px);
 }
 
 @keyframes slide-up {
@@ -132,9 +133,9 @@
 .action-btn {
   width: 100%;
   padding: 7px 10px;
-  background: var(--bg-muted);
+  background: var(--bg-deep);
   border: 1px solid var(--border-color);
-  color: var(--text-primary);
+  color: #000000;
   font-family: var(--font-mono);
   font-size: 0.62rem;
   letter-spacing: 0.08em;
@@ -147,12 +148,12 @@
 .action-btn::before { content: '> '; color: var(--accent-muted); }
 
 .action-btn:hover {
-  background: var(--accent-primary);
-  color: var(--bg-void);
-  border-color: var(--accent-primary);
+  background: #000000;
+  color: #ffffff;
+  border-color: #000000;
 }
 
-.action-btn:hover::before { color: var(--bg-void); }
+.action-btn:hover::before { color: #ffffff; }
 
 .btn-disconnect { color: var(--accent-error); border-color: rgba(255, 68, 102, 0.3); }
 .btn-disconnect:hover { background: var(--accent-error); color: #fff; }

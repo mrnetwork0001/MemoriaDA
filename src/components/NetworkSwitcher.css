@@ -8,9 +8,9 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  background: var(--bg-void);
+  background: transparent;
   border: 1px solid var(--border-color);
-  color: var(--text-secondary);
+  color: #000000;
   padding: 6px 12px;
   font-family: var(--font-mono);
   font-size: 0.62rem;
@@ -23,8 +23,8 @@
 }
 
 .network-toggle:hover:not(:disabled) {
-  border-color: var(--border-accent);
-  color: var(--accent-primary);
+  border-color: #7c3aed;
+  color: #7c3aed;
 }
 
 .network-toggle:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -67,12 +67,14 @@
   top: calc(100% + 6px);
   right: 0;
   min-width: 210px;
-  background: var(--bg-card);
+  background: rgba(255,255,255,0.95);
   border: 1px solid var(--border-accent);
   padding: 10px;
   z-index: 1000;
   clip-path: none;
   animation: net-slide 0.1s steps(3);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  backdrop-filter: blur(10px);
 }
 
 @keyframes net-slide {
@@ -100,7 +102,7 @@
   padding: 8px 10px;
   background: transparent;
   border: 1px solid transparent;
-  color: var(--text-secondary);
+  color: #333333;
   font-family: var(--font-mono);
   font-size: 0.7rem;
   text-align: left;
@@ -117,14 +119,13 @@
 .network-option:hover {
   background: var(--bg-muted);
   border-color: var(--border-color);
-  color: var(--text-primary);
+  color: #000000;
 }
 
 .network-option-active {
   background: var(--accent-dim);
   border-color: var(--border-accent);
-  color: var(--accent-primary);
-  text-shadow: var(--glow-text);
+  color: #7c3aed;
 }
 
 .network-option-active::before { content: '> '; }

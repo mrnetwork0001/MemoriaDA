@@ -1,9 +1,9 @@
 /* ============================================================
-   LANDING PAGE — Terminal CLI Sections
+   LANDING PAGE — Light Mode Sections
    ============================================================ */
 
 .landing-page {
-  background: var(--bg-void);
+  background: transparent; /* show dot-grid body */
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
@@ -26,9 +26,9 @@
   justify-content: center;
   gap: 0;
   padding: 0;
-  background: var(--bg-deep);
+  background: rgba(255, 255, 255, 0.85);
   border: none;
-  backdrop-filter: none;
+  backdrop-filter: blur(8px);
 }
 
 .stat-item {
@@ -49,8 +49,7 @@
   font-size: 1.1rem;
   font-weight: 800;
   letter-spacing: 0.05em;
-  color: var(--accent-primary);
-  text-shadow: var(--glow-text);
+  color: #7c3aed;
   background: none;
   -webkit-text-fill-color: unset;
 }
@@ -68,8 +67,7 @@
   width: 6px;
   height: 6px;
   border-radius: 0;
-  background: var(--accent-primary);
-  box-shadow: var(--glow-primary);
+  background: #7c3aed;
   animation: pulse-accent 2s ease-in-out infinite;
 }
 
@@ -79,6 +77,7 @@
   position: relative;
   z-index: 2;
   border-bottom: 1px solid var(--border-color);
+  background: transparent;
 }
 
 .section-container {
@@ -93,30 +92,28 @@
   text-align: left;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--text-primary);
+  color: #000000;
 }
 
-/* Section header separator */
 .section-title::before {
   content: '// ';
-  color: var(--accent-primary);
-  text-shadow: var(--glow-text);
+  color: #7c3aed;
 }
 
 /* ── Problem Section ──────────────────────────────────────── */
-.problem-section .section-title { color: var(--text-primary); }
-
 .pain-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 0;
   border: 1px solid var(--border-color);
   margin-top: 48px;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(6px);
 }
 
 .pain-card {
   padding: 32px;
-  background: var(--bg-card);
+  background: rgba(255,255,255,0.8);
   border: none;
   border-right: 1px solid var(--border-color);
   transition: var(--transition-digital);
@@ -125,11 +122,8 @@
 
 .pain-card:last-child { border-right: none; }
 
-.pain-card:hover {
-  background: var(--bg-muted);
-}
+.pain-card:hover { background: var(--accent-dim); }
 
-/* Title bar style for each card */
 .pain-card::before {
   content: '+-- ERR --+';
   display: block;
@@ -145,8 +139,7 @@
   font-family: var(--font-mono);
   font-weight: 700;
   margin-bottom: 12px;
-  color: var(--accent-primary);
-  text-shadow: var(--glow-text);
+  color: #7c3aed;
 }
 
 .pain-card h3 {
@@ -156,7 +149,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #fff;
+  color: #000000;
 }
 
 .pain-card p {
@@ -166,15 +159,12 @@
 }
 
 /* ── Solution Section ─────────────────────────────────────── */
-.solution-header {
-  margin-bottom: 48px;
-}
+.solution-header { margin-bottom: 48px; }
 
 .terminal-output {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: var(--accent-primary);
-  text-shadow: var(--glow-text);
+  color: #7c3aed;
   margin-top: 8px;
   letter-spacing: 0.08em;
 }
@@ -184,11 +174,13 @@
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 0;
   border: 1px solid var(--border-accent);
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(6px);
 }
 
 .solution-card.holographic {
   padding: 32px;
-  background: var(--bg-card);
+  background: rgba(255,255,255,0.8);
   border: none;
   border-right: 1px solid var(--border-color);
   position: relative;
@@ -200,7 +192,6 @@
 
 .solution-card.holographic:last-child { border-right: none; }
 
-/* Scanline sweep on card top */
 .solution-glow {
   position: absolute;
   top: 0;
@@ -208,11 +199,10 @@
   width: 100%;
   height: 1px;
   background: var(--accent-primary);
-  box-shadow: var(--glow-primary);
   animation: scanline 3s infinite linear;
 }
 
-.solution-card:hover { background: var(--bg-muted); }
+.solution-card:hover { background: var(--accent-dim); }
 
 .solution-card h3 {
   margin-bottom: 12px;
@@ -221,8 +211,7 @@
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--accent-primary);
-  text-shadow: var(--glow-text);
+  color: #7c3aed;
 }
 
 .solution-card p {
@@ -233,10 +222,11 @@
 
 /* ── OG Integration Section ────────────────────────────────── */
 .og-section .section-container {
-  background: var(--bg-card);
+  background: rgba(255,255,255,0.85);
   border: 1px solid var(--border-accent);
   padding: 56px;
   text-align: center;
+  backdrop-filter: blur(6px);
 }
 
 .og-visual {
@@ -249,14 +239,14 @@
 
 .og-node {
   padding: 10px 20px;
-  border: 1px solid var(--accent-primary);
-  color: var(--accent-primary);
-  text-shadow: var(--glow-text);
+  border: 1px solid var(--border-accent);
+  color: #7c3aed;
   font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  background: var(--accent-dim);
 }
 
 .og-link-pulse {
@@ -273,18 +263,16 @@
   left: 0;
   width: 4px;
   height: 4px;
-  background: var(--accent-primary);
+  background: #7c3aed;
   animation: shoot-h 2s infinite linear;
-  box-shadow: var(--glow-primary);
 }
 
-/* CTA button */
 .btn-cyber {
   display: inline-block;
   padding: 12px 32px;
   background: transparent;
-  border: 1px solid var(--accent-primary);
-  color: var(--accent-primary);
+  border: 1px solid #000000;
+  color: #000000;
   text-decoration: none;
   font-family: var(--font-mono);
   font-weight: 700;
@@ -292,24 +280,17 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   transition: var(--transition-digital);
-  clip-path: none;
-  text-shadow: var(--glow-text);
 }
 
 .btn-cyber:hover {
-  background: var(--accent-primary);
-  color: var(--bg-void);
-  text-shadow: none;
+  background: #000000;
+  color: #ffffff;
 }
 
 /* ── Partners Section ─────────────────────────────────────── */
-.partners-section {
-  background: var(--bg-void);
-}
+.partners-section { background: transparent; }
 
-.partners-header {
-  margin-bottom: 48px;
-}
+.partners-header { margin-bottom: 48px; }
 
 .partner-subtitle {
   color: var(--text-muted);
@@ -322,6 +303,8 @@
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 0;
   border: 1px solid var(--border-color);
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(6px);
 }
 
 .partner-card {
@@ -329,7 +312,7 @@
   align-items: center;
   gap: 20px;
   padding: 28px;
-  background: var(--bg-card);
+  background: rgba(255,255,255,0.8);
   border: none;
   border-right: 1px solid var(--border-color);
   transition: var(--transition-digital);
@@ -340,7 +323,6 @@
 
 .partner-card:last-child { border-right: none; }
 
-/* Left accent bar */
 .partner-card::before {
   content: '';
   position: absolute;
@@ -352,7 +334,7 @@
   transition: height 200ms linear;
 }
 
-.partner-card:hover { background: var(--bg-muted); }
+.partner-card:hover { background: var(--accent-dim); }
 .partner-card:hover::before { height: 100%; }
 
 .partner-logo-wrapper {
@@ -370,7 +352,7 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: grayscale(1) brightness(1.8);
+  filter: grayscale(1) brightness(0.9);
   transition: var(--transition-smooth);
 }
 
@@ -383,6 +365,7 @@
   margin-bottom: 4px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  color: #000000;
 }
 
 .partner-info p {
@@ -397,16 +380,12 @@
   font-size: 0.55rem;
   padding: 3px 8px;
   background: var(--accent-dim);
-  color: var(--accent-primary);
+  color: #7c3aed;
   border: 1px solid var(--border-accent);
   letter-spacing: 0.08em;
-  text-shadow: var(--glow-text);
 }
 
-.partner-placeholder {
-  border-style: dashed;
-  opacity: 0.6;
-}
+.partner-placeholder { border-style: dashed; opacity: 0.7; }
 
 .placeholder-icon {
   font-size: 1.5rem;
@@ -417,24 +396,22 @@
 .partner-link {
   font-family: var(--font-mono);
   font-size: 0.65rem;
-  color: var(--accent-primary);
+  color: #7c3aed;
   text-decoration: none;
   font-weight: 700;
   letter-spacing: 0.08em;
   transition: var(--transition-digital);
 }
 
-.partner-link:hover {
-  text-shadow: var(--glow-text);
-  padding-left: 4px;
-}
+.partner-link:hover { padding-left: 4px; }
 
 /* ── Footer ───────────────────────────────────────────────── */
 .landing-footer {
   padding: 32px var(--gap-lg);
   border-top: 1px solid var(--border-color);
-  background: var(--bg-deep);
+  background: rgba(255,255,255,0.9);
   font-family: var(--font-mono);
+  backdrop-filter: blur(8px);
 }
 
 .footer-content {
@@ -451,16 +428,14 @@
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent-primary);
-  text-shadow: var(--glow-text);
+  color: #7c3aed;
   font-size: 0.75rem;
 }
 
 .footer-status {
-  color: var(--accent-primary);
+  color: #7c3aed;
   font-size: 0.7rem;
   letter-spacing: 0.1em;
-  text-shadow: var(--glow-text);
 }
 
 .footer-copyright {
@@ -470,10 +445,10 @@
   text-transform: uppercase;
 }
 
-/* ── Accent text utilities ────────────────────────────────── */
-.text-accent-secondary { color: var(--text-primary); }
-.text-accent-tertiary  { color: var(--accent-primary); text-shadow: var(--glow-text); }
-.text-accent-primary   { color: var(--accent-primary); text-shadow: var(--glow-text); }
+/* ── Utilities ────────────────────────────────────────────── */
+.text-accent-secondary { color: #000000; }
+.text-accent-tertiary  { color: #7c3aed; }
+.text-accent-primary   { color: #7c3aed; }
 
 /* ── Responsive ──────────────────────────────────────────── */
 @media (max-width: 768px) {

@@ -5,10 +5,11 @@
 .data-terminal {
   display: flex;
   flex-direction: column;
-  background: var(--bg-void);
+  background: rgba(255,255,255,0.85);
   border: 1px solid var(--border-color);
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(6px);
 }
 
 /* ── Terminal Header ─────────────────────────────────────── */
@@ -17,7 +18,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 7px 14px;
-  background: var(--bg-deep);
+  background: rgba(255,255,255,0.9);
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -63,7 +64,7 @@
 /* ── Tabs ────────────────────────────────────────────────── */
 .terminal-tabs {
   display: flex;
-  background: var(--bg-deep);
+  background: rgba(255,255,255,0.9);
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -83,10 +84,9 @@
 }
 
 .terminal-tab.active {
-  background: var(--bg-card);
-  color: var(--accent-primary);
-  text-shadow: var(--glow-text);
-  border-bottom: 1px solid var(--accent-primary);
+  background: rgba(255,255,255,1);
+  color: #7c3aed;
+  border-bottom: 1px solid #7c3aed;
 }
 
 .terminal-tab:hover:not(.active) {
@@ -115,9 +115,10 @@
   flex: 1;
   padding: 10px;
   overflow-y: auto;
+  background: rgba(255,255,255,0.6);
   background-image:
-    linear-gradient(rgba(227, 193, 255, 0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(227, 193, 255, 0.015) 1px, transparent 1px);
+    linear-gradient(rgba(179, 100, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(179, 100, 255, 0.02) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
@@ -176,7 +177,7 @@
 
 .memory-card {
   padding: 14px;
-  background: var(--bg-card);
+  background: rgba(255,255,255,0.85);
   border: 1px solid var(--border-color);
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -185,7 +186,7 @@
 
 .memory-card:hover {
   border-color: var(--border-accent);
-  background: var(--bg-muted);
+  background: var(--accent-dim);
 }
 
 .mem-header {
@@ -222,14 +223,14 @@
 
 .memory-entry {
   padding: 10px 12px;
-  background: var(--bg-card);
+  background: rgba(255,255,255,0.85);
   border: 1px solid var(--border-color);
   border-left: 2px solid var(--accent-muted);
   transition: var(--transition-digital);
 }
 
 .memory-entry:hover {
-  background: var(--bg-muted);
+  background: var(--accent-dim);
   border-color: var(--border-accent);
 }
 
@@ -306,7 +307,7 @@
 /* ── Terminal Footer ─────────────────────────────────────── */
 .terminal-footer {
   padding: 4px 14px;
-  background: var(--bg-deep);
+  background: rgba(255,255,255,0.9);
   border-top: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;
@@ -317,7 +318,7 @@
   letter-spacing: 0.1em;
 }
 
-.text-accent-primary { color: var(--accent-primary); text-shadow: var(--glow-text); }
+.text-accent-primary { color: #7c3aed; }
 
 /* ── Empty State ─────────────────────────────────────────── */
 .empty-state {

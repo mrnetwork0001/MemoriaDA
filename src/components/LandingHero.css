@@ -1,5 +1,5 @@
 /* ============================================================
-   LANDING HERO — Terminal CLI / ZSH Aesthetic
+   LANDING HERO — Light Mode / Dot-Grid Background
    ============================================================ */
 
 .landing-hero {
@@ -7,17 +7,14 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: var(--bg-void);
+  background: transparent; /* shows through to dot-grid body */
   padding: 80px var(--gap-lg) 60px;
   overflow: hidden;
 }
 
-/* Subtle scanline bg stripe that moves */
 .hero-background { display: none; }
-.grid-overlay { display: none; }
-
-/* Data streams replaced by vertical bars */
-.data-streams { display: none; }
+.grid-overlay    { display: none; }
+.data-streams    { display: none; }
 
 .hero-grid-container {
   max-width: 1200px;
@@ -34,14 +31,12 @@
 /* ── Left Content ─────────────────────────────────────── */
 .hero-content-left { text-align: left; }
 
-/* System ready badge */
 .hero-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-size: 0.65rem;
-  color: var(--accent-primary);
-  text-shadow: var(--glow-text);
+  color: #7c3aed;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   margin-bottom: 28px;
@@ -50,7 +45,7 @@
   background: var(--accent-dim);
 }
 
-/* Typewriter headline */
+/* Headline */
 .hero-main-title {
   font-family: var(--font-mono);
   font-size: clamp(1.8rem, 4.5vw, 3rem);
@@ -58,15 +53,12 @@
   margin-bottom: 28px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: var(--text-primary);
-  /* Typewriter effect on first line */
+  color: #000000;
   overflow: hidden;
 }
 
-/* The accent span inside title */
 .hero-main-title .text-gradient-cyan {
-  color: var(--accent-primary);
-  text-shadow: var(--glow-text);
+  color: #7c3aed;
   -webkit-text-fill-color: unset;
   background: none;
 }
@@ -79,7 +71,7 @@
   margin-bottom: 40px;
 }
 
-/* CTAs as terminal bracket buttons */
+/* CTAs */
 .hero-cta-wrapper {
   display: flex;
   gap: 16px;
@@ -90,8 +82,8 @@
 .btn-hero-primary {
   display: inline-block;
   padding: 12px 28px;
-  background: var(--accent-primary);
-  color: var(--bg-void);
+  background: #000000;
+  color: #ffffff;
   text-decoration: none;
   font-family: var(--font-mono);
   font-weight: 800;
@@ -104,8 +96,8 @@
 }
 
 .btn-hero-primary:hover {
-  background: #fff;
-  color: #000;
+  background: #7c3aed;
+  color: #fff;
 }
 
 .btn-hero-secondary {
@@ -113,7 +105,7 @@
   padding: 12px 28px;
   background: transparent;
   border: 1px solid var(--border-accent);
-  color: var(--accent-primary);
+  color: #7c3aed;
   text-decoration: none;
   font-family: var(--font-mono);
   font-weight: 600;
@@ -121,21 +113,21 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   transition: var(--transition-digital);
-  clip-path: none;
 }
 
 .btn-hero-secondary:hover {
   background: var(--accent-dim);
-  border-color: var(--accent-primary);
-  color: #fff;
+  border-color: #7c3aed;
+  color: #000;
 }
 
-/* Metrics — terminal data readout */
+/* Metrics bar */
 .hero-metrics {
   display: flex;
   gap: 0;
   border: 1px solid var(--border-color);
   max-width: 480px;
+  background: rgba(255,255,255,0.7);
 }
 
 .metric {
@@ -157,33 +149,31 @@
 
 .metric .m-val {
   font-size: 0.78rem;
-  color: var(--accent-primary);
+  color: #7c3aed;
   font-weight: 700;
-  text-shadow: var(--glow-text);
 }
 
-/* ── Right Visual — ASCII Art Terminal Window ─────────── */
+/* ── Right Visual — Terminal window pane ──────────────── */
 .hero-visual-right {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
 }
 
-/* Replace orbital with a terminal window pane */
 .orbital-system-cyber {
   width: 100%;
   max-width: 420px;
   border: 1px solid var(--border-accent);
-  background: var(--bg-card);
+  background: rgba(255, 255, 255, 0.85);
   font-family: var(--font-mono);
+  backdrop-filter: blur(6px);
 }
 
-/* Hide the actual orbital children */
+/* Hide orbital elements */
 .orbit-path,
 .orbital-node,
 .storage-sphere-0g { display: none; }
 
-/* Title bar of the terminal window */
 .central-neural-core {
   position: static;
   display: block;
@@ -193,7 +183,6 @@
 .core-pulse { display: none; }
 
 .core-icon {
-  /* Repurpose as window title bar */
   display: block;
   font-size: 0.6rem;
   padding: 6px 12px;
@@ -204,20 +193,22 @@
   text-transform: uppercase;
 }
 
-.core-icon::before { content: '● ● ●  '; color: var(--accent-primary); font-size: 0.5rem; }
+.core-icon::before {
+  content: '● ● ●  ';
+  color: var(--accent-primary);
+  font-size: 0.5rem;
+}
 
 .core-label {
   display: block;
   padding: 20px 16px;
   font-size: 0.68rem;
-  color: var(--accent-primary);
-  text-shadow: var(--glow-text);
+  color: #7c3aed;
   letter-spacing: 0.1em;
   line-height: 1.9;
   white-space: pre;
 }
 
-/* ASCII art displayed as the core label content via CSS */
 .core-label::before {
   content:
     "  ╔═══════════════════╗\A"
@@ -236,21 +227,16 @@
   line-height: 1.6;
 }
 
-/* Blinking cursor after ASCII */
 .core-label::after {
   content: '\25AE';
-  color: var(--accent-primary);
+  color: #7c3aed;
   animation: blink 1s step-end infinite;
   margin-left: 4px;
   font-size: 0.8rem;
 }
 
-/* Responsive */
 @media (max-width: 1100px) {
-  .hero-grid-container {
-    grid-template-columns: 1fr;
-    gap: 48px;
-  }
+  .hero-grid-container { grid-template-columns: 1fr; gap: 48px; }
   .hero-visual-right { justify-content: center; width: 100%; }
   .orbital-system-cyber { max-width: 340px; margin: 0 auto; }
 }

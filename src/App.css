@@ -11,17 +11,17 @@
   background: var(--bg-void);
 }
 
-/* Scanline HUD stripe */
+/* Scanline HUD stripe — thin purple on light bg */
 .scanline {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   height: 1px;
-  background: rgba(227, 193, 255, 0.12);
+  background: rgba(179, 100, 255, 0.18);
   z-index: 10000;
   pointer-events: none;
-  animation: scanline 10s linear infinite;
+  animation: scanline 12s linear infinite;
 }
 
 /* ── Dashboard Shell ─────────────────────────────────────── */
@@ -30,10 +30,11 @@
   padding: 0 var(--gap-md);
   gap: 0;
   border-bottom: 1px solid var(--border-color);
-  background: var(--bg-deep);
+  background: rgba(255,255,255,0.92);
   z-index: 2;
   position: relative;
   font-family: var(--font-mono);
+  backdrop-filter: blur(8px);
 }
 
 .nav-tab {
@@ -66,12 +67,11 @@
 .nav-tab:hover::before { opacity: 1; }
 
 .nav-tab.active {
-  color: var(--accent-primary);
-  text-shadow: var(--glow-text);
-  background: var(--bg-card);
+  color: #7c3aed;
+  background: var(--accent-dim);
 }
 
-.nav-tab.active::before { opacity: 1; color: var(--accent-primary); }
+.nav-tab.active::before { opacity: 1; color: #7c3aed; }
 
 .nav-tab.active::after {
   content: '';
@@ -80,8 +80,7 @@
   left: 0;
   width: 100%;
   height: 1px;
-  background: var(--accent-primary);
-  box-shadow: var(--glow-primary);
+  background: #7c3aed;
 }
 
 .dashboard {
