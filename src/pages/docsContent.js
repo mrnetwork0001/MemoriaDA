@@ -160,14 +160,21 @@ export const DOCS_SECTIONS = [
     title: "NFT-BASED IDENTITY",
     subtitle: "Agents as first-class citizens on the 0G network.",
     content: `
-      <p class="docs-p">Every agent on Memoria DA is represented by an ERC-721 NFT. This ownership model ensures that only the authorized owner can update an agent's memory.</p>
+      <p class="docs-p">Every agent on Memoria DA is represented by a soulbound-style ERC-721 NFT. This ownership model ensures that an agent's memory history is cryptographically linked to a specific onchain identity.</p>
       
-      <h3 class="docs-h3">Registration Process</h3>
-      <p class="docs-p">Call <code class="ic">registerAgent(id, framework)</code> on the registry. This mints a unique NFT and initializes your memory root at 0x0.</p>
+      <h2 class="docs-h2">The Registry NFT</h2>
+      <p class="docs-p">When you register an agent, the MemoriaRegistry mints an NFT to your wallet. This token ID corresponds to your <code class="ic">agentId</code> and serves as the authorization key for all future memory updates.</p>
+
+      <h3 class="docs-h3">Benefits of NFT Identity</h3>
+      <ul class="docs-list">
+        <li><strong>Ownership Portability:</strong> Transfer an agent's entire memory history by simply transferring the NFT.</li>
+        <li><strong>Onchain Verification:</strong> Any third-party dapp can verify an agent's framework and memory root by querying the NFT metadata.</li>
+        <li><strong>Permissionless Discovery:</strong> The registry serves as a "Yellow Pages" for all AI agents in the 0G ecosystem.</li>
+      </ul>
       
-      <div class="docs-callout">
-        <div class="callout-label">Agent ID Format</div>
-        Recommended: <code class="ic">agent_[name]_[framework]</code> (e.g., <code class="ic">agent_claw_openclaw</code>).
+      <div class="docs-callout tip">
+        <div class="callout-label">Developer Tip</div>
+        You can check if a user owns an agent's memory by calling <code class="ic">ownerOf(tokenId)</code> on our registry contract.
       </div>
     `
   },
@@ -177,13 +184,23 @@ export const DOCS_SECTIONS = [
     title: "ONCHAIN REGISTRY",
     subtitle: "Technical details of the MemoriaRegistryV2 contract.",
     content: `
-      <h2 class="docs-h2">Key Functions (ABI)</h2>
+      <p class="docs-p">The MemoriaRegistryV2 is the source of truth for the protocol. It handles agent registration, memory anchoring, and fee collection via 0G native tokens.</p>
+
+      <h2 class="docs-h2">Core Functionality</h2>
+      
+      <h3 class="docs-h3">registerAgent(string id, string framework)</h3>
+      <p class="docs-p">Mints the identity NFT and sets the initial state. The <code class="ic">framework</code> field helps other agents understand how to interact with your memory schema (e.g., "OpenClaw", "Eliza").</p>
+
+      <h3 class="docs-h3">updateMemoryRoot(string id, bytes32 root, uint vectors)</h3>
+      <p class="docs-p">The primary anchoring function. It requires a micropayment of 0.001 0G. It updates the Merkle root and increments the total vector count for the agent.</p>
+
+      <h2 class="docs-h2">Events</h2>
+      <p class="docs-p">The contract emits the following events for indexing and real-time UI updates:</p>
       <div class="code-block-wrapper">
         <div class="code-header"><span class="code-lang">solidity</span></div>
         <pre class="code-block">
-function registerAgent(string id, string fw) external;
-function updateMemoryRoot(string id, bytes32 root, uint vectors) external payable;
-function verifyMemoryRoot(string id, bytes32 root) external view returns (bool isValid, bytes32 storedRoot);
+event AgentRegistered(address indexed owner, string agentId, uint256 tokenId);
+event MemoryAnchored(string indexed agentId, bytes32 rootHash, uint256 vectorCount);
         </pre>
       </div>
     `
@@ -194,27 +211,65 @@ function verifyMemoryRoot(string id, bytes32 root) external view returns (bool i
     title: "API REFERENCE",
     subtitle: "Direct HTTP interface for the Memoria backend.",
     content: `
+      <p class="docs-p">Our REST API provides a high-level abstraction over the 0G Storage and Chain complexity. Use this if you are not using our JS SDK.</p>
+
+      <h2 class="docs-h2">Endpoints</h2>
+
       <h3 class="docs-h3">POST /api/storage/upload</h3>
-      <p class="docs-p">Uploads memory to 0G Storage.</p>
+      <p class="docs-p">Embeds content and stores it as a blob on 0G Storage.</p>
       <div class="code-block-wrapper">
         <div class="code-header"><span class="code-lang">json</span><span class="code-file">Request Body</span></div>
-        <pre class="code-block">{ "agentId": "string", "content": "string" }</pre>
+        <pre class="code-block">
+{
+  "agentId": "my_agent_01",
+  "content": "User prefers cold brew coffee.",
+  "metadata": { "context": "kitchen_chat" }
+}
+        </pre>
       </div>
 
-      <h3 class="docs-h3">POST /api/registry/anchor</h3>
-      <p class="docs-p">Triggers onchain anchoring.</p>
+      <h3 class="docs-h3">GET /api/memory/global</h3>
+      <p class="docs-p">Retrieves the list of all registered agents and their current onchain stats.</p>
+      <div class="code-block-wrapper">
+        <div class="code-header"><span class="code-lang">json</span><span class="code-file">Response</span></div>
+        <pre class="code-block">
+{
+  "agents": [
+    { "id": "alpha_journal", "vectors": 142, "lastUpdate": 171543212 },
+    { "id": "sol_tutor", "vectors": 89, "lastUpdate": 171543999 }
+  ]
+}
+        </pre>
+      </div>
     `
   },
   {
     id: "sdk",
     label: "09_SDK_GUIDE",
-    title: "SDK QUICKSTART",
-    subtitle: "Integrating Memoria in 3 steps.",
+    title: "SDK INTEGRATION",
+    subtitle: "Building with the Memoria TypeScript SDK.",
     content: `
-      <h3 class="docs-h3">1. Install</h3>
-      <div class="code-block-wrapper"><pre class="code-block">npm install @memoriada/sdk</pre></div>
-      <h3 class="docs-h3">2. Initialize</h3>
-      <h3 class="docs-h3">3. Remember</h3>
+      <p class="docs-p">The Memoria SDK is the recommended way to build. It handles the heavy lifting of Merkle Tree generation and Ethers.js integration.</p>
+
+      <h2 class="docs-h2">Advanced Usage</h2>
+      
+      <h3 class="docs-h3">Fetching Full Memory History</h3>
+      <div class="code-block-wrapper">
+        <div class="code-header"><span class="code-lang">javascript</span></div>
+        <pre class="code-block">
+const history = await memoria.getHistory("agent_id");
+console.log(\`Found \${history.length} onchain memories.\`);
+        </pre>
+      </div>
+
+      <h3 class="docs-h3">Manual Verification</h3>
+      <div class="code-block-wrapper">
+        <div class="code-header"><span class="code-lang">javascript</span></div>
+        <pre class="code-block">
+const isValid = await memoria.verify(content, proof, rootHash);
+if (isValid) console.log("Memory integrity guaranteed.");
+        </pre>
+      </div>
     `
   },
   {
@@ -223,9 +278,18 @@ function verifyMemoryRoot(string id, bytes32 root) external view returns (bool i
     title: "DEVELOPER PAYS MODEL",
     subtitle: "Abstracting gas fees for a seamless user experience.",
     content: `
-      <p class="docs-p">To provide a Web2-like experience, we use a "Developer Pays" model via 0G Pay. The agent owner deposits 0G tokens into the registry, and the backend signs transactions on the agent's behalf.</p>
+      <p class="docs-p">Memoria DA solves the "Wallet Friction" problem by allowing developers to sponsor their agents' memory updates.</p>
+
+      <h2 class="docs-h2">How it Works</h2>
+      <ul class="docs-list numbered">
+        <li>The Developer deploys a server-side wallet (hot wallet).</li>
+        <li>The hot wallet is granted "Manager" rights in the app config.</li>
+        <li>When the agent learns something, the server signs the <code class="ic">updateMemoryRoot</code> TX.</li>
+        <li>The developer pays the 0.001 0G fee from their treasury.</li>
+      </ul>
+
       <div class="docs-callout tip">
-        Users never need a wallet to interact with your agent; they only need your application.
+        This allows users to interact with AI agents without ever knowing a blockchain is involved.
       </div>
     `
   },
@@ -235,7 +299,16 @@ function verifyMemoryRoot(string id, bytes32 root) external view returns (bool i
     title: "NATIVE AGENT SKILLS",
     subtitle: "Drop-in memory for OpenClaw agents.",
     content: `
-      <p class="docs-p">MemoriaDA ships an official SKILL.md for the OpenClaw framework. Simply add the skill to your agent's directory to enable persistent memory.</p>
+      <p class="docs-p">If you are using the <strong>OpenClaw</strong> agent framework, integration is a single file drop.</p>
+
+      <h2 class="docs-h2">Setup</h2>
+      <p class="docs-p">Copy our <code class="ic">SKILL.md</code> into your <code class="ic">/skills</code> directory. Your agent will immediately recognize the following tools:</p>
+
+      <ul class="docs-list">
+        <li><code class="ic">memoria_remember(content)</code>: Permanent storage & anchor.</li>
+        <li><code class="ic">memoria_recall(query)</code>: Semantic search across 0G Storage.</li>
+        <li><code class="ic">memoria_verify(root)</code>: Cryptographic proof check.</li>
+      </ul>
     `
   },
   {
@@ -244,7 +317,18 @@ function verifyMemoryRoot(string id, bytes32 root) external view returns (bool i
     title: "0G PAY & KHALANI",
     subtitle: "The economic engine of the memory network.",
     content: `
-      <p class="docs-p">We utilize 0G Pay and Khalani's intent-based rails to handle micro-payments. Each memory anchor costs 0.001 0G, which incentivizes storage nodes and maintainers.</p>
+      <p class="docs-p">Memoria DA utilizes an intent-based micropayment system powered by <strong>0G Pay</strong> and <strong>Khalani</strong>.</p>
+
+      <h2 class="docs-h2">The Fee Structure</h2>
+      <p class="docs-p">To prevent spam and incentivize the Decentralized Storage (DA) layer, each anchoring transaction requires a fee:</p>
+      <ul class="docs-list">
+        <li><strong>Base Fee:</strong> 0.001 0G per <code class="ic">anchor()</code>.</li>
+        <li><strong>Storage Rent:</strong> Included in the base fee for the first 2 years of retention.</li>
+        <li><strong>Compute Tax:</strong> Optional 0.0005 0G for TEE-verified inference.</li>
+      </ul>
+
+      <h2 class="docs-h2">Khalani Intent Rails</h2>
+      <p class="docs-p">By integrating Khalani, we enable "cross-chain memory subsidies". A developer can pay in USDC on Polygon, and Khalani's solver network will provide the 0G tokens on the Galileo testnet to fulfill the memory anchor intent.</p>
     `
   },
   {
@@ -253,7 +337,18 @@ function verifyMemoryRoot(string id, bytes32 root) external view returns (bool i
     title: "VERIFICATION & TRUST",
     subtitle: "Ensuring your agent's context hasn't been tampered with.",
     content: `
-      <p class="docs-p">Merkle Proofs combined with 0G Compute TEEs ensure that retrieved memory is exactly what was stored. If a storage node attempts to serve false data, the cryptographic verification fails immediately.</p>
+      <p class="docs-p">Trust in Memoria DA is rooted in cryptography, not promises. We use a two-tier verification model.</p>
+
+      <h2 class="docs-h2">Tier 1: Merkle Integrity</h2>
+      <p class="docs-p">Every memory blob is part of a Merkle Tree. The root of this tree is stored on the 0G Chain. If a storage node alters even a single bit of a memory, the Merkle proof will fail to match the onchain root.</p>
+
+      <h2 class="docs-h2">Tier 2: TEE Sealed Inference</h2>
+      <p class="docs-p">For high-security agents, memory retrieval is performed inside a <strong>Trusted Execution Environment (TEE)</strong> provided by 0G Compute. This ensures that the RAG (Retrieval Augmented Generation) process hasn't been intercepted or manipulated.</p>
+
+      <div class="docs-callout warn">
+        <div class="callout-label">Safety Warning</div>
+        Always verify the <code class="ic">rootHash</code> before allowing an agent to act on recalled memories.
+      </div>
     `
   },
   {
@@ -262,14 +357,20 @@ function verifyMemoryRoot(string id, bytes32 root) external view returns (bool i
     title: "ECOSYSTEM ADOPTION",
     subtitle: "Projects already utilizing Memoria DA.",
     content: `
+      <p class="docs-p">Memoria DA is already being integrated into several high-impact AI projects within the 0G ecosystem.</p>
+
       <div class="feature-grid">
         <div class="feature-card">
           <h4>AlphaJournal</h4>
-          <p>Decentralized trading diary with verifiable thesis history.</p>
+          <p>The first decentralized trading diary. It uses Memoria to ensure traders' market theses are immortalized and verifiable by their subscribers.</p>
         </div>
         <div class="feature-card">
           <h4>SolTutor</h4>
-          <p>AI mentor that remembers student progress across session resets.</p>
+          <p>An AI Solidity mentor that tracks student progress. Memoria allows the tutor to "remember" where a student left off across different browser sessions.</p>
+        </div>
+        <div class="feature-card">
+          <h4>OpenClaw</h4>
+          <p>The lead orchestration framework for autonomous agents on 0G. Memoria provides the default long-term memory skill for all Claw agents.</p>
         </div>
       </div>
     `
@@ -278,10 +379,34 @@ function verifyMemoryRoot(string id, bytes32 root) external view returns (bool i
     id: "faq",
     label: "15_FAQ",
     title: "COMMON QUESTIONS",
-    subtitle: "Quick answers for developers.",
+    subtitle: "Quick answers for developers and users.",
     content: `
-      <p><strong>Is it open source?</strong> Yes, the registry and SDK are fully MIT licensed.</p>
-      <p><strong>Which chains are supported?</strong> Currently 0G Galileo Testnet. Mainnet support coming soon.</p>
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-prefix">Q:</span> Is my data private on Memoria DA?
+        </div>
+        <div class="faq-answer">
+          By default, data on 0G Storage is public (but hashed). For private memories, we recommend encrypting your JSON payload using the agent's public key before calling the upload API.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-prefix">Q:</span> Can I delete a memory?
+        </div>
+        <div class="faq-answer">
+          Onchain anchors are immutable. However, you can "prune" your local state and update the Merkle root to exclude certain data. The old data will remain in 0G Storage until the rent expires, but it will no longer be part of the "active" memory root.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-prefix">Q:</span> What is the cost for 1,000 memories?
+        </div>
+        <div class="faq-answer">
+          Approximately 1 0G token total. Our goal is to keep memory extremely affordable for millions of autonomous agents.
+        </div>
+      </div>
     `
   },
   {
@@ -291,8 +416,22 @@ function verifyMemoryRoot(string id, bytes32 root) external view returns (bool i
     subtitle: "Key terms in the Memoria ecosystem.",
     content: `
       <div class="glossary-grid">
-        <div class="glossary-item"><div class="glossary-term">DA Layer</div><div class="glossary-def">Data Availability layer (0G Storage).</div></div>
-        <div class="glossary-item"><div class="glossary-term">Root Hash</div><div class="glossary-def">The Merkle Root of an agent's memory tree.</div></div>
+        <div class="glossary-item">
+          <div class="glossary-term">DA Layer</div>
+          <div class="glossary-def">Data Availability. The 0G Storage network where raw memory blobs are held.</div>
+        </div>
+        <div class="glossary-item">
+          <div class="glossary-term">Merkle Root</div>
+          <div class="glossary-def">A single hash that represents the integrity of the entire memory set.</div>
+        </div>
+        <div class="glossary-item">
+          <div class="glossary-term">Anchoring</div>
+          <div class="glossary-def">The process of posting a Merkle root to the 0G blockchain.</div>
+        </div>
+        <div class="glossary-item">
+          <div class="glossary-term">Vector Embedding</div>
+          <div class="glossary-def">A mathematical representation of text that captures semantic meaning.</div>
+        </div>
       </div>
     `
   },
@@ -303,8 +442,33 @@ function verifyMemoryRoot(string id, bytes32 root) external view returns (bool i
     subtitle: "Upcoming milestones and features.",
     content: `
       <div class="roadmap-timeline">
-        <div class="roadmap-item done"><div class="roadmap-phase">Phase 1</div><div class="roadmap-title">Protocol Genesis <span class="badge-done">Live</span></div></div>
-        <div class="roadmap-item active"><div class="roadmap-phase">Phase 2</div><div class="roadmap-title">Vector Economy <span class="badge-wip">In Progress</span></div></div>
+        <div class="roadmap-item done">
+          <div class="roadmap-phase">Q1 2024</div>
+          <div class="roadmap-title">Protocol Genesis <span class="badge-done">Live</span></div>
+          <ul class="roadmap-items">
+            <li>MemoriaRegistryV2 Deployment</li>
+            <li>0G Storage Integration</li>
+            <li>Basic JS SDK Launch</li>
+          </ul>
+        </div>
+        <div class="roadmap-item active">
+          <div class="roadmap-phase">Q2 2024</div>
+          <div class="roadmap-title">Vector Economy <span class="badge-wip">WIP</span></div>
+          <ul class="roadmap-items">
+            <li>0G Pay & Khalani Integration</li>
+            <li>OpenClaw Skill Official Support</li>
+            <li>Cross-agent memory discovery</li>
+          </ul>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">Q3 2024</div>
+          <div class="roadmap-title">Sealed Inference <span class="badge-coming">Future</span></div>
+          <ul class="roadmap-items">
+            <li>TEE-verified memory retrieval</li>
+            <li>Zero-Knowledge Proofs for private memory</li>
+            <li>Mainnet Migration</li>
+          </ul>
+        </div>
       </div>
     `
   }
