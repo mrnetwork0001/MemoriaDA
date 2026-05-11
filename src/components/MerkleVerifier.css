@@ -1,14 +1,19 @@
+/* ============================================================
+   MERKLE VERIFIER — Terminal CLI
+   ============================================================ */
+
 .merkle-verifier {
   padding: 1.5rem;
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  background: rgba(4, 9, 20, 0.6);
-  border-radius: 8px;
+  gap: 1.2rem;
+  background: var(--bg-void);
   border: 1px solid var(--border-color);
-  backdrop-filter: blur(10px);
+  border-radius: 0;
+  backdrop-filter: none;
   overflow-y: auto;
+  font-family: var(--font-mono);
 }
 
 .verifier-header {
@@ -17,268 +22,261 @@
 }
 
 .verifier-header h2 {
-  font-size: 1.2rem;
-  color: var(--text-primary);
-  margin: 0 0 0.5rem 0;
-  letter-spacing: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--accent-primary);
+  text-shadow: var(--glow-text);
+  margin: 0 0 0.4rem 0;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
+.verifier-header h2::before { content: '// '; color: var(--accent-muted); }
+
 .verifier-subtitle {
-  color: var(--text-secondary);
-  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-size: 0.72rem;
   line-height: 1.5;
   margin: 0;
 }
 
-/* ─── Form ──────────────────────────────────────── */
-
+/* ── Form ─────────────────────────────────────────────────── */
 .verifier-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.9rem;
 }
 
 .autofill-btn {
-  padding: 0.7rem 1rem;
-  background: rgba(168, 85, 247, 0.1);
-  border: 1px dashed rgba(168, 85, 247, 0.4);
-  color: var(--purple);
-  font-size: 0.8rem;
-  letter-spacing: 1px;
+  padding: 0.6rem 1rem;
+  background: var(--accent-dim);
+  border: 1px dashed var(--border-accent);
+  color: var(--accent-primary);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   cursor: pointer;
-  border-radius: 4px;
-  transition: all 0.3s ease;
+  border-radius: 0;
+  transition: var(--transition-digital);
 }
 
 .autofill-btn:hover {
-  background: rgba(168, 85, 247, 0.2);
+  background: var(--accent-primary);
+  color: var(--bg-void);
   border-style: solid;
-  box-shadow: 0 0 12px rgba(168, 85, 247, 0.2);
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.35rem;
 }
 
 .form-label {
-  font-size: 0.75rem;
-  color: var(--text-secondary);
-  letter-spacing: 1px;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: var(--accent-primary);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
+.form-label::before { content: '> '; color: var(--accent-muted); }
+
 .form-input {
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--bg-input);
   border: 1px solid var(--border-color);
+  border-radius: 0;
   color: var(--text-primary);
-  padding: 0.8rem 1rem;
-  font-size: 0.9rem;
-  border-radius: 4px;
+  padding: 0.65rem 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
   outline: none;
-  transition: border-color 0.3s ease;
+  transition: var(--transition-digital);
+  caret-color: var(--accent-primary);
 }
 
 .form-input:focus {
-  border-color: var(--cyan);
-  box-shadow: 0 0 8px rgba(0, 224, 255, 0.2);
+  border-color: var(--accent-primary);
+  box-shadow: var(--neon-glow);
 }
 
-.form-input::placeholder {
-  color: var(--text-muted);
-}
+.form-input::placeholder { color: var(--text-muted); font-size: 0.7rem; }
 
 .verify-btn {
-  padding: 1rem 2rem;
-  background: linear-gradient(135deg, rgba(0, 224, 255, 0.15), rgba(168, 85, 247, 0.15));
-  border: 1px solid rgba(0, 224, 255, 0.4);
-  color: var(--cyan);
-  font-size: 0.9rem;
-  letter-spacing: 2px;
+  padding: 0.85rem 2rem;
+  background: transparent;
+  border: 1px solid var(--accent-primary);
+  color: var(--accent-primary);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   cursor: pointer;
-  border-radius: 4px;
-  transition: all 0.3s ease;
+  border-radius: 0;
+  transition: var(--transition-digital);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  text-shadow: var(--glow-text);
 }
 
 .verify-btn:hover:not(:disabled) {
-  background: linear-gradient(135deg, rgba(0, 224, 255, 0.25), rgba(168, 85, 247, 0.25));
-  box-shadow: 0 0 20px rgba(0, 224, 255, 0.3);
-  transform: translateY(-1px);
+  background: var(--accent-primary);
+  color: var(--bg-void);
+  text-shadow: none;
 }
 
-.verify-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
+.verify-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-/* ─── Results ───────────────────────────────────── */
-
+/* ── Results ──────────────────────────────────────────────── */
 .verify-result {
-  padding: 1.5rem;
-  border-radius: 6px;
+  padding: 1.2rem;
   border: 1px solid;
   text-align: center;
-  animation: fadeSlideIn 0.4s ease;
+  animation: fadeSlideIn 0.2s steps(4);
+  border-radius: 0;
 }
 
 @keyframes fadeSlideIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .verify-valid {
-  border-color: rgba(0, 255, 136, 0.4);
-  background: rgba(0, 255, 136, 0.05);
-  box-shadow: 0 0 30px rgba(0, 255, 136, 0.1);
+  border-color: var(--border-accent);
+  background: var(--accent-dim);
 }
 
-.verify-invalid {
-  border-color: rgba(255, 51, 102, 0.4);
-  background: rgba(255, 51, 102, 0.05);
-  box-shadow: 0 0 30px rgba(255, 51, 102, 0.1);
-}
-
+.verify-invalid,
 .verify-error {
-  border-color: rgba(255, 51, 102, 0.4);
-  background: rgba(255, 51, 102, 0.05);
+  border-color: rgba(255, 68, 102, 0.4);
+  background: rgba(255, 68, 102, 0.04);
 }
 
 .result-icon {
-  font-size: 3rem;
+  font-size: 2rem;
   margin-bottom: 0.5rem;
+  display: block;
 }
 
-.verify-valid .result-icon {
-  color: var(--accent-primary);
-  text-shadow: 0 0 20px var(--accent-primary);
-}
-
+.verify-valid .result-icon { color: var(--accent-primary); text-shadow: var(--glow-text); }
 .verify-invalid .result-icon,
-.verify-error .result-icon {
-  color: var(--accent-destructive);
-  text-shadow: 0 0 20px var(--accent-destructive);
-}
+.verify-error .result-icon  { color: var(--accent-error); }
 
 .result-title {
-  font-family: var(--font-heading);
-  font-size: 1.2rem;
-  letter-spacing: 3px;
-  margin-bottom: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
 }
 
-.verify-valid .result-title { color: var(--accent-primary); }
+.verify-valid .result-title { color: var(--accent-primary); text-shadow: var(--glow-text); }
 .verify-invalid .result-title,
-.verify-error .result-title { color: var(--accent-destructive); }
+.verify-error .result-title  { color: var(--accent-error); }
 
 .result-subtitle {
   color: var(--text-secondary);
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   line-height: 1.5;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .result-detail {
   color: var(--text-secondary);
-  font-size: 0.85rem;
-  margin-top: 0.5rem;
+  font-size: 0.72rem;
+  margin-top: 0.4rem;
 }
 
-/* ─── Verification Chain Visual ─────────────────── */
-
+/* ── Verification Chain Visual ────────────────────────────── */
 .verification-chain {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 4px;
+  gap: 0.8rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: var(--bg-card);
   border: 1px solid var(--border-color);
   overflow-x: auto;
+  border-radius: 0;
 }
 
 .chain-step {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.3rem;
-  min-width: 120px;
+  gap: 0.25rem;
+  min-width: 100px;
 }
 
 .step-label {
-  font-size: 0.7rem;
-  color: var(--text-secondary);
-  letter-spacing: 1px;
+  font-size: 0.58rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .step-value {
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   color: var(--text-primary);
   word-break: break-all;
   text-align: center;
 }
 
 .chain-arrow {
-  font-size: 1.5rem;
-  color: var(--cyan);
+  font-size: 1rem;
+  color: var(--accent-primary);
   flex-shrink: 0;
 }
 
-.text-valid { color: var(--accent-primary) !important; }
-.text-invalid { color: var(--accent-destructive) !important; }
+.text-valid   { color: var(--accent-primary) !important; text-shadow: var(--glow-text); }
+.text-invalid { color: var(--accent-error) !important; }
 
-/* ─── Agent Details Grid ────────────────────────── */
-
+/* ── Agent Details Grid ───────────────────────────────────── */
 .agent-details-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  gap: 0.8rem;
   text-align: left;
   padding-top: 1rem;
   border-top: 1px solid var(--border-color);
 }
 
-.detail-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
+.detail-item { display: flex; flex-direction: column; gap: 0.25rem; }
 
 .detail-label {
-  font-size: 0.7rem;
-  color: var(--text-secondary);
-  letter-spacing: 1px;
+  font-size: 0.55rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
-.detail-value {
-  font-size: 0.85rem;
-  color: var(--text-primary);
-}
+.detail-value { font-size: 0.78rem; color: var(--text-primary); }
 
-/* ─── Export Proof Button ──────────────────────── */
-
+/* ── Export Proof Button ──────────────────────────────────── */
 .export-proof-btn {
   width: 100%;
-  margin-top: 1.5rem;
-  padding: 1rem;
-  background: rgba(0, 255, 136, 0.08);
-  border: 1px dashed rgba(0, 255, 136, 0.4);
+  margin-top: 1rem;
+  padding: 0.8rem;
+  background: var(--accent-dim);
+  border: 1px dashed var(--border-accent);
   color: var(--accent-primary);
-  font-size: 0.8rem;
-  letter-spacing: 1.5px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   cursor: pointer;
-  border-radius: 4px;
-  transition: all 0.3s ease;
+  border-radius: 0;
+  transition: var(--transition-digital);
+  text-shadow: var(--glow-text);
 }
 
 .export-proof-btn:hover {
-  background: rgba(0, 255, 136, 0.15);
+  background: var(--accent-primary);
+  color: var(--bg-void);
   border-style: solid;
-  box-shadow: 0 0 16px rgba(0, 255, 136, 0.2);
-  transform: translateY(-1px);
+  text-shadow: none;
 }

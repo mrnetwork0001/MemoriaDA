@@ -37,29 +37,21 @@ const Header = ({ wallet, networkHook }) => {
         <Link to="/" className="logo-link">
           <div className="logo-container">
             <div className="logo-icon">
-              <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <defs>
-                  <linearGradient id="logoGrad" x1="0" y1="0" x2="28" y2="28">
-                    <stop offset="0%" stopColor="#00e0ff" />
-                    <stop offset="100%" stopColor="#a855f7" />
-                  </linearGradient>
-                </defs>
-                <circle cx="14" cy="14" r="12" stroke="url(#logoGrad)" strokeWidth="1.5" fill="none" />
-                <circle cx="14" cy="14" r="5" fill="url(#logoGrad)" opacity="0.8" />
-                <circle cx="14" cy="14" r="8" stroke="url(#logoGrad)" strokeWidth="0.8" fill="none" strokeDasharray="3 3">
-                  <animateTransform attributeName="transform" type="rotate" from="0 14 14" to="360 14 14" dur="12s" repeatCount="indefinite" />
-                </circle>
-                <circle cx="14" cy="6" r="1.5" fill="#00e0ff">
-                  <animateTransform attributeName="transform" type="rotate" from="0 14 14" to="360 14 14" dur="6s" repeatCount="indefinite" />
-                </circle>
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                <rect x="1" y="1" width="20" height="20" stroke="#e3c1ff" strokeWidth="1" fill="none"/>
+                <rect x="5" y="5" width="5" height="5" fill="#e3c1ff" opacity="0.9"/>
+                <rect x="12" y="5" width="5" height="5" fill="#e3c1ff" opacity="0.5"/>
+                <rect x="5" y="12" width="5" height="5" fill="#e3c1ff" opacity="0.5"/>
+                <rect x="12" y="12" width="5" height="5" fill="#e3c1ff" opacity="0.2"/>
               </svg>
             </div>
             <div className="logo-text">
-            <h1 className="logo-title heading-font cyber-glitch-text" data-text="MEMORIA DA">
+            <h1 className="logo-title heading-font" data-text="MEMORIA DA">
               MEMORIA<span className="logo-da">DA</span>
             </h1>
             <span className="logo-subtitle terminal-font">❯ Decentralized Memory Protocol</span>
           </div>
+
           </div>
         </Link>
       </div>

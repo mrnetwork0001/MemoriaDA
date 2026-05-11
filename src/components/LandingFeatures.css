@@ -1,80 +1,110 @@
 /* ============================================================
-   LANDING FEATURES — Cyber Grid
+   LANDING FEATURES — Terminal Window Cards
    ============================================================ */
 
 .landing-features {
-  padding: 100px var(--gap-lg);
+  padding: 80px var(--gap-lg);
   background: var(--bg-deep);
   position: relative;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .features-container {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0;
+  border: 1px solid var(--border-color);
+  margin-top: 48px;
 }
 
+/* Terminal pane card */
 .feature-card {
-  padding: 32px;
+  padding: 0;
   background: var(--bg-card);
-  border: 1px solid var(--border-color);
+  border: none;
+  border-right: 1px solid var(--border-color);
   transition: var(--transition-digital);
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  /* Signiture chamfer */
-  clip-path: polygon(
-    0 15px, 15px 0, 
-    100% 0, 100% calc(100% - 15px), 
-    calc(100% - 15px) 100%, 0 100%
-  );
+  clip-path: none;
+  font-family: var(--font-mono);
 }
 
-.feature-card:hover {
-  border-color: var(--accent-primary);
-  background: rgba(0, 255, 136, 0.02);
-  transform: translateY(-5px);
-  box-shadow: var(--neon-glow);
-}
+.feature-card:last-child { border-right: none; }
+.feature-card:hover { background: var(--bg-muted); }
 
+/* Title bar */
 .feature-icon-wrapper {
-  width: 48px;
-  height: 48px;
+  width: 100%;
+  height: auto;
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: rgba(0, 255, 136, 0.05);
-  border: 1px solid var(--accent-primary);
+  justify-content: flex-start;
+  background: var(--bg-deep);
+  border: none;
+  border-bottom: 1px solid var(--border-color);
   color: var(--accent-primary);
-  margin-bottom: 8px;
-  clip-path: polygon(8px 0, 100% 0, 100% 100%, 0 100%, 0 8px);
+  padding: 7px 12px;
+  clip-path: none;
+  gap: 8px;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.feature-icon-wrapper::before {
+  content: '●';
+  color: var(--accent-primary);
+  text-shadow: var(--glow-text);
+  font-size: 0.5rem;
+}
+
+/* Feature content */
+.feature-card > *:not(.feature-icon-wrapper) {
+  padding: 0 20px;
 }
 
 .feature-card h3 {
-  font-size: 1.25rem;
-  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-primary);
+  margin-top: 20px;
+  margin-bottom: 8px;
 }
 
 .feature-card p {
-  font-size: 0.9rem;
-  line-height: 1.6;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.65;
   color: var(--text-secondary);
+  margin-bottom: 12px;
 }
 
 .feature-badge {
   display: inline-block;
-  font-size: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
   font-weight: 800;
-  color: var(--accent-tertiary);
+  color: var(--accent-primary);
+  text-shadow: var(--glow-text);
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 0.1em;
+  padding: 2px 6px;
+  border: 1px solid var(--border-accent);
+  background: var(--accent-dim);
+  margin-bottom: 20px;
 }
 
 @media (max-width: 768px) {
-  .landing-features { padding: 60px var(--gap-lg); }
+  .landing-features { padding: 60px var(--gap-md); }
+  .feature-card { border-right: none; border-bottom: 1px solid var(--border-color); }
 }

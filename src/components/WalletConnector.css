@@ -1,101 +1,120 @@
 /* ============================================================
-   WALLET CONNECTOR — Cyber Credential
+   WALLET CONNECTOR — Terminal Auth Style
    ============================================================ */
 
-.wallet-connector {
-  position: relative;
-}
+.wallet-connector { position: relative; }
 
+/* Bracket-style button: [ CONNECT ] */
 .wallet-btn {
   display: flex;
   align-items: center;
   gap: var(--gap-sm);
   background: transparent;
-  border: 1px solid var(--accent-tertiary);
-  color: var(--accent-tertiary);
-  padding: 8px 16px;
+  border: 1px solid var(--border-accent);
+  color: var(--accent-primary);
+  padding: 7px 14px;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   cursor: pointer;
   transition: var(--transition-digital);
-  clip-path: polygon(8px 0, 100% 0, 100% 100%, 0 100%, 0 8px);
-  position: relative;
-  overflow: hidden;
+  clip-path: none;
 }
 
 .wallet-btn::before {
-  content: 'ID:';
-  margin-right: 4px;
-  opacity: 0.5;
+  content: '[ ';
+  color: var(--accent-muted);
+}
+
+.wallet-btn::after {
+  content: ' ]';
+  color: var(--accent-muted);
 }
 
 .wallet-btn:hover {
-  background: rgba(0, 212, 255, 0.05);
-  box-shadow: var(--neon-glow-tertiary);
-  transform: translateY(-1px);
+  background: var(--accent-primary);
+  color: var(--bg-void);
+  border-color: var(--accent-primary);
 }
+
+.wallet-btn:hover::before,
+.wallet-btn:hover::after { color: var(--bg-void); }
 
 .wallet-btn-connected {
   border-color: var(--accent-primary);
   color: var(--accent-primary);
+  text-shadow: var(--glow-text);
 }
 
-.wallet-btn-connected::before {
-  content: 'CONNECTED_';
-  animation: blink 1s step-end infinite;
-}
+.wallet-btn-connected::before { content: ''; }
+.wallet-btn-connected::after  { content: ''; }
 
 .wallet-btn-wrong {
-  border-color: var(--accent-destructive);
-  color: var(--accent-destructive);
+  border-color: var(--accent-error);
+  color: var(--accent-error);
   animation: jitter 0.3s infinite;
 }
 
 @keyframes jitter {
-  0% { transform: translate(0); }
-  25% { transform: translate(-1px, 1px); }
-  50% { transform: translate(1px, -1px); }
-  75% { transform: translate(-1px, -1px); }
+  0%   { transform: translate(0); }
+  25%  { transform: translate(-1px, 1px); }
+  50%  { transform: translate(1px, -1px); }
+  75%  { transform: translate(-1px, -1px); }
   100% { transform: translate(1px, 1px); }
 }
 
-/* Dropdown Menu */
+/* Dropdown */
 .wallet-dropdown {
   position: absolute;
-  top: calc(100% + 12px);
+  top: calc(100% + 8px);
   right: 0;
   width: 240px;
   background: var(--bg-card);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-accent);
   padding: 16px;
   z-index: 1000;
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
-  animation: slide-up 0.2s steps(4);
+  clip-path: none;
+  animation: slide-up 0.15s steps(3);
 }
 
 @keyframes slide-up {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Title bar */
+.wallet-dropdown::before {
+  content: '+-- WALLET_SESSION --+';
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  color: var(--accent-primary);
+  text-shadow: var(--glow-text);
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .wallet-info-item {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  margin-bottom: 12px;
+  gap: 3px;
+  margin-bottom: 10px;
 }
 
 .info-label {
-  font-size: 0.55rem;
+  font-size: 0.5rem;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.12em;
+  font-family: var(--font-mono);
 }
 
 .info-value {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-family: var(--font-mono);
   color: var(--text-primary);
   word-break: break-all;
@@ -104,25 +123,28 @@
 .wallet-actions {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-top: 16px;
-  padding-top: 16px;
+  gap: 6px;
+  margin-top: 12px;
+  padding-top: 12px;
   border-top: 1px solid var(--border-color);
 }
 
 .action-btn {
   width: 100%;
-  padding: 8px;
+  padding: 7px 10px;
   background: var(--bg-muted);
   border: 1px solid var(--border-color);
   color: var(--text-primary);
   font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 1px;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   cursor: pointer;
   transition: var(--transition-digital);
   text-align: left;
 }
+
+.action-btn::before { content: '> '; color: var(--accent-muted); }
 
 .action-btn:hover {
   background: var(--accent-primary);
@@ -130,16 +152,12 @@
   border-color: var(--accent-primary);
 }
 
-.btn-disconnect {
-  color: var(--accent-destructive);
-}
+.action-btn:hover::before { color: var(--bg-void); }
 
-.btn-disconnect:hover {
-  background: var(--accent-destructive);
-  color: #fff;
-}
+.btn-disconnect { color: var(--accent-error); border-color: rgba(255, 68, 102, 0.3); }
+.btn-disconnect:hover { background: var(--accent-error); color: #fff; }
 
-/* Switch chain wrapper */
+/* Switch chain */
 .wallet-switch-wrapper {
   display: flex;
   flex-direction: column;
@@ -149,10 +167,10 @@
 
 .wallet-switch-error {
   font-family: var(--font-mono);
-  font-size: 0.55rem;
-  color: var(--accent-destructive);
-  background: rgba(248, 81, 73, 0.08);
-  border: 1px solid rgba(248, 81, 73, 0.25);
+  font-size: 0.5rem;
+  color: var(--accent-error);
+  background: rgba(255, 68, 102, 0.06);
+  border: 1px solid rgba(255, 68, 102, 0.2);
   padding: 3px 8px;
   max-width: 220px;
   text-align: right;

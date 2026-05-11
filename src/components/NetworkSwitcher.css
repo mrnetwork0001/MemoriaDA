@@ -1,120 +1,97 @@
 /* ============================================================
-   NETWORK SWITCHER — Cyber Toggle
+   NETWORK SWITCHER — Terminal Select Style
    ============================================================ */
 
-.network-switcher {
-  position: relative;
-}
+.network-switcher { position: relative; }
 
-/* ─── Toggle Button ──────────────────────────────────── */
 .network-toggle {
   display: flex;
   align-items: center;
   gap: 6px;
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--bg-void);
   border: 1px solid var(--border-color);
   color: var(--text-secondary);
   padding: 6px 12px;
-  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: pointer;
   transition: var(--transition-digital);
-  clip-path: polygon(6px 0, 100% 0, 100% 100%, 0 100%, 0 6px);
+  clip-path: none;
 }
 
 .network-toggle:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: var(--accent-tertiary);
+  border-color: var(--border-accent);
+  color: var(--accent-primary);
 }
 
-.network-toggle:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+.network-toggle:disabled { opacity: 0.4; cursor: not-allowed; }
 
-.network-toggle.network-testnet {
-  border-color: rgba(251, 191, 36, 0.35);
-}
+.network-toggle.network-testnet { border-color: rgba(255, 200, 80, 0.3); color: rgba(255, 200, 80, 0.8); }
+.network-toggle.network-mainnet { border-color: var(--border-accent); color: var(--accent-primary); }
 
-.network-toggle.network-mainnet {
-  border-color: rgba(0, 255, 136, 0.35);
-}
-
-/* ─── Dot Indicators ─────────────────────────────────── */
+/* Status dot — square in terminal aesthetic */
 .network-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 0;
   flex-shrink: 0;
 }
 
 .dot-testnet {
   background: #fbbf24;
   box-shadow: 0 0 6px rgba(251, 191, 36, 0.6);
-  animation: pulse-amber 2s ease-in-out infinite;
+  animation: pulse-accent 2s ease-in-out infinite;
 }
 
 .dot-mainnet {
   background: var(--accent-primary);
-  box-shadow: 0 0 6px var(--accent-primary);
-  animation: pulse-green 2s ease-in-out infinite;
-}
-
-@keyframes pulse-amber {
-  0%, 100% { box-shadow: 0 0 4px rgba(251, 191, 36, 0.4); }
-  50% { box-shadow: 0 0 10px rgba(251, 191, 36, 0.8); }
-}
-
-@keyframes pulse-green {
-  0%, 100% { box-shadow: 0 0 4px rgba(0, 255, 136, 0.4); }
-  50% { box-shadow: 0 0 10px rgba(0, 255, 136, 0.8); }
+  box-shadow: var(--glow-primary);
+  animation: pulse-accent 2s ease-in-out infinite;
 }
 
 .network-name {
-  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
   font-weight: 700;
 }
 
-/* ─── Chevron ────────────────────────────────────────── */
-.network-chevron {
-  transition: transform 0.2s ease;
-}
+.network-chevron { transition: transform 0.15s steps(3); }
+.network-chevron.chevron-up { transform: rotate(180deg); }
 
-.network-chevron.chevron-up {
-  transform: rotate(180deg);
-}
-
-/* ─── Dropdown ───────────────────────────────────────── */
+/* Dropdown */
 .network-dropdown {
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + 6px);
   right: 0;
-  min-width: 220px;
+  min-width: 210px;
   background: var(--bg-card);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-accent);
   padding: 10px;
   z-index: 1000;
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
-  animation: net-slide 0.15s steps(3);
+  clip-path: none;
+  animation: net-slide 0.1s steps(3);
 }
 
 @keyframes net-slide {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .network-dropdown-title {
-  font-size: 0.55rem;
-  letter-spacing: 0.2em;
-  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.15em;
+  color: var(--accent-primary);
+  text-shadow: var(--glow-text);
+  text-transform: uppercase;
   margin-bottom: 8px;
   padding-bottom: 6px;
   border-bottom: 1px solid var(--border-color);
 }
 
-/* ─── Options ────────────────────────────────────────── */
 .network-option {
   display: flex;
   align-items: center;
@@ -124,47 +101,41 @@
   background: transparent;
   border: 1px solid transparent;
   color: var(--text-secondary);
-  font-family: var(--font-body);
-  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
   text-align: left;
   cursor: pointer;
   transition: var(--transition-digital);
-  border-radius: 2px;
+  border-radius: 0;
   margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
+.network-option::before { content: '  '; }
+
 .network-option:hover {
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--bg-muted);
   border-color: var(--border-color);
+  color: var(--text-primary);
 }
 
 .network-option-active {
-  background: rgba(0, 255, 136, 0.06);
-  border-color: rgba(0, 255, 136, 0.2);
+  background: var(--accent-dim);
+  border-color: var(--border-accent);
   color: var(--accent-primary);
+  text-shadow: var(--glow-text);
 }
 
-.network-option-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  flex: 1;
-}
+.network-option-active::before { content: '> '; }
 
-.network-option-name {
-  font-weight: 600;
-  font-size: 0.72rem;
-}
+.network-option-info { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.network-option-name { font-weight: 700; font-size: 0.7rem; }
+.network-option-id   { font-size: 0.52rem; color: var(--text-muted); letter-spacing: 0.05em; }
 
-.network-option-id {
-  font-size: 0.55rem;
-  color: var(--text-muted);
-  letter-spacing: 0.05em;
-}
-
-/* ─── Hint ───────────────────────────────────────────── */
 .network-dropdown-hint {
-  font-size: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
   color: var(--text-muted);
   margin-top: 6px;
   padding-top: 6px;

@@ -1,89 +1,105 @@
+/* ============================================================
+   DEVELOPER SDK — Terminal CLI Docs Pane
+   ============================================================ */
+
 .developer-sdk {
   padding: 1.5rem;
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: rgba(4, 9, 20, 0.6);
-  border-radius: 8px;
+  background: var(--bg-void);
+  border-radius: 0;
   border: 1px solid var(--border-color);
-  backdrop-filter: blur(10px);
+  backdrop-filter: none;
   overflow-y: auto;
+  font-family: var(--font-mono);
 }
 
 .sdk-header {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid var(--border-color);
 }
 
 .sdk-header h2 {
-  font-size: 1.2rem;
-  color: var(--text-primary);
-  margin: 0 0 0.5rem 0;
-  letter-spacing: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent-primary);
+  text-shadow: var(--glow-text);
+  margin: 0 0 0.4rem 0;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
+.sdk-header h2::before { content: '// '; color: var(--accent-muted); }
+
 .sdk-subtitle {
-  color: var(--cyan);
-  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
   margin: 0;
+  letter-spacing: 0.05em;
 }
 
 .sdk-content {
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 2rem;
 }
 
 .sdk-section h3 {
-  font-family: var(--font-heading);
-  font-size: 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
   color: var(--text-primary);
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.4rem 0;
 }
+
+.sdk-section h3::before { content: '> '; color: var(--accent-primary); }
 
 .sdk-section p {
-  font-size: 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
   color: var(--text-secondary);
-  line-height: 1.5;
-  margin: 0 0 1rem 0;
+  line-height: 1.6;
+  margin: 0 0 0.8rem 0;
 }
 
+/* Code Block */
 .code-block-wrapper {
-  background: rgba(0, 0, 0, 0.5);
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-accent);
+  border-radius: 0;
   overflow: hidden;
 }
 
 .code-header {
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem 1rem;
-  background: rgba(255, 255, 255, 0.05);
+  padding: 5px 12px;
+  background: var(--bg-deep);
   border-bottom: 1px solid var(--border-color);
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
-.code-lang {
-  color: var(--cyan);
-}
-
-.code-file {
-  color: var(--text-secondary);
-}
+.code-lang { color: var(--accent-primary); text-shadow: var(--glow-text); }
+.code-file  { color: var(--text-muted); }
 
 .code-block {
   margin: 0;
-  padding: 1.2rem;
+  padding: 1rem;
   overflow-x: auto;
 }
 
 .code-block code {
   font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: #cdd6f4;
+  font-size: 0.75rem;
+  color: var(--text-primary);
   line-height: 1.6;
   white-space: pre;
 }
@@ -92,80 +108,91 @@
 .partners-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  gap: 0;
+  border: 1px solid var(--border-color);
 }
 
 .partner-card {
-  background: rgba(0, 255, 136, 0.03);
-  border: 1px solid rgba(0, 255, 136, 0.15);
-  padding: 1.2rem;
-  border-radius: 6px;
+  background: var(--bg-card);
+  border: none;
+  border-right: 1px solid var(--border-color);
+  padding: 1rem;
+  border-radius: 0;
   transition: var(--transition-digital);
 }
 
-.partner-card:hover {
-  border-color: var(--accent-primary);
-  box-shadow: 0 0 12px rgba(0, 255, 136, 0.1);
-}
+.partner-card:last-child { border-right: none; }
+.partner-card:hover { background: var(--bg-muted); }
 
 .partner-name {
-  font-size: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   color: var(--text-primary);
   margin-bottom: 2px;
 }
 
 .partner-framework {
-  font-size: 0.65rem;
-  color: var(--accent-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  color: var(--accent-primary);
+  text-shadow: var(--glow-text);
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 0.6rem;
-  padding: 1px 6px;
-  border: 1px solid rgba(168, 85, 247, 0.3);
-  background: rgba(168, 85, 247, 0.08);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+  padding: 1px 5px;
+  border: 1px solid var(--border-accent);
+  background: var(--accent-dim);
   display: inline-block;
 }
 
 .partner-desc {
-  font-size: 0.8rem !important;
+  font-family: var(--font-mono);
+  font-size: 0.7rem !important;
   color: var(--text-secondary) !important;
-  margin-bottom: 0.6rem !important;
+  margin-bottom: 0.5rem !important;
   line-height: 1.4 !important;
 }
 
 .partner-agent {
-  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
   color: var(--text-muted);
-  padding-top: 0.5rem;
+  padding-top: 0.4rem;
   border-top: 1px solid var(--border-color);
+  letter-spacing: 0.05em;
 }
 
 /* CTA */
 .sdk-cta {
   margin-top: 1rem;
-  padding: 1.5rem;
-  background: rgba(0, 224, 255, 0.05);
-  border: 1px dashed rgba(0, 224, 255, 0.3);
-  border-radius: 6px;
+  padding: 1.2rem;
+  background: var(--bg-card);
+  border: 1px dashed var(--border-accent);
+  border-radius: 0;
   text-align: center;
 }
 
 .sdk-cta p {
   color: var(--text-primary);
-  margin: 0 0 1rem 0;
+  margin: 0 0 0.8rem 0;
 }
 
 .npm-install {
   display: inline-block;
-  background: #000;
-  padding: 0.8rem 1.5rem;
-  border-radius: 4px;
+  background: var(--bg-void);
+  padding: 0.7rem 1.2rem;
+  border-radius: 0;
   color: var(--text-primary);
-  font-size: 0.85rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  border: 1px solid var(--border-color);
 }
 
 .npm-install .prompt {
-  color: var(--purple);
+  color: var(--accent-primary);
+  text-shadow: var(--glow-text);
   margin-right: 0.5rem;
 }
