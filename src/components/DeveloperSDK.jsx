@@ -1,3 +1,4 @@
+import { IconBolt, IconGlobe, IconBox, IconAgent, IconChain } from './TerminalIcons';
 import './DeveloperSDK.css';
 
 function DeveloperSDK() {
@@ -83,7 +84,7 @@ const MEMORIA_REGISTRY_ABI = [
       <div className="sdk-content">
         {/* Quick Start */}
         <div className="sdk-section">
-          <h3>⚡ Quick Start — 3 Steps</h3>
+          <h3><IconBolt size={13} className="icon-accent" style={{marginRight:6}}/> Quick Start — 3 Steps</h3>
           <p>Store a memory vector on 0G Storage and anchor its Merkle root on 0G Chain. That's it.</p>
           <div className="code-block-wrapper">
             <div className="code-header">
@@ -98,7 +99,7 @@ const MEMORIA_REGISTRY_ABI = [
 
         {/* Server-Side (Developer Pays) */}
         <div className="sdk-section">
-          <h3>🔧 Server-Side Integration (Zero Wallet UX)</h3>
+          <h3><IconBox size={13} className="icon-accent" style={{marginRight:6}}/> Server-Side Integration (Zero Wallet UX)</h3>
           <p>Use the "Developer Pays" model to give your users a seamless Web2 experience — no MetaMask, no wallet popups. The developer's server wallet handles all blockchain operations.</p>
           <div className="code-block-wrapper">
             <div className="code-header">
@@ -113,7 +114,7 @@ const MEMORIA_REGISTRY_ABI = [
 
         {/* Contract ABI */}
         <div className="sdk-section">
-          <h3>📜 MemoriaRegistryV2 — Contract ABI</h3>
+          <h3><IconChain size={13} className="icon-accent" style={{marginRight:6}}/> MemoriaRegistryV2 — Contract ABI</h3>
           <p>The on-chain registry that stores agent identities as ERC-721 NFTs and anchors memory Merkle roots with micropayment fees.</p>
           <div className="code-block-wrapper">
             <div className="code-header">
@@ -128,7 +129,7 @@ const MEMORIA_REGISTRY_ABI = [
 
         {/* Live Integration Partners */}
         <div className="sdk-section">
-          <h3>🤝 Live Integration Partners</h3>
+          <h3><IconAgent size={13} className="icon-accent" style={{marginRight:6}}/> Live Integration Partners</h3>
           <p>These apps are live on MemoriaDA infrastructure right now — visible on the Global Explorer.</p>
           <div className="partners-grid">
             {partners.map(p => (
@@ -144,7 +145,7 @@ const MEMORIA_REGISTRY_ABI = [
 
         {/* CTA */}
         <div className="sdk-section">
-          <h3>🦞 OpenClaw Skill (Native Integration)</h3>
+          <h3><IconAgent size={13} className="icon-accent" style={{marginRight:6}}/> OpenClaw Skill (Native Integration)</h3>
           <p>MemoriaDA ships an official OpenClaw Skill. Drop the SKILL.md into your workspace and any OpenClaw agent gets persistent, verifiable memory automatically.</p>
           <div className="code-block-wrapper">
             <div className="code-header">
@@ -179,7 +180,7 @@ GET /api/memory/global
         </div>
 
         <div className="sdk-section">
-          <h3>🌐 Cross-Agent Memory Query</h3>
+          <h3><IconGlobe size={13} className="icon-accent" style={{marginRight:6}}/> Cross-Agent Memory Query</h3>
           <p>Any agent on the MemoriaDA network can discover and query other agents — enabling a decentralized "Global Brain" for orchestration.</p>
           <div className="code-block-wrapper">
             <div className="code-header">

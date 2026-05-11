@@ -3,6 +3,7 @@ import registryService from '../services/registryService';
 import memoryStore from '../services/memoryStore';
 import { ethers } from 'ethers';
 import { NETWORK_CONFIG } from '../config/network';
+import { IconBolt, IconChain, IconOK, IconErr, IconSnapshot } from './TerminalIcons';
 import './MerkleVerifier.css';
 
 function MerkleVerifier({ wallet, networkHook }) {
@@ -121,7 +122,7 @@ function MerkleVerifier({ wallet, networkHook }) {
           onClick={autoFillLatest}
           type="button"
         >
-          ⚡ AUTO-FILL LATEST MEMORY ROOT
+          <IconBolt size={11} style={{marginRight:4}}/> AUTO-FILL LATEST MEMORY ROOT
         </button>
 
         <div className="form-group">
@@ -157,7 +158,7 @@ function MerkleVerifier({ wallet, networkHook }) {
               VERIFYING ON-CHAIN...
             </>
           ) : (
-            '⛓ VERIFY ON-CHAIN'
+            <><IconChain size={12} style={{marginRight:4}}/> VERIFY ON-CHAIN</>
           )}
         </button>
       </div>
@@ -197,7 +198,9 @@ function MerkleVerifier({ wallet, networkHook }) {
             <div className="chain-arrow">→</div>
             <div className="chain-step">
               <div className={`step-label terminal-font ${result.isValid ? 'text-valid' : 'text-invalid'}`}>
-                {result.isValid ? 'MATCH ✓' : 'MISMATCH ✗'}
+                {result.isValid
+                  ? <><IconOK size={13} style={{marginRight:4}}/> MATCH</>
+                  : <><IconErr size={13} style={{marginRight:4}}/> MISMATCH</>}
               </div>
               <div className="step-value mono">{formatHash(rootHash)}</div>
             </div>
@@ -234,7 +237,7 @@ function MerkleVerifier({ wallet, networkHook }) {
 
           {/* Export Proof Button */}
           <button className="export-proof-btn terminal-font" onClick={exportProof}>
-            📥 DOWNLOAD MEMORY PROOF (.json)
+            <IconSnapshot size={11} style={{marginRight:4}}/> DOWNLOAD MEMORY PROOF (.json)
           </button>
         </div>
       )}

@@ -3,6 +3,7 @@ import { DEFAULT_AGENT_FRAMEWORK } from '../config/constants';
 import { NETWORK_CONFIG } from '../config/network';
 import computeClient from '../services/computeClient';
 import memoryStore from '../services/memoryStore';
+import { IconAgent, IconUser, IconWarn, IconMemory, IconLink, IconDotGreen, IconDotYellow, IconChain } from './TerminalIcons';
 import './AgentChat.css';
 
 const AGENT_ID = 'agent_0xClaw_7f3a';
@@ -240,7 +241,7 @@ const AgentChat = ({ onMemoryEvent, wallet, storage, registry }) => {
         } catch (err) {
           console.error('[AgentChat] 0G Compute failed, using fallback:', err.message);
           agentResponse = buildFallbackReply(userContent, relevantMemories);
-          addSystemMsg(`⚠️ 0G Compute error: ${err.message}. Using local fallback.`);
+          addSystemMsg(`[WARN] 0G Compute error: ${err.message}. Using local fallback.`);
         }
       } else {
         agentResponse = buildFallbackReply(userContent, relevantMemories);
@@ -320,7 +321,7 @@ const AgentChat = ({ onMemoryEvent, wallet, storage, registry }) => {
                   });
                 } else {
                   const regErr = registry.error || 'Registry call failed — check Data Terminal';
-                  addSystemMsg(`⚠️ Chain anchor skipped: ${regErr.slice(0, 100)}`);
+                  addSystemMsg(`[WARN] Chain anchor skipped: ${regErr.slice(0, 100)}`);
                 }
               }
             }
@@ -329,14 +330,14 @@ const AgentChat = ({ onMemoryEvent, wallet, storage, registry }) => {
             const shortMsg = err.message?.includes('coalesce')
               ? 'RPC returned invalid params. Memory saved locally.'
               : err.message?.length > 80 ? err.message.slice(0, 80) + '...' : err.message;
-            addSystemMsg(`⚠️ Storage: ${shortMsg}`);
+            addSystemMsg(`[WARN] Storage: ${shortMsg}`);
           }
         })();
       }
 
     } catch (err) {
       console.error('[AgentChat] Pipeline error:', err);
-      addSystemMsg(`⚠️ Error: ${err.message}`);
+      addSystemMsg(`[ERR] Error: ${err.message}`);
       setStatusLabel(null);
       setIsTyping(false);
       setMessages(prev => [...prev, {
@@ -431,11 +432,15 @@ const AgentChat = ({ onMemoryEvent, wallet, storage, registry }) => {
             ) : (
               <>
                 <div className="message-header">
-                  <span className="message-role">{msg.role === 'agent' ? '🤖 Agent' : '👤 You'}</span>
+                  <span className="message-role">
+                    {msg.role === 'agent'
+                      ? <><IconAgent size={12} className="icon-accent" /> Agent</>
+                      : <><IconUser size={12} className="icon-muted" /> You</>}
+                  </span>
                   <span className="message-time mono">{msg.timestamp}</span>
                   {msg.memories && (
                     <span className="memory-recall-badge terminal-font">
-                      🧠 {msg.memories} memories recalled
+                      <IconMemory size={11} className="icon-accent" /> {msg.memories} mem recalled
                     </span>
                   )}
                 </div>
@@ -456,7 +461,7 @@ const AgentChat = ({ onMemoryEvent, wallet, storage, registry }) => {
         {isTyping && (
           <div className="message message-agent">
             <div className="message-header">
-              <span className="message-role">🤖 Agent</span>
+              <span className="message-role"><IconAgent size={12} className="icon-accent" /> Agent</span>
             </div>
             <TypingIndicator />
           </div>
@@ -489,8 +494,10 @@ const AgentChat = ({ onMemoryEvent, wallet, storage, registry }) => {
           <span>Press <kbd>Enter</kbd> to send</span>
           <span className={`storage-badge ${isLive ? 'storage-badge-live' : ''}`}>
             {isLive
-              ? (registry?.isDeployed ? '🟢 0G Storage + Chain' : '🟡 0G Storage LIVE')
-              : '🔗 0G Storage'}
+              ? (registry?.isDeployed
+                  ? <><IconDotGreen size={8}/> 0G Storage + Chain</>
+                  : <><IconDotGreen size={8}/> 0G Storage LIVE</>)
+              : <><IconLink size={11} className="icon-muted"/> 0G Storage</>}
             {computeReady ? ' • 0G Compute' : ''}
           </span>
         </div>
@@ -504,7 +511,7 @@ function buildFallbackReply(query, retrievedMemories) {
   const parts = ['Processing your request locally (0G Compute offline)...\n'];
 
   if (retrievedMemories && retrievedMemories.length > 0) {
-    parts.push(`🧠 I found **${retrievedMemories.length}** relevant memories from past conversations:`);
+    parts.push(`[MEM] Found **${retrievedMemories.length}** relevant memories from past conversations:`);
     retrievedMemories.slice(0, 3).forEach((m, i) => {
       const sim = (m.similarity * 100).toFixed(1);
       const preview = m.content.slice(0, 80).replace(/\n/g, ' ');

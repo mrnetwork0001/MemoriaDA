@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { getActiveNetwork } from '../config/network';
 import memoryStore from '../services/memoryStore';
+import { IconNeural, IconChain, IconBox, IconHourglass, IconOK, IconErr, IconSnapshot } from './TerminalIcons';
 import './DataTerminal.css';
 
 const buildInitialLogs = () => {
@@ -231,7 +232,7 @@ const DataTerminal = ({ memoryEvents, storageLogs, wallet, storage }) => {
           <div className="memory-index-list">
             {memoryIndex.length === 0 ? (
               <div className="empty-state terminal-font">
-                <div className="empty-icon">🧠</div>
+                <div className="empty-icon"><IconNeural size={28} className="icon-accent" /></div>
                 <div>NO_MEMORIES_STORED</div>
                 <div className="empty-hint">Chat with the agent to create memories</div>
               </div>
@@ -253,7 +254,7 @@ const DataTerminal = ({ memoryEvents, storageLogs, wallet, storage }) => {
                       <span className="memory-entry-time terminal-font">{time}</span>
                       {isOnChain && (
                         <span className="memory-chain-badge terminal-font">
-                          ⛓ BLK #{mem.metadata.blockNumber}
+                          <IconChain size={10} style={{marginRight:3}}/> BLK #{mem.metadata.blockNumber}
                         </span>
                       )}
                     </div>
@@ -278,7 +279,10 @@ const DataTerminal = ({ memoryEvents, storageLogs, wallet, storage }) => {
               .map((mem, idx) => (
               <div key={`${mem.rootHash}-${idx}`} className="memory-card cyber-chamfer-sm">
                 <div className="mem-header terminal-font">
-                  <span className="mem-id">{mem.type === 'CHAIN_COMMIT' ? '⛓ ON_CHAIN' : '📦 STORED'}</span>
+                  <span className="mem-id">{mem.type === 'CHAIN_COMMIT'
+                    ? <><IconChain size={11} style={{marginRight:3}}/>ON_CHAIN</>
+                    : <><IconBox size={11} style={{marginRight:3}}/>STORED</>}
+                  </span>
                   <span className="mem-time">{new Date(mem.timestamp).toLocaleTimeString()}</span>
                 </div>
                 <div className="mem-hash terminal-font">
@@ -303,7 +307,13 @@ const DataTerminal = ({ memoryEvents, storageLogs, wallet, storage }) => {
           onClick={handleSaveState}
           disabled={snapshotStatus === 'saving'}
         >
-          {snapshotStatus === 'saving' ? '⏳ SAVING...' : snapshotStatus === 'saved' ? '✅ SAVED' : snapshotStatus === 'error' ? '❌ FAILED' : '📸 SAVE STATE'}
+          {snapshotStatus === 'saving'
+            ? <><IconHourglass size={11} style={{marginRight:3}}/>SAVING...</>
+            : snapshotStatus === 'saved'
+            ? <><IconOK size={11} style={{marginRight:3}}/>SAVED</>
+            : snapshotStatus === 'error'
+            ? <><IconErr size={11} style={{marginRight:3}}/>FAILED</>
+            : <><IconSnapshot size={11} style={{marginRight:3}}/>SAVE STATE</>}
         </button>
       </div>
     </div>

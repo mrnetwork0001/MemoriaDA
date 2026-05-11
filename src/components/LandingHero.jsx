@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { IconRocket, IconNeural, IconAgent, IconBolt } from './TerminalIcons';
 import './LandingHero.css';
 
 const LandingHero = () => {
@@ -44,7 +45,7 @@ const LandingHero = () => {
           <div className="hero-metrics terminal-font">
             <div className="metric">
               <span className="m-label">THROUGHPUT_</span>
-              <span className="m-val">🚀 MAX</span>
+              <span className="m-val"><IconRocket size={12} className="icon-accent" /> MAX</span>
             </div>
             <div className="metric">
               <span className="m-label">LATENCY_</span>
@@ -66,14 +67,14 @@ const LandingHero = () => {
             
             <div className="central-neural-core">
               <div className="core-pulse" />
-              <div className="core-icon">🧠</div>
+              <div className="core-icon"><IconNeural size={16} className="icon-accent" /></div>
               <div className="core-label heading-font">MEMORIA_CORE</div>
             </div>
 
             {/* Orbital Nodes */}
-            <div className="orbital-node node-agent-1">🤖</div>
-            <div className="orbital-node node-agent-2">👾</div>
-            <div className="orbital-node node-chip">💠</div>
+            <div className="orbital-node node-agent-1"><IconAgent size={14} className="icon-accent" /></div>
+            <div className="orbital-node node-agent-2"><IconBolt size={14} className="icon-accent" /></div>
+            <div className="orbital-node node-chip"><IconNeural size={14} className="icon-accent" /></div>
             
             <div className="storage-sphere-0g">
               <div className="sphere-inner heading-font">0G</div>

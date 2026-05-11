@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { IconChain } from '../components/TerminalIcons';
 import Header from '../components/Header';
 import AgentChat from '../components/AgentChat';
 import DataTerminal from '../components/DataTerminal';
@@ -59,7 +60,7 @@ function Dashboard() {
           className={`nav-tab ${activeTab === 'verify' ? 'active' : ''}`}
           onClick={() => setActiveTab('verify')}
         >
-          ⛓ VERIFY
+          <IconChain size={12} style={{marginRight:4, verticalAlign:'middle'}}/> VERIFY
         </button>
       </div>
 

@@ -214,6 +214,26 @@ body::before { display: none; }
   margin: calc(var(--gap-lg) * -1) calc(var(--gap-lg) * -1) var(--gap-lg);
 }
 
+/* ── Terminal SVG Icons ──────────────────────────────────── */
+.term-icon {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  color: currentColor;
+}
+
+/* Icon size variants */
+.term-icon-sm { width: 11px; height: 11px; }
+.term-icon-md { width: 14px; height: 14px; }
+.term-icon-lg { width: 18px; height: 18px; }
+
+/* Colored icon variants */
+.icon-accent  { color: #7c3aed; }
+.icon-warn    { color: #b08a00; }
+.icon-error   { color: #c00000; }
+.icon-ok      { color: #2a8a4a; }
+.icon-muted   { color: #555555; }
+
 /* ── Scrollbar ─────────────────────────────────────────── */
 ::-webkit-scrollbar       { width: 3px; height: 3px; }
 ::-webkit-scrollbar-track { background: var(--bg-void); }

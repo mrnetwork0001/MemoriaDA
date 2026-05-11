@@ -1,6 +1,7 @@
 import React from 'react';
 import './Docs.css';
 import { Link } from 'react-router-dom';
+import { IconNeural, IconChain, IconBolt } from '../components/TerminalIcons';
 
 const Docs = () => {
   return (
@@ -29,17 +30,17 @@ const Docs = () => {
           </p>
           <div className="feature-grid-simple">
             <div className="feature-item-simple">
-              <span className="icon">🧠</span>
+              <span className="icon"><IconNeural size={18} className="icon-accent" /></span>
               <strong>Universal Context</strong>
               <p>Framework-agnostic memory that travels with the agent across ecosystems.</p>
             </div>
             <div className="feature-item-simple">
-              <span className="icon">⛓️</span>
+              <span className="icon"><IconChain size={18} className="icon-accent" /></span>
               <strong>Cryptographic Proof</strong>
               <p>Every memory is anchored with a Merkle root on 0G Chain for full auditability.</p>
             </div>
             <div className="feature-item-simple">
-              <span className="icon">⚡</span>
+              <span className="icon"><IconBolt size={18} className="icon-accent" /></span>
               <strong>High Throughput</strong>
               <p>Built on 0G Storage to handle millions of vector embeddings at sub-second speeds.</p>
             </div>

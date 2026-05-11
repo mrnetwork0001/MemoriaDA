@@ -91,8 +91,8 @@ const NetworkSwitcher = ({ networkKey, onSwitch, disabled }) => {
 
           <div className="network-dropdown-hint terminal-font">
             {isTestnet
-              ? '⚡ Free testnet tokens via faucet'
-              : '🔒 Real assets — use with caution'}
+              ? '[FREE] Free testnet tokens via faucet'
+              : '[REAL] Real assets — use with caution'}
           </div>
         </div>
       )}
