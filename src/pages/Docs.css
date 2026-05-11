@@ -1,0 +1,194 @@
+/* ============================================================
+   DOCS PAGE — Technical Aesthetic
+   ============================================================ */
+
+.docs-page {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg-void);
+  color: var(--text-primary);
+}
+
+/* Sidebar Styling */
+.docs-sidebar {
+  width: 300px;
+  border-right: 1px solid var(--border-color);
+  background: rgba(10, 10, 15, 0.95);
+  padding: 40px 20px;
+  position: fixed;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-brand {
+  font-size: 1.2rem;
+  margin-bottom: 60px;
+  letter-spacing: 2px;
+  color: var(--accent-primary);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex-grow: 1;
+}
+
+.sidebar-nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.sidebar-nav a:hover {
+  color: var(--accent-primary);
+  padding-left: 5px;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+}
+
+.btn-back {
+  font-size: 0.7rem;
+  color: var(--accent-secondary);
+  text-decoration: none;
+}
+
+/* Main Content Styling */
+.docs-main {
+  margin-left: 300px;
+  padding: 80px 100px;
+  max-width: 1000px;
+}
+
+.docs-section {
+  margin-bottom: 120px;
+  scroll-margin-top: 80px;
+}
+
+.docs-section h1, .docs-section h2 {
+  font-size: 2.2rem;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 20px;
+  letter-spacing: 2px;
+}
+
+.lead {
+  font-size: 1.4rem;
+  color: var(--accent-primary);
+  margin-bottom: 30px;
+}
+
+.docs-section p {
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+/* Feature Grid */
+.feature-grid-simple {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.feature-item-simple {
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-color);
+}
+
+.feature-item-simple .icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.feature-item-simple strong {
+  display: block;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.feature-item-simple p {
+  font-size: 0.8rem;
+  margin-bottom: 0;
+}
+
+/* Problem Callout */
+.problem-callout {
+  padding: 30px;
+  background: rgba(255, 0, 85, 0.05);
+  border-left: 4px solid var(--accent-tertiary);
+  margin-bottom: 40px;
+  font-size: 1.1rem;
+  color: var(--accent-tertiary);
+}
+
+/* Stack Diagram */
+.stack-diagram {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.stack-layer {
+  padding: 24px;
+  border: 1px solid var(--border-color);
+  position: relative;
+}
+
+.stack-layer::after {
+  content: '▼';
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.stack-layer:last-child::after { content: ''; }
+
+.stack-layer.storage { border-color: var(--accent-primary); background: rgba(0, 255, 136, 0.03); }
+.stack-layer.chain { border-color: var(--accent-secondary); background: rgba(0, 240, 255, 0.03); }
+.stack-layer.compute { border-color: var(--accent-tertiary); background: rgba(255, 0, 85, 0.03); }
+
+/* Economics Card */
+.eco-card {
+  padding: 40px;
+  background: var(--bg-deep);
+  border: 1px solid var(--accent-primary);
+  box-shadow: inset 0 0 20px rgba(0, 255, 136, 0.1);
+}
+
+/* Partner Boxes */
+.partner-showcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.partner-box {
+  padding: 30px;
+  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.partner-box h4 {
+  color: var(--accent-primary);
+  margin-bottom: 12px;
+}
+
+@media (max-width: 1024px) {
+  .docs-sidebar { display: none; }
+  .docs-main { margin-left: 0; padding: 40px; }
+  .partner-showcase { grid-template-columns: 1fr; }
+}

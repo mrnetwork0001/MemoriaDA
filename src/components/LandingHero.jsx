@@ -22,23 +22,23 @@ const LandingHero = () => {
             <span className="blink">●</span> SYSTEM_READY: 0G_GALILEO_ACTIVE
           </div>
           
-          <h1 className="hero-main-title heading-font cyber-glitch-text" data-text="UNIVER_SAL MASTER MEMORY">
-            UNIVER_SAL<br/>
-            <span className="text-gradient-cyan">MASTER MEMORY</span>
+          <h1 className="hero-main-title heading-font cyber-glitch-text" data-text="DECENTRALIZED MEMORY STANDARD">
+            DECENTRALIZED<br/>
+            <span className="text-gradient-cyan">MEMORY STANDARD</span>
           </h1>
           
           <p className="hero-desc terminal-font">
-            ❮ Decentralized Agent Memory Protocol ❯<br/>
-            Neural-link storage and verifiable vector retrieval powered by the 0G high-performance network.
+            The permanent memory layer for the AI Agent economy.<br/>
+            Secure, verifiable, and perpetually searchable neural storage powered by 0G.
           </p>
 
           <div className="hero-cta-wrapper">
             <Link to="/app" className="btn-hero-primary heading-font">
               ENTER_SYSTEM__❯
             </Link>
-            <a href="#architecture" className="btn-hero-secondary terminal-font">
-              VIEW_PROTO_SPEC
-            </a>
+            <Link to="/docs" className="btn-hero-secondary terminal-font">
+              VIEW_DOCS__❯
+            </Link>
           </div>
 
           <div className="hero-metrics terminal-font">

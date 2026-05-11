@@ -4,8 +4,8 @@
   <img src="./MemoriaDA_Banner.png" alt="Memoria DA Banner" width="100%" />
 </p>
 
-> **One-Sentence Description (≤30 words):**  
-> Memoria DA stores AI agent memories as vector embeddings on 0G Storage, anchors Merkle roots on 0G Chain, and runs inference through 0G Compute's sealed TEE.
+> **One-Sentence Description:**  
+> The permanent, decentralized memory standard for the AI Agent economy. Powered by 0G Storage, Chain, and Compute.
 
 ---
 

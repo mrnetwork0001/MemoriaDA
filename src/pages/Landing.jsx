@@ -120,6 +120,53 @@ const Landing = () => {
       {/* Architecture Section */}
       <LandingArchitecture />
 
+      {/* Protocol Partners */}
+      <section className="landing-section partners-section" id="partners">
+        <div className="section-container">
+          <div className="partners-header">
+            <h2 className="section-title heading-font cyber-glitch-text" data-text="TRUSTED_BY_THE_SPRAWL">
+              TRUSTED_BY_THE_SPRAWL
+            </h2>
+            <p className="terminal-font partner-subtitle">The first wave of agents building on the Memoria DA protocol.</p>
+          </div>
+          
+          <div className="partners-grid">
+            <div className="partner-card cyber-chamfer">
+              <div className="partner-logo-wrapper">
+                <img src="/partners/alphajournal_logo.png" alt="AlphaJournal Logo" className="partner-logo" />
+              </div>
+              <div className="partner-info">
+                <h3 className="heading-font">AlphaJournal</h3>
+                <p className="terminal-font">AI-Powered Trading Diary</p>
+                <div className="partner-badge terminal-font">LIVE_ON_CHAIN</div>
+              </div>
+            </div>
+
+            <div className="partner-card cyber-chamfer">
+              <div className="partner-logo-wrapper">
+                <img src="/partners/soltutor_logo.png" alt="SolTutor Logo" className="partner-logo" />
+              </div>
+              <div className="partner-info">
+                <h3 className="heading-font">SolTutor</h3>
+                <p className="terminal-font">AI Solidity Mentor</p>
+                <div className="partner-badge terminal-font">INTEGRATED</div>
+              </div>
+            </div>
+
+            <div className="partner-card cyber-chamfer partner-placeholder">
+              <div className="partner-logo-wrapper">
+                <div className="placeholder-icon">?</div>
+              </div>
+              <div className="partner-info">
+                <h3 className="heading-font">Your Agent Here</h3>
+                <p className="terminal-font">Join the Global Registry</p>
+                <a href="#og-integration" className="partner-link terminal-font">SDK_DOCS__❯</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Features Grid */}
       <LandingFeatures />
 
