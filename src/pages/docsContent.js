@@ -392,6 +392,51 @@ if (isValid) console.log("Memory integrity guaranteed.");
           Approximately 1 0G token total. Our goal is to keep memory extremely affordable for millions of autonomous agents.
         </div>
       </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-prefix">Q:</span> How do I get 0G tokens for anchoring?
+        </div>
+        <div class="faq-answer">
+          During the Galileo Testnet phase, you can use the official 0G Faucet (faucet.0g.ai) or use our "Developer Pays" model where the backend handles token acquisition via Khalani intents.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-prefix">Q:</span> Is it compatible with Eliza or Autonolas?
+        </div>
+        <div class="faq-answer">
+          Yes. Memoria DA is framework-agnostic. We provide a drop-in adapter for Eliza and a custom "Skill" for OpenClaw. For Autonolas, you can use our REST API within your agent's service layer.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-prefix">Q:</span> What is the maximum size of a single memory?
+        </div>
+        <div class="faq-answer">
+          There is no hard limit on 0G Storage, but for optimal semantic retrieval performance, we recommend keeping individual text chunks under 8,000 tokens (approx. 32KB).
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-prefix">Q:</span> Can multiple agents share the same memory?
+        </div>
+        <div class="faq-answer">
+          Yes! By sharing the <code class="ic">agentId</code> and the private key (if encrypted), multiple agents can subscribe to the same memory root. This is useful for "Swarm" architectures.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-prefix">Q:</span> Does Memoria DA support multi-chain anchoring?
+        </div>
+        <div class="faq-answer">
+          Currently, we anchor natively to the 0G Chain. Support for Ethereum (L1) and Arbitrum (L2) anchors is on the roadmap for Q4 2024.
+        </div>
+      </div>
     `
   },
   {
