@@ -403,30 +403,30 @@ if (isValid) console.log("Memory integrity guaranteed.");
     content: `
       <div class="roadmap-timeline">
         <div class="roadmap-item done">
-          <div class="roadmap-phase">Q1 2024</div>
-          <div class="roadmap-title">Protocol Genesis <span class="badge-done">Live</span></div>
+          <div class="roadmap-phase">Phase 1</div>
+          <div class="roadmap-title">Protocol Genesis <span class="badge-done">COMPLETED</span></div>
           <ul class="roadmap-items">
-            <li>MemoriaRegistryV2 Deployment</li>
-            <li>0G Storage Integration</li>
-            <li>Basic JS SDK Launch</li>
+            <li>MemoriaRegistryV2 Contract (Galileo)</li>
+            <li>0G Storage Blob Integration</li>
+            <li>Brutalist UI Overhaul</li>
           </ul>
         </div>
         <div class="roadmap-item active">
-          <div class="roadmap-phase">Q2 2024</div>
-          <div class="roadmap-title">Vector Economy <span class="badge-wip">WIP</span></div>
+          <div class="roadmap-phase">Phase 2</div>
+          <div class="roadmap-title">Mainnet Migration <span class="badge-wip">IN PROGRESS</span></div>
           <ul class="roadmap-items">
-            <li>0G Pay & Khalani Integration</li>
-            <li>OpenClaw Skill Official Support</li>
-            <li>Cross-agent memory discovery</li>
+            <li>0G Mainnet Registry Deployment</li>
+            <li>Vector Embedding Search Integration</li>
+            <li>Real-time Merkle Root Verification UI</li>
           </ul>
         </div>
         <div class="roadmap-item">
-          <div class="roadmap-phase">Q3 2024</div>
-          <div class="roadmap-title">Sealed Inference <span class="badge-coming">Future</span></div>
+          <div class="roadmap-phase">Phase 3</div>
+          <div class="roadmap-title">Sovereign Intelligence <span class="badge-coming">POST-HACKATHON</span></div>
           <ul class="roadmap-items">
-            <li>TEE-verified memory retrieval</li>
-            <li>Zero-Knowledge Proofs for private memory</li>
-            <li>Mainnet Migration</li>
+            <li>TEE-Sealed Memory Retrieval (0G Compute)</li>
+            <li>0G Pay & Khalani Intent Automations</li>
+            <li>Multi-agent Swarm Communication Layers</li>
           </ul>
         </div>
       </div>
