@@ -76,6 +76,10 @@ export function useRegistry() {
     return await registryService.getAgent(agentId, provider);
   }, []);
 
+  const findAgentByOwner = useCallback(async (walletAddress, provider) => {
+    return await registryService.findAgentByOwner(walletAddress, provider);
+  }, []);
+
   return {
     isRegistering,
     isUpdating,
@@ -86,6 +90,7 @@ export function useRegistry() {
     ensureAgentRegistered,
     commitMemoryRoot,
     getAgent,
+    findAgentByOwner,
   };
 }
 

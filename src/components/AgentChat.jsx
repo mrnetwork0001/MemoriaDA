@@ -4,9 +4,9 @@ import { NETWORK_CONFIG } from '../config/network';
 import computeClient from '../services/computeClient';
 import memoryStore from '../services/memoryStore';
 import { IconAgent, IconUser, IconWarn, IconMemory, IconLink, IconDotGreen, IconDotYellow, IconChain } from './TerminalIcons';
+import { ethers } from 'ethers';
 import './AgentChat.css';
 
-const AGENT_ID = ACTIVE_AGENT_ID;
 const PROFILE_KEY = 'claw_user_profile';
 
 function loadProfile() {
@@ -73,6 +73,7 @@ const AgentChat = ({ onMemoryEvent, wallet, storage, registry }) => {
   const [messages, setMessages] = useState(MOCK_MESSAGES);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [activeAgentId, setActiveAgentId] = useState(ACTIVE_AGENT_ID);
   const [isOwner, setIsOwner] = useState(true);
   const [checkingOwner, setCheckingOwner] = useState(false);
   const [statusLabel, setStatusLabel] = useState(null);
@@ -80,6 +81,9 @@ const AgentChat = ({ onMemoryEvent, wallet, storage, registry }) => {
   const [retrievedMemories, setRetrievedMemories] = useState([]);
   const [userProfile, setUserProfile] = useState(loadProfile);
   const messagesEndRef = useRef(null);
+
+  // Use activeAgentId everywhere instead of the hardcoded constant
+  const AGENT_ID = activeAgentId;
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -89,38 +93,49 @@ const AgentChat = ({ onMemoryEvent, wallet, storage, registry }) => {
     scrollToBottom();
   }, [messages, isTyping]);
 
-  // Check ownership when wallet or registry changes
+  // Auto-detect which agent this wallet owns
   useEffect(() => {
-    const checkOwnership = async () => {
+    const detectAgent = async () => {
       if (!wallet?.isConnected || !wallet?.address || !registry?.isDeployed) {
-        setIsOwner(true); // default to true if not connected to avoid flashing warnings
+        setIsOwner(true);
         return;
       }
 
       setCheckingOwner(true);
       try {
-        // Use wallet signer or fall back to provider if needed
         const provider = wallet.signer || new ethers.JsonRpcProvider(NETWORK_CONFIG.rpcUrl);
-        const agent = await registry.getAgent(AGENT_ID, provider);
         
-        if (agent && agent.owner && agent.owner !== '0x0000000000000000000000000000000000000000') {
-          const isMatch = agent.owner.toLowerCase() === wallet.address.toLowerCase();
-          setIsOwner(isMatch);
-          if (!isMatch) {
-            console.warn(`[Identity] Ownership mismatch: Registry owner (${agent.owner}) != Connected (${wallet.address})`);
-          }
+        // First: check if wallet owns the default agent
+        const defaultAgent = await registry.getAgent(ACTIVE_AGENT_ID, provider);
+        if (defaultAgent && defaultAgent.owner && 
+            defaultAgent.owner.toLowerCase() === wallet.address.toLowerCase()) {
+          setActiveAgentId(ACTIVE_AGENT_ID);
+          setIsOwner(true);
+          console.log(`[Identity] Wallet owns default agent: ${ACTIVE_AGENT_ID}`);
+          setCheckingOwner(false);
+          return;
+        }
+
+        // Second: scan the chain for any agent owned by this wallet
+        const ownedAgentId = await registry.findAgentByOwner(wallet.address, provider);
+        if (ownedAgentId) {
+          setActiveAgentId(ownedAgentId);
+          setIsOwner(true);
+          console.log(`[Identity] Found wallet's agent: ${ownedAgentId}`);
         } else {
-          // Agent doesn't exist yet on this chain
+          // Wallet doesn't own any agent
           setIsOwner(false);
+          console.warn(`[Identity] No agent found for wallet ${wallet.address}`);
         }
       } catch (err) {
-        console.error('[Identity] Ownership check failed:', err);
+        console.error('[Identity] Agent detection failed:', err);
+        setIsOwner(true); // fail open to avoid blocking
       } finally {
         setCheckingOwner(false);
       }
     };
 
-    checkOwnership();
+    detectAgent();
   }, [wallet?.address, wallet?.isConnected, registry?.isDeployed, wallet?.signer, registry?.agentRegistered]);
 
   // Check compute backend on mount
@@ -463,7 +478,9 @@ const AgentChat = ({ onMemoryEvent, wallet, storage, registry }) => {
                   try {
                     const result = await registry.ensureAgentRegistered(newAgentId, DEFAULT_AGENT_FRAMEWORK, wallet.signer);
                     if (result) {
-                      addSystemMsg(`✓ Agent "${newAgentId}" registered successfully! Reload the page to activate.`);
+                      setActiveAgentId(newAgentId);
+                      setIsOwner(true);
+                      addSystemMsg(`✓ Agent "${newAgentId}" activated. You can now chat and anchor memories.`);
                     } else {
                       addSystemMsg(`[WARN] Registration returned false — check your wallet for pending transactions.`);
                     }

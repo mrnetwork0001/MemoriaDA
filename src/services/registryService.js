@@ -240,10 +240,37 @@ class RegistryService {
           }
         }
         return agents.sort((a, b) => b.lastUpdated - a.lastUpdated);
-      } catch {
+    } catch {
         return [];
       }
     }
+  }
+
+  // ─── Find agent owned by a specific wallet ──────────────────
+  
+  async findAgentByOwner(walletAddress, provider) {
+    const address = NETWORK_CONFIG.registryAddress;
+    if (!address || !provider || !walletAddress) return null;
+
+    const contract = new Contract(address, MEMORIA_REGISTRY_ABI, provider);
+    
+    try {
+      const count = Number(await contract.getAgentCount());
+      for (let i = 0; i < count; i++) {
+        try {
+          const agentId = await contract.getAgentIdByIndex(i);
+          const [owner] = await contract.getAgent(agentId);
+          if (owner.toLowerCase() === walletAddress.toLowerCase()) {
+            return agentId;
+          }
+        } catch {
+          continue;
+        }
+      }
+    } catch (err) {
+      console.warn('[Registry] findAgentByOwner failed:', err.message);
+    }
+    return null;
   }
 }
 
