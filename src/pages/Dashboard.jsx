@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { IconChain } from '../components/TerminalIcons';
+
 import Header from '../components/Header';
 import AgentChat from '../components/AgentChat';
 import DataTerminal from '../components/DataTerminal';
 import MemoryExplorer from '../components/MemoryExplorer';
 import DeveloperSDK from '../components/DeveloperSDK';
-import MerkleVerifier from '../components/MerkleVerifier';
+
 import useWallet from '../hooks/useWallet';
 import useStorage from '../hooks/useStorage';
 import useRegistry from '../hooks/useRegistry';
@@ -13,7 +13,7 @@ import useNetwork from '../hooks/useNetwork';
 import '../App.css';
 
 function Dashboard() {
-  const [activeTab, setActiveTab] = useState('playground'); // playground, explorer, sdk, verify
+  const [activeTab, setActiveTab] = useState('playground'); // playground, explorer, sdk
   const [memoryEvents, setMemoryEvents] = useState([]);
   const wallet = useWallet();
   const storage = useStorage();
@@ -56,12 +56,6 @@ function Dashboard() {
         >
           DEVELOPER SDK
         </button>
-        <button 
-          className={`nav-tab ${activeTab === 'verify' ? 'active' : ''}`}
-          onClick={() => setActiveTab('verify')}
-        >
-          <IconChain size={12} style={{marginRight:4, verticalAlign:'middle'}}/> VERIFY
-        </button>
       </div>
 
       <main className="dashboard" id="dashboard-main">
@@ -91,11 +85,7 @@ function Dashboard() {
             <DeveloperSDK />
           </div>
         )}
-        {activeTab === 'verify' && (
-          <div className="full-width-tab">
-            <MerkleVerifier wallet={wallet} networkHook={networkHook} />
-          </div>
-        )}
+
       </main>
 
       {/* Footer */}
