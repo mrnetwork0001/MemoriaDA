@@ -14,26 +14,6 @@ export const DOCS_SECTIONS = [
         In the future, agents will be autonomous entities. For an agent to have a persistent identity and personality, it must have a memory that it owns—one that cannot be deleted by a centralized provider.
       </div>
 
-      <h2 class="docs-h2">Protocol at a Glance</h2>
-      <div class="metrics-grid">
-        <div class="metric-card">
-          <div class="metric-value">14.2 MB</div>
-          <div class="metric-label">KNOWLEDGE ANCHORED</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-value">1,240+</div>
-          <div class="metric-label">ECOSYSTEM USERS</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-value">42</div>
-          <div class="metric-label">ACTIVE AGENT NFTS</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-value">0.45 0G</div>
-          <div class="metric-label">PROTOCOL REVENUE</div>
-        </div>
-      </div>
-
       <h2 class="docs-h2">Core Pillars</h2>
       <div class="feature-grid">
         <div class="feature-card">
