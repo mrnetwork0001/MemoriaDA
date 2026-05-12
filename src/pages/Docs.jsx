@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { ethers } from 'ethers';
+import registryService from '../services/registryService';
 import { DOCS_SECTIONS } from './docsContent';
 import { IconBolt, IconChain, IconNeural, IconBox, IconGlobe, IconLock, IconSnapshot } from '../components/TerminalIcons';
 import { NETWORKS } from '../config/network';
@@ -17,26 +19,42 @@ const ProtocolMetrics = () => {
   useEffect(() => {
     const fetchLiveStats = async () => {
       try {
-        // 1. Fetch from our global memory indexer
-        const response = await fetch('https://memoriada.xyz/api/memory/global');
-        const data = await response.json();
+        // Target Galileo Testnet for current traction display
+        const testnet = NETWORKS.testnet;
+        const provider = new ethers.JsonRpcProvider(testnet.rpcUrl);
+        const agents = await registryService.getAllAgents(provider);
         
-        // 2. Fetch agent count from onchain registry
-        // Note: Using a fallback if the API is slow
-        const agentCount = data.totalAgents || 42;
-        const vectors = data.totalVectors || 14200;
-        const anchoredMB = (vectors * 1.5 / 1024).toFixed(1); // Rough estimate: 1.5KB per vector
-        const revenue = (data.totalAnchors * 0.001).toFixed(2) || '0.45';
+        if (agents && agents.length > 0) {
+          const totalAgents = agents.length;
+          const totalVectors = agents.reduce((acc, curr) => acc + (Number(curr.vectorCount) || 0), 0);
+          const totalFees = agents.reduce((acc, curr) => acc + (parseFloat(curr.totalFeePaid) || 0), 0);
+          
+          // Count unique owners
+          const uniqueOwners = new Set(agents.map(a => a.owner?.toLowerCase()).filter(Boolean));
+          
+          const anchoredSize = (totalVectors * 1.5); // 1.5KB per vector average
+          const displaySize = anchoredSize > 1024 
+            ? `${(anchoredSize / 1024).toFixed(1)} MB` 
+            : `${anchoredSize.toFixed(0)} KB`;
 
-        setStats({
-          anchored: `${anchoredMB} MB`,
-          users: (agentCount * 30 + 12).toLocaleString(), // Estimated reach: 30 users per agent
-          agents: agentCount.toString(),
-          revenue: `${revenue} 0G`,
-          loading: false
-        });
+          setStats({
+            anchored: displaySize,
+            users: uniqueOwners.size.toString(),
+            agents: totalAgents.toString(),
+            revenue: `${totalFees.toFixed(3)} 0G`,
+            loading: false
+          });
+        } else {
+          setStats({
+            anchored: '0.0 MB',
+            users: '0',
+            agents: '0',
+            revenue: '0.000 0G',
+            loading: false
+          });
+        }
       } catch (err) {
-        // Fallback to semi-realistic cached data if API fails
+        console.error("Metrics fetch error:", err);
         setStats(prev => ({ ...prev, loading: false }));
       }
     };
@@ -54,7 +72,7 @@ const ProtocolMetrics = () => {
       </div>
       <div className="metric-card">
         <div className="metric-value">{stats.loading ? '...' : stats.users}</div>
-        <div className="metric-label">ECOSYSTEM USERS</div>
+        <div className="metric-label">UNIQUE OWNERS</div>
       </div>
       <div className="metric-card">
         <div className="metric-value">{stats.loading ? '...' : stats.agents}</div>
