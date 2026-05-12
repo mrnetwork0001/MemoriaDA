@@ -12,6 +12,7 @@ export const PROTOCOL_VERSION = 'v0.2.0';
 // Agent defaults
 export const DEFAULT_AGENT_FRAMEWORK = 'OpenClaw';
 export const DEFAULT_TOP_K = 10;
+export const ACTIVE_AGENT_ID = 'agent_0xClaw_7f3e';
 
 // Memory fee (must match contract: 0.001 ether)
 export const MEMORY_FEE = '0.001';

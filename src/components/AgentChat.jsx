@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
-import { DEFAULT_AGENT_FRAMEWORK } from '../config/constants';
+import { DEFAULT_AGENT_FRAMEWORK, ACTIVE_AGENT_ID } from '../config/constants';
 import { NETWORK_CONFIG } from '../config/network';
 import computeClient from '../services/computeClient';
 import memoryStore from '../services/memoryStore';
 import { IconAgent, IconUser, IconWarn, IconMemory, IconLink, IconDotGreen, IconDotYellow, IconChain } from './TerminalIcons';
 import './AgentChat.css';
 
-const AGENT_ID = 'agent_0xClaw_7f3a';
+const AGENT_ID = ACTIVE_AGENT_ID;
 const PROFILE_KEY = 'claw_user_profile';
 
 function loadProfile() {
@@ -73,6 +73,8 @@ const AgentChat = ({ onMemoryEvent, wallet, storage, registry }) => {
   const [messages, setMessages] = useState(MOCK_MESSAGES);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [isOwner, setIsOwner] = useState(true);
+  const [checkingOwner, setCheckingOwner] = useState(false);
   const [statusLabel, setStatusLabel] = useState(null);
   const [computeReady, setComputeReady] = useState(false);
   const [retrievedMemories, setRetrievedMemories] = useState([]);
@@ -86,6 +88,40 @@ const AgentChat = ({ onMemoryEvent, wallet, storage, registry }) => {
   useEffect(() => {
     scrollToBottom();
   }, [messages, isTyping]);
+
+  // Check ownership when wallet or registry changes
+  useEffect(() => {
+    const checkOwnership = async () => {
+      if (!wallet?.isConnected || !wallet?.address || !registry?.isDeployed) {
+        setIsOwner(true); // default to true if not connected to avoid flashing warnings
+        return;
+      }
+
+      setCheckingOwner(true);
+      try {
+        // Use wallet signer or fall back to provider if needed
+        const provider = wallet.signer || new ethers.JsonRpcProvider(NETWORK_CONFIG.rpcUrl);
+        const agent = await registry.getAgent(AGENT_ID, provider);
+        
+        if (agent && agent.owner && agent.owner !== '0x0000000000000000000000000000000000000000') {
+          const isMatch = agent.owner.toLowerCase() === wallet.address.toLowerCase();
+          setIsOwner(isMatch);
+          if (!isMatch) {
+            console.warn(`[Identity] Ownership mismatch: Registry owner (${agent.owner}) != Connected (${wallet.address})`);
+          }
+        } else {
+          // Agent doesn't exist yet on this chain
+          setIsOwner(false);
+        }
+      } catch (err) {
+        console.error('[Identity] Ownership check failed:', err);
+      } finally {
+        setCheckingOwner(false);
+      }
+    };
+
+    checkOwnership();
+  }, [wallet?.address, wallet?.isConnected, registry?.isDeployed, wallet?.signer, registry?.agentRegistered]);
 
   // Check compute backend on mount
   useEffect(() => {
@@ -269,8 +305,8 @@ const AgentChat = ({ onMemoryEvent, wallet, storage, registry }) => {
       });
 
       // ── STEP 7: Storage + Registry run in background ───────
-      // MetaMask popup appears while user is already reading the response
-      if (wallet?.isConnected && wallet?.isCorrectChain && wallet?.signer) {
+      // ONLY RUN IF WE ARE THE VERIFIED OWNER
+      if (wallet?.isConnected && wallet?.isCorrectChain && wallet?.signer && isOwner) {
         (async () => {
           try {
             const uploadResult = await storage.storeMemory({
@@ -409,6 +445,28 @@ const AgentChat = ({ onMemoryEvent, wallet, storage, registry }) => {
 
       {/* Messages */}
       <div className="chat-messages" id="chat-messages">
+        {/* Ownership Warning */}
+        {!isOwner && wallet?.isConnected && (
+          <div className="identity-warning-banner glass-panel-strong">
+            <div className="warning-content">
+              <IconWarn size={18} className="icon-warn" />
+              <div className="warning-text">
+                <span className="warning-title">IDENTITY_MISMATCH</span>
+                <p>Your wallet does not own this Agent ID. Anchoring is disabled for security.</p>
+              </div>
+              <button 
+                className="register-new-btn cyber-chamfer"
+                onClick={() => {
+                  addSystemMsg(`Initiating registration for new identity: ${AGENT_ID}...`);
+                  registry.ensureAgentRegistered?.(AGENT_ID, DEFAULT_AGENT_FRAMEWORK, wallet.signer);
+                }}
+              >
+                REGISTER_NEW_AGENT
+              </button>
+            </div>
+          </div>
+        )}
+        
         {messages.map((msg) => (
           <div key={msg.id} className={`message message-${msg.role}`}>
             {msg.role === 'system' ? (
@@ -485,9 +543,9 @@ const AgentChat = ({ onMemoryEvent, wallet, storage, registry }) => {
           <button
             type="submit"
             className="chat-send-btn cyber-chamfer"
-            disabled={isBusy || !inputValue.trim()}
+            disabled={isBusy || !inputValue.trim() || !isOwner}
           >
-            {isBusy ? '...' : 'SEND'}
+            {isBusy ? '...' : (isOwner ? 'SEND' : 'LOCKED')}
           </button>
         </form>
         <div className="input-hint">

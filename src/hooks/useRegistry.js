@@ -72,6 +72,10 @@ export function useRegistry() {
     }
   }, []);
 
+  const getAgent = useCallback(async (agentId) => {
+    return await registryService.getAgent(agentId);
+  }, []);
+
   return {
     isRegistering,
     isUpdating,
@@ -81,6 +85,7 @@ export function useRegistry() {
     isDeployed: registryService.isDeployed(),
     ensureAgentRegistered,
     commitMemoryRoot,
+    getAgent,
   };
 }
 
