@@ -72,8 +72,8 @@ export function useRegistry() {
     }
   }, []);
 
-  const getAgent = useCallback(async (agentId) => {
-    return await registryService.getAgent(agentId);
+  const getAgent = useCallback(async (agentId, provider) => {
+    return await registryService.getAgent(agentId, provider);
   }, []);
 
   return {

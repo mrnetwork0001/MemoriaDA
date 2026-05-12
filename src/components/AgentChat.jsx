@@ -456,9 +456,20 @@ const AgentChat = ({ onMemoryEvent, wallet, storage, registry }) => {
               </div>
               <button 
                 className="register-new-btn cyber-chamfer"
-                onClick={() => {
-                  addSystemMsg(`Initiating registration for new identity: ${AGENT_ID}...`);
-                  registry.ensureAgentRegistered?.(AGENT_ID, DEFAULT_AGENT_FRAMEWORK, wallet.signer);
+                onClick={async () => {
+                  const shortAddr = wallet.address.slice(2, 8);
+                  const newAgentId = `agent_0x${shortAddr}`;
+                  addSystemMsg(`Registering new agent identity: ${newAgentId}...`);
+                  try {
+                    const result = await registry.ensureAgentRegistered(newAgentId, DEFAULT_AGENT_FRAMEWORK, wallet.signer);
+                    if (result) {
+                      addSystemMsg(`✓ Agent "${newAgentId}" registered successfully! Reload the page to activate.`);
+                    } else {
+                      addSystemMsg(`[WARN] Registration returned false — check your wallet for pending transactions.`);
+                    }
+                  } catch (err) {
+                    addSystemMsg(`[ERR] Registration failed: ${err.message?.slice(0, 80)}`);
+                  }
                 }}
               >
                 REGISTER_NEW_AGENT
