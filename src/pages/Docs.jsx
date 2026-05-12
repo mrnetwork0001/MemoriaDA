@@ -54,8 +54,8 @@ const FAQAccordion = () => {
       a: "Yes! By sharing the agentId and the private key (if encrypted), multiple agents can subscribe to the same memory root. This is useful for 'Swarm' architectures."
     },
     {
-      q: "Does Memoria DA support multi-chain anchoring?",
-      a: "Currently, we anchor natively to the 0G Chain. Support for Ethereum (L1) and Arbitrum (L2) anchors is on the roadmap for Q4 2024."
+      q: "Does Memoria DA support other blockchains?",
+      a: "Memoria DA is built natively and exclusively for the 0G ecosystem. We leverage 0G's specialized Data Availability (DA) and modular architecture because legacy chains lack the throughput and low-latency storage required for real-time AI agent memory."
     }
   ];
 
