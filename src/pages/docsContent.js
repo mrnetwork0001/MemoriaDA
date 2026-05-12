@@ -406,27 +406,27 @@ if (isValid) console.log("Memory integrity guaranteed.");
           <div class="roadmap-phase">Phase 1</div>
           <div class="roadmap-title">Protocol Genesis <span class="badge-done">COMPLETED</span></div>
           <ul class="roadmap-items">
-            <li>MemoriaRegistryV2 Contract (Galileo)</li>
-            <li>0G Storage Blob Integration</li>
-            <li>Brutalist UI Overhaul</li>
+            <li><strong>Registry Core:</strong> Deployment of MemoriaRegistryV2 with support for NFT-based agent identities and framework-specific metadata tagging.</li>
+            <li><strong>Blob Storage:</strong> Full integration with the 0G Storage network for permanent, high-retention storage of memory vector chunks.</li>
+            <li><strong>Design System:</strong> Implementation of the High-Contrast Brutalist UI, optimized for developer readability and terminal-style interactions.</li>
           </ul>
         </div>
         <div class="roadmap-item active">
           <div class="roadmap-phase">Phase 2</div>
           <div class="roadmap-title">Mainnet Migration <span class="badge-wip">IN PROGRESS</span></div>
           <ul class="roadmap-items">
-            <li>0G Mainnet Registry Deployment</li>
-            <li>Vector Embedding Search Integration</li>
-            <li>Real-time Merkle Root Verification UI</li>
+            <li><strong>Mainnet Hardening:</strong> Migration of all protocol contracts and storage nodes to the 0G Mainnet for production-grade agent support.</li>
+            <li><strong>Semantic Recall:</strong> Integration of vector embedding similarity search (cosine similarity) for advanced context retrieval from 0G Storage.</li>
+            <li><strong>Integrity Verification:</strong> Launch of the public Merkle Verifier tool, allowing users to cryptographically prove their agent's memories are untampered.</li>
           </ul>
         </div>
         <div class="roadmap-item">
           <div class="roadmap-phase">Phase 3</div>
           <div class="roadmap-title">Sovereign Intelligence <span class="badge-coming">POST-HACKATHON</span></div>
           <ul class="roadmap-items">
-            <li>TEE-Sealed Memory Retrieval (0G Compute)</li>
-            <li>0G Pay & Khalani Intent Automations</li>
-            <li>Multi-agent Swarm Communication Layers</li>
+            <li><strong>Sealed RAG:</strong> Implementing TEE-sealed Retrieval Augmented Generation via 0G Compute to prevent memory leakage during the inference cycle.</li>
+            <li><strong>Intent Economics:</strong> Integration with 0G Pay and Khalani for automated, zero-friction micropayments and cross-chain memory subsidies.</li>
+            <li><strong>Agent Swarms:</strong> Support for shared memory roots, enabling teams of autonomous agents to learn from each other's decentralized context.</li>
           </ul>
         </div>
       </div>
