@@ -20,7 +20,7 @@ const LandingHero = () => {
         {/* Left Content (Aligned Left) */}
         <div className="hero-content-left">
           <div className="hero-badge terminal-font">
-            <span className="blink">●</span> SYSTEM_READY: 0G_GALILEO_ACTIVE
+            <span className="blink">●</span> SYSTEM_READY: 0G_ARISTOTLE_MAINNET
           </div>
           
           <h1 className="hero-main-title heading-font cyber-glitch-text" data-text="DECENTRALIZED MEMORY STANDARD">

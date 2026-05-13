@@ -4,16 +4,17 @@ import LandingHero from '../components/LandingHero';
 import LandingFeatures from '../components/LandingFeatures';
 import LandingArchitecture from '../components/LandingArchitecture';
 import registryService from '../services/registryService';
-import { NETWORKS } from '../config/network';
+import { NETWORKS, getActiveNetwork } from '../config/network';
 import { ethers } from 'ethers';
 
 const Landing = () => {
-  const [stats, setStats] = useState({ agents: '...', vectors: '...', fees: '...', network: 'GALILEO TESTNET' });
+  const [stats, setStats] = useState({ agents: '...', vectors: '...', fees: '...', network: 'MAINNET' });
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const provider = new ethers.JsonRpcProvider(NETWORKS.testnet.rpcUrl);
+        const net = getActiveNetwork();
+        const provider = new ethers.JsonRpcProvider(net.rpcUrl);
         const agents = await registryService.getAllAgents(provider);
         const totalVectors = agents.reduce((sum, a) => sum + (a.vectorCount || 0), 0);
         const totalFees = agents.reduce((sum, a) => sum + parseFloat(a.totalFeePaid || '0'), 0);
@@ -21,7 +22,7 @@ const Landing = () => {
           agents: agents.length.toString(),
           vectors: totalVectors.toString(),
           fees: totalFees.toFixed(3),
-          network: 'GALILEO TESTNET',
+          network: net.label.toUpperCase(),
         });
       } catch (err) {
         console.warn('[Landing] Stats fetch failed:', err.message);

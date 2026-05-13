@@ -4,7 +4,7 @@ import { ethers } from 'ethers';
 import registryService from '../services/registryService';
 import { DOCS_SECTIONS } from './docsContent';
 import { IconBolt, IconChain, IconNeural, IconBox, IconGlobe, IconLock, IconSnapshot } from '../components/TerminalIcons';
-import { NETWORKS } from '../config/network';
+import { NETWORKS, getActiveNetwork } from '../config/network';
 import './Docs.css';
 
 const ProtocolMetrics = () => {
@@ -19,9 +19,9 @@ const ProtocolMetrics = () => {
   useEffect(() => {
     const fetchLiveStats = async () => {
       try {
-        // Target Galileo Testnet for current traction display
-        const testnet = NETWORKS.testnet;
-        const provider = new ethers.JsonRpcProvider(testnet.rpcUrl);
+        // Use active network for live stats
+        const net = getActiveNetwork();
+        const provider = new ethers.JsonRpcProvider(net.rpcUrl);
         const agents = await registryService.getAllAgents(provider);
         
         if (agents && agents.length > 0) {

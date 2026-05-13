@@ -30,7 +30,7 @@ const LandingFeatures = () => {
     {
       id: "05",
       title: "WALLET_PROTOCOL",
-      desc: "Secure MetaMask integration with auto chain-switch to 0G Galileo.",
+      desc: "Secure MetaMask integration with auto chain-switch to 0G Aristotle Mainnet.",
       badge: "AUTH_LINK"
     },
     {
