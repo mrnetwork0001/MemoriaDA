@@ -169,14 +169,14 @@ const PartnersShowcase = () => {
       name: 'ALPHAJOURNAL',
       tagline: 'Decentralized Trading Diary',
       desc: 'The first platform that allows traders to immortalize their market theses onchain. Every prediction and entry reason is anchored to 0G Storage via Memoria DA, creating a verifiable track record for subscribers.',
-      url: 'https://memoriada.xyz'
+      url: 'https://alphajournal.online'
     },
     {
       id: 'sol',
       name: 'SOLTUTOR',
       tagline: 'AI Solidity Mentor',
       desc: 'SolTutor uses Memoria to maintain student progress. It remembers exactly which concepts you have mastered and where you left off, even across different devices or session resets.',
-      url: 'https://memoriada.xyz'
+      url: 'https://soltutor.memoriada.xyz'
     },
     {
       id: 'claw',

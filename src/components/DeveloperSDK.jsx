@@ -65,12 +65,14 @@ const MEMORIA_REGISTRY_ABI = [
       framework: 'AlphaJournal',
       desc: 'AI-powered decentralized trading diary. Stores market theses and trading decisions with verifiable memory.',
       agentId: 'alpha_journal_agent_v1',
+      url: 'https://alphajournal.online',
     },
     {
       name: 'SolTutor',
       framework: 'SolidityTutor',
       desc: 'AI Solidity tutor that remembers your learning progress across sessions. Picks up exactly where you left off.',
       agentId: 'soltutor_agent_v1',
+      url: 'https://soltutor.memoriada.xyz',
     },
   ];
 
@@ -138,6 +140,7 @@ const MEMORIA_REGISTRY_ABI = [
                 <div className="partner-framework terminal-font">{p.framework}</div>
                 <p className="partner-desc">{p.desc}</p>
                 <div className="partner-agent mono">Agent: {p.agentId}</div>
+                {p.url && <a href={p.url} target="_blank" rel="noopener noreferrer" className="partner-visit-link terminal-font">VISIT_APP ❯</a>}
               </div>
             ))}
           </div>

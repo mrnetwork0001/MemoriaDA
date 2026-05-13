@@ -131,7 +131,7 @@ const Landing = () => {
           </div>
           
           <div className="partners-grid">
-            <div className="partner-card cyber-chamfer">
+            <a href="https://alphajournal.online" target="_blank" rel="noopener noreferrer" className="partner-card cyber-chamfer">
               <div className="partner-logo-wrapper">
                 <img src="/partners/alphajournal_logo.png" alt="AlphaJournal Logo" className="partner-logo" />
               </div>
@@ -140,9 +140,9 @@ const Landing = () => {
                 <p className="terminal-font">AI-Powered Trading Diary</p>
                 <div className="partner-badge terminal-font">LIVE_ON_CHAIN</div>
               </div>
-            </div>
+            </a>
 
-            <div className="partner-card cyber-chamfer">
+            <a href="https://soltutor.memoriada.xyz" target="_blank" rel="noopener noreferrer" className="partner-card cyber-chamfer">
               <div className="partner-logo-wrapper">
                 <img src="/partners/soltutor_logo.png" alt="SolTutor Logo" className="partner-logo" />
               </div>
@@ -151,7 +151,7 @@ const Landing = () => {
                 <p className="terminal-font">AI Solidity Mentor</p>
                 <div className="partner-badge terminal-font">INTEGRATED</div>
               </div>
-            </div>
+            </a>
 
             <div className="partner-card cyber-chamfer partner-placeholder">
               <div className="partner-logo-wrapper">
