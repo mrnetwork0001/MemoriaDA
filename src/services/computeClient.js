@@ -12,17 +12,22 @@ class ComputeClient {
 
   // ─── Check backend status ──────────────────────────────────
 
-  async getStatus() {
-    try {
-      const res = await fetch(`${BACKEND_URL}/api/compute/status`);
-      this._status = await res.json();
-      this._statusChecked = true;
-      return this._status;
-    } catch {
-      this._status = { isReady: false, error: 'Backend unreachable' };
-      this._statusChecked = true;
-      return this._status;
+  async getStatus(retries = 5) {
+    for (let attempt = 0; attempt < retries; attempt++) {
+      try {
+        const res = await fetch(`${BACKEND_URL}/api/compute/status`);
+        this._status = await res.json();
+        this._statusChecked = true;
+        if (this._status.isReady) return this._status;
+        // Server is up but compute not ready yet — wait and retry
+        if (attempt < retries - 1) await new Promise(r => setTimeout(r, 2000));
+      } catch {
+        this._status = { isReady: false, error: 'Backend unreachable' };
+        this._statusChecked = true;
+        if (attempt < retries - 1) await new Promise(r => setTimeout(r, 2000));
+      }
     }
+    return this._status;
   }
 
   get isAvailable() {

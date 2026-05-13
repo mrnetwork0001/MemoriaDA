@@ -18,6 +18,8 @@ const ALLOWED_ORIGINS = [
   /^https?:\/\/localhost(:\d+)?$/,
   /^https:\/\/memoria-app\.vercel\.app$/,
   /^https:\/\/.*\.vercel\.app$/,
+  /^https:\/\/.*\.up\.railway\.app$/,
+  /^https:\/\/.*memoriada.*$/,
 ];
 app.use(cors({
   origin: (origin, callback) => {
