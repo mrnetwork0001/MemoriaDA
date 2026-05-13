@@ -45,6 +45,18 @@ Memoria DA is a full-stack decentralized memory protocol for AI agents. It solve
 | **0G Mainnet (Aristotle)** | `0xD896D59583C137D6ca2c5e3add025e143eD1030d` | [View on Explorer](https://chainscan.0g.ai/address/0xD896D59583C137D6ca2c5e3add025e143eD1030d) |
 | **0G Testnet (Galileo)** | `0x85d31A4a95035708972Ffbe1Be6f1c31a350b7f3` | [View on Explorer](https://chainscan-galileo.0g.ai/address/0x85d31A4a95035708972Ffbe1Be6f1c31a350b7f3) |
 
+### Live Traction (0G Mainnet)
+
+| Metric | Value |
+|---|---|
+| **Registered Agents** | 3 (across testnet + mainnet) |
+| **Memory Anchors Committed** | 4+ on-chain `updateMemoryRoot` transactions |
+| **Protocol Revenue** | 0.004 0G collected via micropayment fees |
+| **External Integration Partners** | 2 (AlphaJournal, OpenClaw) |
+| **Automated Test Coverage** | 20 tests across 5 categories (`npm test`) |
+
+> All metrics are verifiable on-chain at [chainscan.0g.ai](https://chainscan.0g.ai/address/0xD896D59583C137D6ca2c5e3add025e143eD1030d).
+
 ---
 
 ## 🤝 Live Integration Partners

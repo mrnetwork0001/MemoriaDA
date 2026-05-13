@@ -16,7 +16,8 @@
     "preview": "vite preview",
     "compile": "npx hardhat compile",
     "deploy:testnet": "node scripts/deploy.js",
-    "deploy:mainnet": "node scripts/deploy-mainnet.js"
+    "deploy:mainnet": "node scripts/deploy-mainnet.js",
+    "test": "node --test test/MemoriaRegistryV2.test.js"
   },
   "dependencies": {
     "@0gfoundation/0g-ts-sdk": "^1.2.1",

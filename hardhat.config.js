@@ -4,6 +4,10 @@ import "dotenv/config";
 export default {
   solidity: "0.8.20",
   networks: {
+    hardhat: {
+      type: "edr-simulated",
+      chainId: 31337,
+    },
     zgGalileo: {
       type: 'http',
       url: "https://evmrpc-testnet.0g.ai",

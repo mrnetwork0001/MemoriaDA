@@ -191,9 +191,9 @@ const Landing = () => {
              <div className="og-node heading-font">0G_STORAGE</div>
           </div>
           <div className="og-cta">
-            <a href="https://0g.ai" target="_blank" rel="noopener noreferrer" className="btn-cyber terminal-font">
-              VIEW_0G_DOCS__❯
-            </a>
+            <Link to="/blog" className="btn-cyber terminal-font">
+              VIEW_BLOG__❯
+            </Link>
           </div>
         </div>
       </section>
