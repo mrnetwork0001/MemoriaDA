@@ -48,7 +48,7 @@ export const NETWORKS = {
     flowContractAddress: '0x62D4144dB0F0a6fBBaeb6296c785C71B3D57C526',
 
     // Memoria DA Registry — deploy with: node scripts/deploy-mainnet.js
-    registryAddress: '',
+    registryAddress: '0xD896D59583C137D6ca2c5e3add025e143eD1030d',
   },
 };
 
@@ -58,7 +58,7 @@ const STORAGE_KEY = 'memoria_network';
 
 let _activeNetworkKey =
   (typeof localStorage !== 'undefined' && localStorage.getItem(STORAGE_KEY)) ||
-  'testnet';
+  'mainnet';
 
 // Listeners for network changes
 const _listeners = new Set();
