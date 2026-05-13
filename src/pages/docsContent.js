@@ -411,22 +411,22 @@ if (isValid) console.log("Memory integrity guaranteed.");
             <li><strong>Design System:</strong> Implementation of the High-Contrast Brutalist UI, optimized for developer readability and terminal-style interactions.</li>
           </ul>
         </div>
-        <div class="roadmap-item active">
+        <div class="roadmap-item done">
           <div class="roadmap-phase">Phase 2</div>
-          <div class="roadmap-title">Mainnet Migration <span class="badge-wip">IN PROGRESS</span></div>
+          <div class="roadmap-title">Mainnet Migration <span class="badge-done">COMPLETED</span></div>
           <ul class="roadmap-items">
-            <li><strong>Mainnet Hardening:</strong> Migration of all protocol contracts and storage nodes to the 0G Mainnet for production-grade agent support.</li>
-            <li><strong>Semantic Recall:</strong> Integration of vector embedding similarity search (cosine similarity) for advanced context retrieval from 0G Storage.</li>
+            <li><strong>Mainnet Hardening:</strong> Successful migration of all protocol contracts and storage nodes to the 0G Aristotle Mainnet.</li>
+            <li><strong>Semantic Recall:</strong> Full integration of vector embedding similarity search (cosine similarity) for advanced context retrieval.</li>
             <li><strong>Integrity Verification:</strong> Launch of the public Merkle Verifier tool, allowing users to cryptographically prove their agent's memories are untampered.</li>
-            <li><strong>0G Pay Readiness:</strong> Preparing the protocol's fee layer for seamless integration with the 0G Pay unified payments infrastructure.</li>
+            <li><strong>0G Pay Readiness:</strong> Integration of the protocol's fee layer with the 0G Pay unified payments infrastructure for mainnet settlement.</li>
           </ul>
         </div>
-        <div class="roadmap-item">
+        <div class="roadmap-item active">
           <div class="roadmap-phase">Phase 3</div>
-          <div class="roadmap-title">Sovereign Intelligence <span class="badge-coming">POST-HACKATHON</span></div>
+          <div class="roadmap-title">Sovereign Intelligence <span class="badge-wip">IN PROGRESS</span></div>
           <ul class="roadmap-items">
-            <li><strong>Sealed RAG:</strong> Implementing TEE-sealed Retrieval Augmented Generation via 0G Compute to prevent memory leakage during the inference cycle.</li>
-            <li><strong>0G Pay × Khalani Settlement:</strong> Full integration with 0G Pay's three-rail payment layer (Native 0G, cross-chain tokens via Khalani solvers, and fiat credit/debit). All payments settle as Compute Credits for Sealed Inference — enabling partner apps like AlphaJournal and SolTutor to accept subscriptions in any currency.</li>
+            <li><strong>Sealed RAG:</strong> Deployment of TEE-sealed Retrieval Augmented Generation via 0G Compute to prevent memory leakage during the inference cycle. <span class="text-accent-cyan">[LIVE]</span></li>
+            <li><strong>0G Pay × Khalani Settlement:</strong> Enabling intent-based payments for cross-chain memory subsidies and Compute Credits. <span class="text-accent-cyan">[ACTIVE]</span></li>
             <li><strong>Agent Swarms:</strong> Support for shared memory roots, enabling teams of autonomous agents to learn from each other's decentralized context.</li>
             <li><strong>Private Computer Integration:</strong> Connecting Memoria agents to 0G Private Computer (pc.0g.ai) for verifiable, monetizable AI inference with built-in memory persistence.</li>
           </ul>

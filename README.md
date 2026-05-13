@@ -1,8 +1,12 @@
 # Memoria DA — Decentralized Universal Agent Memory Protocol
+## 🚀 Now Live on 0G Mainnet
 
 <p align="center">
   <img src="./MemoriaDA_Banner.png" alt="Memoria DA Banner" width="100%" />
 </p>
+
+> [!IMPORTANT]
+> **Memoria DA has officially transitioned to the 0G Aristotle Mainnet.** All protocol operations, including memory anchoring and agent registration, are now live on the production network.
 
 > **One-Sentence Description:**  
 > The permanent, decentralized memory standard for the AI Agent economy. Powered by 0G Storage, Chain, and Compute.
@@ -38,8 +42,8 @@ Memoria DA is a full-stack decentralized memory protocol for AI agents. It solve
 
 | Network | Contract Address | Explorer |
 |---|---|---|
+| **0G Mainnet (Aristotle)** | `0xD896D59583C137D6ca2c5e3add025e143eD1030d` | [View on Explorer](https://chainscan.0g.ai/address/0xD896D59583C137D6ca2c5e3add025e143eD1030d) |
 | **0G Testnet (Galileo)** | `0x85d31A4a95035708972Ffbe1Be6f1c31a350b7f3` | [View on Explorer](https://chainscan-galileo.0g.ai/address/0x85d31A4a95035708972Ffbe1Be6f1c31a350b7f3) |
-| **0G Mainnet** | *(deploy with `npm run deploy:mainnet`)* | *(pending deployment)* |
 
 ---
 
@@ -338,17 +342,20 @@ Memoria DA is a **universal memory standard** that gives any AI agent permanent,
 | **Key Partners** | 0G (infrastructure provider), OpenClaw, ElizaOS, AutoGPT (framework integrations) |
 | **Network Effects** | More agents using the registry → more valuable the shared memory graph becomes |
 
-### Revenue Projections
+### Protocol Roadmap & Traction
 
 ```
-Phase 1 (Hackathon):  Prove the technology works on 0G Testnet ✅
-Phase 2 (Partners):   2 live integration partners (Alpha Journal, SolTutor) ✅
-Phase 3 (SDK):        Publish @memoria/sdk on npm, onboard 100 agent developers
-Phase 4 (Growth):     1,000+ registered agents, each writing ~50 memories/day
-                      → 50,000 micropayments/day × 0.001 0G = 50 0G/day protocol revenue
-Phase 5 (Scale):      1M+ agents, enterprise partnerships, premium tiers
-                      → Self-sustaining protocol economy with governance token
+Phase 1 (Hackathon):  Architect the protocol and prove feasibility on 0G Testnet ✅
+Phase 2 (Partners):   Onboard first high-impact integrations (AlphaJournal, SolTutor) ✅
+Phase 3 (Mainnet):    Transition to 0G Aristotle Mainnet with live registry anchoring ✅
+Phase 4 (SDK):        Release @memoria/sdk for standalone framework developers 🔄
+Phase 5 (Expansion):  Enable cross-agent memory discovery and decentralized governance 🚀
 ```
+
+#### Current Traction
+- **3 Live Agents** integrated and anchoring memory in real-time.
+- **2 Ecosystem Partners** utilizing MemoriaDA as their primary persistence layer.
+- **100% On-Chain Verification** enabled via cryptographic Merkle proofs.
 
 ### Why 0G?
 

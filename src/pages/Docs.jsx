@@ -343,7 +343,9 @@ const Docs = () => {
       {/* ── Sidebar ── */}
       <aside className="docs-sidebar">
         <div className="sidebar-header">
-          <div className="sidebar-brand heading-font">MEMORIA_DA // PROTOCOL</div>
+          <Link to="/" className="sidebar-brand-link">
+            <div className="sidebar-brand heading-font">MEMORIA_DA // PROTOCOL</div>
+          </Link>
           <div className="sidebar-version">DOCS_V1.0.0_ALPHA</div>
           
           <div className="sidebar-search">

@@ -358,12 +358,23 @@
   background: rgba(255,255,255,0.95);
 }
 
+.sidebar-brand-link {
+  text-decoration: none;
+  display: block;
+}
+
 .sidebar-brand {
   font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #7c3aed;
+  transition: opacity 0.1s ease;
+  cursor: pointer;
+}
+
+.sidebar-brand:hover {
+  opacity: 0.7;
 }
 
 .sidebar-version {

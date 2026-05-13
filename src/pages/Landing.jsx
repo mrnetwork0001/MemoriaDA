@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './Landing.css';
 import LandingHero from '../components/LandingHero';
 import LandingFeatures from '../components/LandingFeatures';
 import LandingArchitecture from '../components/LandingArchitecture';
+import Header from '../components/Header';
 import registryService from '../services/registryService';
 import { NETWORKS, getActiveNetwork } from '../config/network';
+import useWallet from '../hooks/useWallet';
+import useNetwork from '../hooks/useNetwork';
 import { ethers } from 'ethers';
 
 const Landing = () => {
+  const wallet = useWallet();
+  const networkHook = useNetwork();
   const [stats, setStats] = useState({ agents: '...', vectors: '...', fees: '...', network: 'MAINNET' });
 
   useEffect(() => {
@@ -35,6 +41,8 @@ const Landing = () => {
     <div className="landing-page" id="landing-root">
       {/* Global HUD Overlay */}
       <div className="scanline" />
+
+      <Header wallet={wallet} networkHook={networkHook} />
       
       {/* Hero Section */}
       <LandingHero />
@@ -193,7 +201,9 @@ const Landing = () => {
       {/* Footer */}
       <footer className="landing-footer terminal-font">
         <div className="footer-content">
-          <div className="footer-brand heading-font">MEMORIA_DA // 0G_APAC_TRACK_1</div>
+          <Link to="/" className="footer-brand-link">
+            <div className="footer-brand heading-font">MEMORIA_DA // 0G_APAC_TRACK_1</div>
+          </Link>
           <div className="footer-status">SYSTEM_STATUS: OPERATIONAL</div>
           <div className="footer-copyright">© 2026 MRNETWORK // NEURAL_LINK_ACTIVE</div>
         </div>

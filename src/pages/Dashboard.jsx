@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import Header from '../components/Header';
 import AgentChat from '../components/AgentChat';
@@ -91,7 +92,9 @@ function Dashboard() {
       {/* Footer */}
       <footer className="app-footer" id="app-footer">
         <div className="footer-left">
-          <span className="footer-brand text-gradient-cyan">Memoria DA</span>
+          <Link to="/" className="footer-brand-link">
+            <span className="footer-brand text-gradient-cyan">Memoria DA</span>
+          </Link>
           <span className="footer-sep">·</span>
           <span>Universal Agent Memory Protocol</span>
         </div>
