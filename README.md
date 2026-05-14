@@ -19,6 +19,7 @@
 | **AlphaJournal** (Integration Partner) | [alphajournal.online](https://alphajournal.online) | AI trading diary - independent app using MemoriaDA protocol |
 | **0G Token Faucet** | [faucet.memoriada.xyz](https://faucet.memoriada.xyz) | Gasless mainnet faucet for testers |
 | **Blog & Testing Guide** | [memoriada.xyz/blog](https://memoriada.xyz/blog) | Architecture deep-dives, integration guide, tester instructions |
+| **Community (Telegram)** | [t.me/MemoriaDA_TG](https://t.me/MemoriaDA_TG) | 50+ active members, testers, and builders |
 
 ### Demo Video
 
@@ -79,6 +80,7 @@ Memoria DA is a full-stack decentralized memory protocol for AI agents. It solve
 | **Live Deployed Apps** | 4 (Protocol + SolTutor + AlphaJournal + Faucet) | All on custom domains |
 | **Automated Test Coverage** | 19 tests across 5 categories | `npm test` |
 | **Private Testers Onboarded** | Active testing phase in progress | Feedback form live |
+| **Community** | 50+ active members on Telegram | [t.me/MemoriaDA_TG](https://t.me/MemoriaDA_TG) |
 
 > **All traction is verifiable onchain** at [chainscan.0g.ai/address/0xD896D...](https://chainscan.0g.ai/address/0xD896D59583C137D6ca2c5e3add025e143eD1030d). Every number above can be independently confirmed - no fabricated claims.
 
