@@ -232,9 +232,11 @@ VITE_PRIVATE_KEY=0xYOUR_PRIVATE_KEY_HERE
 
 # 0G Compute Backend
 ZG_PRIVATE_KEY=0xYOUR_PRIVATE_KEY_HERE
-ZG_NETWORK=testnet
-ZG_CHAT_PROVIDER=0xa48f01287233509FD694a22Bf840225062E67836
-ZG_CHAT_MODEL=qwen/qwen-2.5-7b-instruct
+ZG_NETWORK=mainnet
+# AI Inference 0G Router API (Recommended - OpenAI-compatible)
+ZG_CHAT_API_KEY=your_key
+ZG_CHAT_BASE_URL=https://router-api.0g.ai/v1/chat/completions
+ZG_CHAT_MODEL=0GM-1.0-35B-A3B
 PORT=3001
 ```
 
