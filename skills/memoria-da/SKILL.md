@@ -1,6 +1,6 @@
 ---
 name: memoria-da
-description: Gives any OpenClaw agent persistent, decentralized memory via 0G Storage and 0G Chain. Stores memories as Merkle-verified blobs, anchors root hashes on-chain, and retrieves relevant context for conversations.
+description: Gives any OpenClaw agent persistent, decentralized memory via 0G Storage and 0G Chain. Stores memories as Merkle-verified blobs, anchors root hashes onchain, and retrieves relevant context for conversations.
 metadata:
   openclaw:
     requires:
@@ -13,7 +13,7 @@ You have access to **persistent, decentralized memory** via the MemoriaDA protoc
 
 Your memories are:
 - **Permanent** — stored on 0G decentralized storage, not a database
-- **Verifiable** — every memory has a Merkle root hash anchored on-chain
+- **Verifiable** — every memory has a Merkle root hash anchored onchain
 - **Tamper-proof** — cryptographically proven to be unaltered
 
 ## When to store a memory
@@ -46,7 +46,7 @@ The response will contain a `rootHash`. Save this for anchoring.
 
 ## How to anchor on 0G Chain
 
-After storing, anchor the Merkle root on-chain for permanent verification:
+After storing, anchor the Merkle root onchain for permanent verification:
 
 ```bash
 curl -s -X POST http://localhost:3001/api/registry/anchor \

@@ -46,7 +46,7 @@ export const BLOG_ARTICLES = [
       <tr><th>App</th><th>URL</th><th>What It Does</th><th>Wallet Required?</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>MemoriaDA</strong></td><td><a href="https://memoriada.xyz" class="text-link">memoriada.xyz</a></td><td>The core protocol dashboard - chat with AI, view memory anchoring in real-time, verify on-chain proofs</td><td>Yes (for direct anchoring)</td></tr>
+      <tr><td><strong>MemoriaDA</strong></td><td><a href="https://memoriada.xyz" class="text-link">memoriada.xyz</a></td><td>The core protocol dashboard - chat with AI, view memory anchoring in real-time, verify onchain proofs</td><td>Yes (for direct anchoring)</td></tr>
       <tr><td><strong>SolTutor</strong></td><td><a href="https://soltutor.memoriada.xyz" class="text-link">soltutor.memoriada.xyz</a></td><td>AI Solidity tutor that remembers your learning progress across sessions</td><td>Yes (for subscription)</td></tr>
       <tr><td><strong>AlphaJournal</strong></td><td><a href="https://alphajournal.online" class="text-link">alphajournal.online</a></td><td>AI-powered trading diary that remembers your market theses and trading history</td><td>Yes (for subscription)</td></tr>
     </tbody>
@@ -298,7 +298,7 @@ const response = await fetch('https://api.memoriada.xyz/api/registry/register', 
 
 const { tokenId, txHash, explorerUrl } = await response.json();
 console.log(\`Agent registered! NFT Token #\${tokenId}\`);
-console.log(\`Verify on-chain: \${explorerUrl}\`);</pre>
+console.log(\`Verify onchain: \${explorerUrl}\`);</pre>
 </div>
 
 <div class="docs-callout tip">
@@ -346,7 +346,7 @@ console.log(\`Total memories: \${vectorCount}\`);</pre>
   <li>Your text is embedded into a 1536-dimensional vector using a text-embedding model</li>
   <li>The vector is serialized as a JSON Merkle blob</li>
   <li>The blob is uploaded to 0G's decentralized storage network</li>
-  <li>A root hash is generated and returned for on-chain anchoring</li>
+  <li>A root hash is generated and returned for onchain anchoring</li>
 </ul>
 
 <h2 class="docs-h2">Step 3: Anchor on 0G Chain (30 seconds)</h2>
@@ -422,14 +422,14 @@ Here is what you remember about this user:
     <span class="code-lang">JAVASCRIPT</span>
     <span class="code-file">verify-memory.js</span>
   </div>
-  <pre class="code-block">// Step 5: Verify memory integrity on-chain
+  <pre class="code-block">// Step 5: Verify memory integrity onchain
 const verify = await fetch(
   'https://api.memoriada.xyz/api/registry/verify?agentId=my_trading_bot_v1&rootHash=' + rootHash
 );
 
 const { isValid, storedRoot, lastUpdated } = await verify.json();
 console.log(\`Memory integrity: \${isValid ? '✅ VERIFIED' : '❌ TAMPERED'}\`);
-console.log(\`On-chain root: \${storedRoot}\`);
+console.log(\`Onchain root: \${storedRoot}\`);
 console.log(\`Last anchored: \${new Date(lastUpdated * 1000).toISOString()}\`);</pre>
 </div>
 
@@ -489,7 +489,7 @@ metadata:
 <ul class="docs-list">
   <li><strong>AlphaJournal</strong> - AI trading diary that remembers every market thesis across sessions</li>
   <li><strong>SolTutor</strong> - AI Solidity tutor that tracks student progress and adapts lesson plans</li>
-  <li><strong>MemoriaDA Agent</strong> - The flagship demo with real-time Data Terminal and on-chain verification</li>
+  <li><strong>MemoriaDA Agent</strong> - The flagship demo with real-time Data Terminal and onchain verification</li>
 </ul>
 
 <div class="docs-callout tip">
@@ -527,7 +527,7 @@ metadata:
 
 <ul class="docs-list">
   <li><strong>Real economic security</strong> - storage providers are incentivized to maintain data</li>
-  <li><strong>Permanent anchoring</strong> - on-chain roots are immutable and publicly verifiable</li>
+  <li><strong>Permanent anchoring</strong> - onchain roots are immutable and publicly verifiable</li>
   <li><strong>Production SLAs</strong> - the network is optimized for uptime and throughput</li>
 </ul>
 
