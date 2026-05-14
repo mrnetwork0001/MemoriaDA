@@ -22,26 +22,19 @@ const ProtocolMetrics = () => {
         // Use active network for live stats
         const net = getActiveNetwork();
         const provider = new ethers.JsonRpcProvider(net.rpcUrl);
-        const agents = await registryService.getAllAgents(provider);
+        const statsData = await registryService.getProtocolStats(provider);
         
-        if (agents && agents.length > 0) {
-          const totalAgents = agents.length;
-          const totalVectors = agents.reduce((acc, curr) => acc + (Number(curr.vectorCount) || 0), 0);
-          const totalFees = agents.reduce((acc, curr) => acc + (parseFloat(curr.totalFeePaid) || 0), 0);
-          
-          // Count unique owners
-          const uniqueOwners = new Set(agents.map(a => a.owner?.toLowerCase()).filter(Boolean));
-          
-          const anchoredSize = (totalVectors * 1.5); // 1.5KB per vector average
+        if (statsData) {
+          const anchoredSize = (statsData.vectors * 1.5); // 1.5KB per vector average
           const displaySize = anchoredSize > 1024 
             ? `${(anchoredSize / 1024).toFixed(1)} MB` 
             : `${anchoredSize.toFixed(0)} KB`;
 
           setStats({
             anchored: displaySize,
-            users: uniqueOwners.size.toString(),
-            agents: totalAgents.toString(),
-            revenue: `${totalFees.toFixed(3)} 0G`,
+            users: statsData.uniqueOwners.toString(),
+            agents: statsData.agents.toString(),
+            revenue: `${Number(statsData.fees).toFixed(3)} 0G`,
             loading: false
           });
         } else {

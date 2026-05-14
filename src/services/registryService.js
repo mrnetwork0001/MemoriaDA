@@ -246,6 +246,36 @@ class RegistryService {
     }
   }
 
+  // ─── Fast Protocol Stats (For Landing/Docs) ──────────────────
+  
+  async getProtocolStats(provider) {
+    const address = NETWORK_CONFIG.registryAddress;
+    if (!address || !provider) return null;
+
+    const contract = new Contract(address, MEMORIA_REGISTRY_ABI, provider);
+    
+    try {
+      const [agentCount, totalMemoryUpdates, totalFeesCollected, events] = await Promise.all([
+        contract.getAgentCount().catch(() => 0),
+        contract.totalMemoryUpdates().catch(() => 0),
+        contract.totalFeesCollected().catch(() => 0),
+        contract.queryFilter(contract.filters.AgentRegistered(), -50000, "latest").catch(() => [])
+      ]);
+
+      const uniqueOwners = new Set(events.map(e => e.args?.agentOwner?.toLowerCase()).filter(Boolean));
+
+      return {
+        agents: Number(agentCount),
+        vectors: Number(totalMemoryUpdates),
+        fees: ethers.formatEther(totalFeesCollected || 0),
+        uniqueOwners: uniqueOwners.size
+      };
+    } catch (err) {
+      console.warn('Failed to fetch protocol stats:', err.message);
+      return null;
+    }
+  }
+
   // ─── Find agent owned by a specific wallet ──────────────────
   
   async findAgentByOwner(walletAddress, provider) {

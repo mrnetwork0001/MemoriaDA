@@ -1,6 +1,8 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { IconRocket, IconNeural, IconAgent, IconBolt } from './TerminalIcons';
+import { getActiveNetwork } from '../config/network';
+import packageJson from '../../package.json';
 import './LandingHero.css';
 
 /* ── Neural Network Canvas ─────────────────────────────────── */
@@ -396,6 +398,31 @@ const NeuralCanvas = () => {
 
 /* ── Hero Component ────────────────────────────────────────── */
 const LandingHero = () => {
+  const [latency, setLatency] = useState('~42ms');
+
+  useEffect(() => {
+    let mounted = true;
+    const measureLatency = async () => {
+      try {
+        const net = getActiveNetwork();
+        const start = performance.now();
+        await fetch(net.rpcUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ jsonrpc: '2.0', method: 'eth_blockNumber', params: [], id: 1 })
+        });
+        const end = performance.now();
+        if (mounted) {
+          setLatency(`~${Math.round(end - start)}ms`);
+        }
+      } catch (err) {
+        console.warn("Latency measure failed, using fallback:", err);
+      }
+    };
+    measureLatency();
+    return () => { mounted = false; };
+  }, []);
+
   return (
     <section className="landing-hero" id="hero">
       <div className="hero-grid-container">
@@ -430,12 +457,12 @@ const LandingHero = () => {
               <span className="m-val"><IconRocket size={12} className="icon-accent" /> MAX</span>
             </div>
             <div className="metric">
-              <span className="m-label">LATENCY_</span>
-              <span className="m-val">~42ms</span>
+              <span className="m-label">0G_LATENCY_</span>
+              <span className="m-val">{latency}</span>
             </div>
             <div className="metric">
-              <span className="m-label">VERSION_</span>
-              <span className="m-val">v0.1.0-α</span>
+              <span className="m-label">MEMORIA_VER_</span>
+              <span className="m-val">v{packageJson.version === '0.0.0' ? '0.1.0-α' : packageJson.version}</span>
             </div>
           </div>
         </div>
