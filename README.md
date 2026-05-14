@@ -10,7 +10,7 @@
 > [!IMPORTANT]
 > **Memoria DA is live on 0G Aristotle Mainnet** with real users, real transactions, and real protocol revenue. All operations are verifiable onchain.
 
-### 🏆 0G Integration Proof & Hackathon Details
+### 0G Integration Proof & Hackathon Details
 
 - **GitHub Repository**: [https://github.com/mrnetwork0001/MemoriaDA](https://github.com/mrnetwork0001/MemoriaDA)
 - **Mainnet Contract Address**: `0xD896D59583C137D6ca2c5e3add025e143eD1030d` (0G Aristotle Mainnet)
