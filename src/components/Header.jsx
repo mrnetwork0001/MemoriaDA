@@ -66,13 +66,7 @@ const Header = ({ wallet, networkHook }) => {
         <Link to="/" className="logo-link">
           <div className="logo-container">
             <div className="logo-icon">
-              <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                <rect x="1" y="1" width="20" height="20" stroke="#e3c1ff" strokeWidth="1" fill="none"/>
-                <rect x="5" y="5" width="5" height="5" fill="#e3c1ff" opacity="0.9"/>
-                <rect x="12" y="5" width="5" height="5" fill="#e3c1ff" opacity="0.5"/>
-                <rect x="5" y="12" width="5" height="5" fill="#e3c1ff" opacity="0.5"/>
-                <rect x="12" y="12" width="5" height="5" fill="#e3c1ff" opacity="0.2"/>
-              </svg>
+              <img src="/memoria-logo.png" alt="MemoriaDA" width="28" height="28" style={{ objectFit: 'contain' }} />
             </div>
             <div className="logo-text">
             <h1 className="logo-title heading-font" data-text="MEMORIA DA">

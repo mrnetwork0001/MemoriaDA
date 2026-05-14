@@ -48,13 +48,15 @@
 }
 
 .logo-icon {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--accent-dim);
-  border: 1px solid var(--accent-primary);
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  overflow: hidden;
 }
 
 .logo-text {
