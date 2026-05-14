@@ -6,6 +6,8 @@
 
 <img width="1896" height="876" alt="14 05 2026_08 14 12_REC" src="https://github.com/user-attachments/assets/0bd138a4-46b3-4e0b-a0ed-1558799081c8" />
 
+> **0G APAC Hackathon 2026 - Track 1: Agentic Infrastructure & OpenClaw Lab**
+
 
 > [!IMPORTANT]
 > **Memoria DA is live on 0G Aristotle Mainnet** with real users, real transactions, and real protocol revenue. All operations are verifiable onchain.
