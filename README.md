@@ -24,7 +24,7 @@
 | App | URL | Description |
 |-----|-----|-------------|
 | **MemoriaDA** (Core Protocol) | [memoriada.xyz](https://memoriada.xyz) | Landing page, dashboard, Global Explorer, docs, blog |
-| **SolTutor** (Built by MemoriaDA team) | [soltutor.memoriada.xyz](https://soltutor.memoriada.xyz) | AI Solidity tutor - proves the infra works as a shared memory layer |
+| **SolTutor** (Built by MemoriaDA team) | [Live App](https://soltutor.memoriada.xyz) <br/> [GitHub Repo](https://github.com/mrnetwork0001/SolTutor) | AI Solidity tutor - proves the infra works as a shared memory layer |
 | **AlphaJournal** (Integration Partner) | [alphajournal.online](https://alphajournal.online) | AI trading diary - independent app using MemoriaDA protocol |
 | **0G Token Faucet** | [faucet.memoriada.xyz](https://faucet.memoriada.xyz) | Gasless mainnet faucet for testers |
 | **Blog & Testing Guide** | [memoriada.xyz/blog](https://memoriada.xyz/blog) | Architecture deep-dives, integration guide, tester instructions |
@@ -104,7 +104,7 @@ MemoriaDA is not just a standalone app - it's **infrastructure**. To prove this,
 | App | Agent ID | Built By | Live URL | Description |
 |-----|----------|----------|----------|-------------|
 | **MemoriaDA Agent** | `agent_0xClaw_7f3a` | MemoriaDA Team | [memoriada.xyz/app](https://memoriada.xyz/app) | Flagship demo - full RAG pipeline with Data Terminal and onchain verification |
-| **SolTutor** | `soltutor_agent_v1` | MemoriaDA Team | [soltutor.memoriada.xyz](https://soltutor.memoriada.xyz) | AI Solidity tutor - built by the team to demonstrate the infra works as a shared memory layer |
+| **SolTutor** <br/> [GitHub Repo](https://github.com/mrnetwork0001/SolTutor) | `soltutor_agent_v1` | MemoriaDA Team | [soltutor.memoriada.xyz](https://soltutor.memoriada.xyz) | AI Solidity tutor - built by the team to demonstrate the infra works as a shared memory layer |
 | **AlphaJournal** | `alpha_journal_agent_v1` | Integration Partner | [alphajournal.online](https://alphajournal.online) | AI trading diary - independent app using MemoriaDA as its persistence layer |
 
 > **All 3 agents are visible on the [Global Explorer](https://memoriada.xyz/app)** - each with their own NFT ID, vector count, fee history, and Merkle root. This proves MemoriaDA works as a shared infrastructure layer, not just a single demo.
