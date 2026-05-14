@@ -300,7 +300,7 @@
 
 .partners-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: 0;
   border: 1px solid var(--border-color);
   background: rgba(255,255,255,0.7);
@@ -310,8 +310,8 @@
 .partner-card {
   display: flex;
   align-items: center;
-  gap: 20px;
-  padding: 28px;
+  gap: 16px;
+  padding: 24px 20px;
   background: rgba(255,255,255,0.8);
   border: none;
   border-right: 1px solid var(--border-color);
@@ -319,9 +319,20 @@
   position: relative;
   overflow: hidden;
   clip-path: none !important;
+  min-width: 0;
 }
 
 .partner-card:last-child { border-right: none; }
+
+.partner-info {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.partner-info h3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .partner-card::before {
   content: '';
@@ -338,8 +349,9 @@
 .partner-card:hover::before { height: 100%; }
 
 .partner-logo-wrapper {
-  width: 64px;
-  height: 64px;
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
   background: var(--bg-void);
   border: 1px solid var(--border-color);
   display: flex;
@@ -471,4 +483,9 @@
     border-right: none;
     border-bottom: 1px solid var(--border-color);
   }
+  .partner-card { padding: 20px 16px; gap: 14px; }
+  .partner-logo-wrapper { width: 48px; height: 48px; min-width: 48px; }
+  .partner-info h3 { font-size: 0.85rem; word-break: break-word; }
+  .partner-info p { font-size: 0.72rem; }
+  .partner-badge { font-size: 0.6rem; }
 }
