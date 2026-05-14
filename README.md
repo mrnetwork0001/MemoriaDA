@@ -24,6 +24,8 @@
 
 > **[Watch the demo →](TODO_ADD_DEMO_VIDEO_LINK)** (3 min walkthrough showing the full pipeline end-to-end)
 
+> **[Watch the pitch →](TODO_ADD_DEMO_VIDEO_LINK)** (3 min walkthrough showing the full pipeline end-to-end)
+
 ### 0G Stack Components Used
 
 - **0G Storage** - Memory vector blobs stored as Merkle-verified data
