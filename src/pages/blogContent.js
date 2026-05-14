@@ -4,6 +4,243 @@
 
 export const BLOG_ARTICLES = [
   {
+    id: 'mainnet-testing-guide',
+    slug: 'mainnet-testing-guide',
+    title: 'Mainnet Testing Guide: MemoriaDA, SolTutor & AlphaJournal',
+    subtitle: 'A comprehensive guide for private access testers to validate the MemoriaDA ecosystem on 0G Aristotle Mainnet.',
+    author: 'MrNetwork',
+    date: 'May 13, 2026',
+    readTime: '12 min read',
+    tags: ['TESTING', 'MAINNET', 'GUIDE'],
+    featured: true,
+    coverLabel: 'TEST_GUIDE',
+    content: `
+<p class="docs-p">Welcome to the <strong>MemoriaDA Mainnet Private Access Testing Program</strong>. You have been selected to test the first decentralized AI memory protocol running live on the 0G Aristotle Mainnet. This guide covers everything you need to test across all three apps in the ecosystem.</p>
+
+<div class="docs-callout tip">
+  <div class="callout-label">BEFORE_YOU_START</div>
+  You will need a MetaMask wallet connected to the <strong>0G Mainnet</strong> (Chain ID: 16661, RPC: <code class="ic">https://evmrpc.0g.ai</code>). To test SolTutor and AlphaJournal subscriptions, you'll need some 0G tokens — grab them for free from our faucet below.
+</div>
+
+<h2 class="docs-h2">Step 0: Get Free 0G Mainnet Tokens</h2>
+
+<p class="docs-p">Before testing, visit the <strong>MemoriaDA Faucet</strong> to receive free 0G mainnet tokens:</p>
+
+<ul class="docs-list numbered">
+  <li>Go to <a href="https://faucet.memoriada.xyz/" class="text-link">faucet.memoriada.xyz</a></li>
+  <li>Connect your MetaMask wallet</li>
+  <li>Click <strong>"Request Tokens"</strong> — that's it!</li>
+  <li>You will receive <strong>0.15 0G tokens</strong> instantly, completely gasless</li>
+</ul>
+
+<div class="docs-callout">
+  <div class="callout-label">NO_GAS_NEEDED</div>
+  The faucet is completely gasless — you don't need any existing tokens to claim. Just connect and click. The 0.15 0G you receive is enough to cover subscription fees on SolTutor and AlphaJournal and run dozens of memory operations.
+</div>
+
+<h2 class="docs-h2">The Ecosystem at a Glance</h2>
+
+<div class="docs-table-wrapper">
+  <table class="docs-table">
+    <thead>
+      <tr><th>App</th><th>URL</th><th>What It Does</th><th>Wallet Required?</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>MemoriaDA</strong></td><td><a href="https://memoriada.xyz" class="text-link">memoriada.xyz</a></td><td>The core protocol dashboard — chat with AI, view memory anchoring in real-time, verify on-chain proofs</td><td>Yes (for direct anchoring)</td></tr>
+      <tr><td><strong>SolTutor</strong></td><td><a href="https://soltutor.memoriada.xyz" class="text-link">soltutor.memoriada.xyz</a></td><td>AI Solidity tutor that remembers your learning progress across sessions</td><td>Yes (for subscription)</td></tr>
+      <tr><td><strong>AlphaJournal</strong></td><td><a href="https://alphajournal.online" class="text-link">alphajournal.online</a></td><td>AI-powered trading diary that remembers your market theses and trading history</td><td>Yes (for subscription)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 class="docs-h2">Part 1: Testing MemoriaDA (Core Protocol)</h2>
+
+<p class="docs-p">MemoriaDA is the infrastructure layer. Your goal is to verify that the full memory pipeline works end-to-end on mainnet.</p>
+
+<h2 class="docs-h2">Test 1.1 — Landing Page & Navigation</h2>
+
+<ul class="docs-list">
+  <li>Visit <a href="https://memoriada.xyz" class="text-link">memoriada.xyz</a> and verify the landing page loads with the interactive neural network visualization</li>
+  <li>Check that the <strong>Live Stats Banner</strong> shows real numbers (agents, memory anchors, fees collected)</li>
+  <li>Click <strong>ENTER_SYSTEM</strong> — it should navigate to the <code class="ic">/app</code> dashboard</li>
+  <li>Click <strong>VIEW_DOCS</strong> — verify the full documentation portal loads at <code class="ic">/docs</code></li>
+  <li>Click <strong>VIEW_BLOG</strong> — verify the blog listing page loads at <code class="ic">/blog</code></li>
+  <li>Click the <strong>MEMORIA_DA</strong> brand text anywhere — it should always return to the homepage</li>
+</ul>
+
+<h2 class="docs-h2">Test 1.2 — Agent Chat & Memory Storage</h2>
+
+<ul class="docs-list numbered">
+  <li>Open the <code class="ic">/app</code> dashboard and connect your MetaMask wallet</li>
+  <li>Ensure the network badge shows <strong>MAINNET</strong></li>
+  <li>Send a message to the AI agent: <em>"My name is [your name] and I'm interested in DeFi yield farming"</em></li>
+  <li>Watch the <strong>Data Terminal</strong> (right panel) — you should see real-time logs showing: EMBEDDING → STORAGE UPLOAD → CHAIN ANCHOR</li>
+  <li>Send a second message: <em>"What do you remember about me?"</em></li>
+  <li>The agent should recall your name and interest from the first message</li>
+</ul>
+
+<div class="docs-callout">
+  <div class="callout-label">WHAT_TO_REPORT</div>
+  Note the response latency, whether the Data Terminal shows successful operations, and whether the agent accurately recalls previous context.
+</div>
+
+<h2 class="docs-h2">Test 1.3 — Global Explorer</h2>
+
+<ul class="docs-list">
+  <li>Navigate to the <strong>Global Explorer</strong> tab in the dashboard</li>
+  <li>Verify you can see registered agents with their NFT Token IDs, vector counts, and fee history</li>
+  <li>Look for <code class="ic">soltutor_agent_v1</code> and <code class="ic">alpha_journal_agent_v1</code> — these are the partner app agents</li>
+  <li>Click an agent's explorer link — it should open <code class="ic">chainscan.0g.ai</code> showing real transactions</li>
+</ul>
+
+<h2 class="docs-h2">Part 2: Testing SolTutor</h2>
+
+<p class="docs-p">SolTutor is an AI Solidity tutor that uses MemoriaDA for persistent learning progress. It remembers what you've studied, where you struggled, and adapts lessons accordingly.</p>
+
+<h2 class="docs-h2">Test 2.1 — Landing & Wallet Connection</h2>
+
+<ul class="docs-list">
+  <li>Visit <a href="https://soltutor.memoriada.xyz/app" class="text-link">soltutor.memoriada.xyz/app</a></li>
+  <li>Connect your MetaMask wallet</li>
+  <li>Verify the app connects to 0G Mainnet (check the network indicator)</li>
+</ul>
+
+<h2 class="docs-h2">Test 2.2 — Learning Flow</h2>
+
+<ul class="docs-list numbered">
+  <li>Start a new conversation and ask: <em>"Teach me about Solidity mappings"</em></li>
+  <li>Follow up with: <em>"I don't understand the syntax for nested mappings"</em></li>
+  <li>Ask a third question: <em>"Show me an example of mapping(address => mapping(uint => bool))"</em></li>
+  <li>Verify the AI gives contextual, progressive responses — not starting from scratch each time</li>
+</ul>
+
+<h2 class="docs-h2">Test 2.3 — Memory Across Sessions</h2>
+
+<ul class="docs-list numbered">
+  <li>Close the tab and reopen SolTutor</li>
+  <li>Ask: <em>"What was I learning about last time?"</em></li>
+  <li>The AI should reference Solidity mappings and your specific questions — this proves MemoriaDA memory is working for SolTutor</li>
+</ul>
+
+<h2 class="docs-h2">Part 3: Testing AlphaJournal</h2>
+
+<p class="docs-p">AlphaJournal is an AI-powered trading diary. Users log market theses, trading decisions, and emotional states. The AI remembers everything and provides historical context for future entries.</p>
+
+<h2 class="docs-h2">Test 3.1 — Landing & Subscription</h2>
+
+<ul class="docs-list">
+  <li>Visit <a href="https://alphajournal.online" class="text-link">alphajournal.online</a></li>
+  <li>Connect your MetaMask wallet</li>
+  <li>If prompted with a subscription paywall, check the pricing tiers and attempt to subscribe</li>
+  <li>Note: subscription requires 0G tokens — report if the paywall UX is clear</li>
+</ul>
+
+<h2 class="docs-h2">Test 3.2 — Trading Diary Flow</h2>
+
+<ul class="docs-list numbered">
+  <li>Create a new journal entry: <em>"I'm bullish on ETH this week. Technical analysis shows a breakout above $4,200 resistance. Planning to enter a long position with 3% of my portfolio."</em></li>
+  <li>Wait for the AI response — it should acknowledge and contextualize your thesis</li>
+  <li>Add another entry: <em>"Update: ETH broke out as predicted. Taking 50% profit at $4,500. Trailing stop on the rest."</em></li>
+  <li>Ask: <em>"Summarize my trading performance this week"</em></li>
+  <li>The AI should synthesize both entries into a coherent summary</li>
+</ul>
+
+<h2 class="docs-h2">Test 3.3 — Historical Recall</h2>
+
+<ul class="docs-list numbered">
+  <li>Close the browser and reopen AlphaJournal</li>
+  <li>Ask: <em>"What was my last ETH trade?"</em></li>
+  <li>The AI should recall your bullish thesis, the $4,200 breakout, and the profit-taking</li>
+  <li>Ask: <em>"Am I generally bullish or bearish based on my history?"</em></li>
+  <li>The AI should analyze your past entries and give a sentiment summary</li>
+</ul>
+
+<h2 class="docs-h2">Test 3.4 — Session Management</h2>
+
+<ul class="docs-list">
+  <li>Check if you can create, rename, pin, or delete chat sessions</li>
+  <li>Verify that different sessions maintain separate conversation contexts</li>
+  <li>Check the subscription countdown timer (if visible) shows accurate remaining time</li>
+</ul>
+
+<h2 class="docs-h2">Part 4: Cross-App Verification</h2>
+
+<p class="docs-p">This is the most important test — it proves MemoriaDA works as <strong>shared infrastructure</strong> across independent apps.</p>
+
+<ul class="docs-list numbered">
+  <li>Go to <code class="ic">memoriada.xyz/app</code> and open the <strong>Global Explorer</strong></li>
+  <li>Verify you can see at least 3 agents: <code class="ic">soltutor_agent_v1</code>, <code class="ic">alpha_journal_agent_v1</code>, and the MemoriaDA flagship agent</li>
+  <li>Check that each agent shows a unique NFT Token ID and non-zero vector counts (meaning memories have been stored)</li>
+  <li>Click the explorer links for each agent — verify the transactions are real on <code class="ic">chainscan.0g.ai</code></li>
+  <li>Confirm all agents point to the same registry contract: <code class="ic">0xD896D59583C137D6ca2c5e3add025e143eD1030d</code></li>
+</ul>
+
+<div class="docs-callout tip">
+  <div class="callout-label">WHY_THIS_MATTERS</div>
+  If you can see SolTutor and AlphaJournal agents in the MemoriaDA Global Explorer, it proves the protocol works as a <strong>shared memory layer</strong> — not just a standalone app. This is the core value proposition: multiple independent apps sharing one decentralized registry.
+</div>
+
+<h2 class="docs-h2">Bug Report Template</h2>
+
+<p class="docs-p">When reporting issues, please include:</p>
+
+<div class="code-block-wrapper">
+  <div class="code-header">
+    <span class="code-lang">MARKDOWN</span>
+    <span class="code-file">bug-report-template.md</span>
+  </div>
+  <pre class="code-block">## Bug Report
+
+**App:** [MemoriaDA / SolTutor / AlphaJournal]
+**URL:** [exact URL where the issue occurred]
+**Wallet:** [your wallet address, first 6 + last 4 chars]
+**Network:** [Mainnet / Testnet]
+**Browser:** [Chrome / Firefox / Brave / etc.]
+
+**Steps to Reproduce:**
+1. ...
+2. ...
+3. ...
+
+**Expected Behavior:** What should have happened
+**Actual Behavior:** What actually happened
+**Screenshot/Console Errors:** [attach if available]
+
+**Severity:**
+- 🔴 Critical (app crashes, data loss, can't use core features)
+- 🟡 Major (feature broken but workaround exists)
+- 🟢 Minor (visual glitch, typo, minor UX issue)</pre>
+</div>
+
+<h2 class="docs-h2">Testing Checklist Summary</h2>
+
+<div class="docs-table-wrapper">
+  <table class="docs-table">
+    <thead>
+      <tr><th>Test</th><th>App</th><th>Priority</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Landing page loads with live stats</td><td>MemoriaDA</td><td>🔴 Critical</td></tr>
+      <tr><td>Agent chat + Data Terminal shows pipeline</td><td>MemoriaDA</td><td>🔴 Critical</td></tr>
+      <tr><td>Global Explorer shows all 3 agents</td><td>MemoriaDA</td><td>🔴 Critical</td></tr>
+      <tr><td>Wallet connect + network detection</td><td>SolTutor</td><td>🔴 Critical</td></tr>
+      <tr><td>AI teaches Solidity progressively</td><td>SolTutor</td><td>🟡 Major</td></tr>
+      <tr><td>Memory recall across sessions</td><td>SolTutor</td><td>🔴 Critical</td></tr>
+      <tr><td>Subscription paywall + payment</td><td>AlphaJournal</td><td>🟡 Major</td></tr>
+      <tr><td>Journal entry creation + AI response</td><td>AlphaJournal</td><td>🔴 Critical</td></tr>
+      <tr><td>Historical recall across sessions</td><td>AlphaJournal</td><td>🔴 Critical</td></tr>
+      <tr><td>Cross-app agents visible on explorer</td><td>All</td><td>🔴 Critical</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="docs-callout">
+  <div class="callout-label">THANK_YOU</div>
+  Your testing helps us ship a production-quality protocol for the 0G APAC Hackathon. Every bug you find makes the ecosystem stronger. Report all findings to the team — no issue is too small.
+</div>
+`
+  },
+  {
     id: 'permanent-memory-5-minutes',
     slug: 'permanent-memory-5-minutes',
     title: 'How to Give Any AI Agent Permanent Memory in 5 Minutes',
@@ -12,7 +249,7 @@ export const BLOG_ARTICLES = [
     date: 'May 13, 2026',
     readTime: '8 min read',
     tags: ['TUTORIAL', '0G_STORAGE', '0G_CHAIN', 'SDK'],
-    featured: true,
+    featured: false,
     coverLabel: 'TUTORIAL_001',
     content: `
 <p class="docs-p"><strong>The problem is simple:</strong> your AI agent forgets everything the moment a session ends. Every conversation starts from zero. Every user has to re-explain their preferences, their history, their context. This is the AI Amnesia problem — and it affects every agent framework on the market.</p>
