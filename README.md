@@ -1,41 +1,40 @@
-# Memoria DA — Decentralized Universal Agent Memory Protocol
+# Memoria DA - Decentralized Universal Agent Memory Protocol
 
-**AI agents lose memory between sessions. MemoriaDA fixes this — giving any AI agent permanent, verifiable, decentralized memory using 0G Storage, Chain, and Compute.**
+**AI agents lose memory between sessions. MemoriaDA fixes this - giving any AI agent permanent, verifiable, decentralized memory using 0G Storage, Chain, and Compute.**
 
-## 🚀 Now Live on 0G Aristotle Mainnet
+## Now Live on 0G Aristotle Mainnet
 
-<p align="center">
-  <img src="./MemoriaDA_Banner.png" alt="Memoria DA Banner" width="100%" />
-</p>
+<img width="1896" height="876" alt="14 05 2026_08 14 12_REC" src="https://github.com/user-attachments/assets/0bd138a4-46b3-4e0b-a0ed-1558799081c8" />
+
 
 > [!IMPORTANT]
 > **Memoria DA is live on 0G Aristotle Mainnet** with real users, real transactions, and real protocol revenue. All operations are verifiable onchain.
 
-### 🔗 Live URLs
+### Live URLs
 
 | App | URL | Description |
 |-----|-----|-------------|
 | **MemoriaDA** (Core Protocol) | [memoriada.xyz](https://memoriada.xyz) | Landing page, dashboard, Global Explorer, docs, blog |
-| **SolTutor** (Built by MemoriaDA team) | [soltutor.memoriada.xyz](https://soltutor.memoriada.xyz) | AI Solidity tutor — proves the infra works as a shared memory layer |
-| **AlphaJournal** (Integration Partner) | [alphajournal.online](https://alphajournal.online) | AI trading diary — independent app using MemoriaDA protocol |
+| **SolTutor** (Built by MemoriaDA team) | [soltutor.memoriada.xyz](https://soltutor.memoriada.xyz) | AI Solidity tutor - proves the infra works as a shared memory layer |
+| **AlphaJournal** (Integration Partner) | [alphajournal.online](https://alphajournal.online) | AI trading diary - independent app using MemoriaDA protocol |
 | **0G Token Faucet** | [faucet.memoriada.xyz](https://faucet.memoriada.xyz) | Gasless mainnet faucet for testers |
 | **Blog & Testing Guide** | [memoriada.xyz/blog](https://memoriada.xyz/blog) | Architecture deep-dives, integration guide, tester instructions |
 
-### 🎥 Demo Video
+### Demo Video
 
-> **[Watch the demo →](TODO_ADD_DEMO_VIDEO_LINK)** (3-5 min walkthrough showing the full pipeline end-to-end)
+> **[Watch the demo →](TODO_ADD_DEMO_VIDEO_LINK)** (3 min walkthrough showing the full pipeline end-to-end)
 
 ### 0G Stack Components Used
 
-- **0G Storage** — Memory vector blobs stored as Merkle-verified data
-- **0G Chain** — Agent Identity NFTs (ERC-721) + memory root anchoring via smart contract
-- **0G Compute** — Sealed TEE inference (Qwen 2.5 7B) for AI responses
+- **0G Storage** - Memory vector blobs stored as Merkle-verified data
+- **0G Chain** - Agent Identity NFTs (ERC-721) + memory root anchoring via smart contract
+- **0G Compute** - Sealed TEE inference (Qwen 2.5 7B) for AI responses
 
 ---
 
 ## What It Does
 
-Memoria DA is a full-stack decentralized memory protocol for AI agents. It solves the problem of **AI amnesia** — agents losing context between sessions because memory is centralized, unverifiable, and siloed.
+Memoria DA is a full-stack decentralized memory protocol for AI agents. It solves the problem of **AI amnesia** - agents losing context between sessions because memory is centralized, unverifiable, and siloed.
 
 **How it works:**
 
@@ -56,7 +55,7 @@ Memoria DA is a full-stack decentralized memory protocol for AI agents. It solve
 | 0G Component   | How It's Used                                                                                              | Code Reference                                               |
 | -------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
 | **0G Storage** | Direct blob upload/download via `@0gfoundation/0g-ts-sdk`. Memory vectors serialized as JSON Merkle blobs. | [`storageService.js`](./src/services/storageService.js)      |
-| **0G Chain**   | `MemoriaRegistryV2.sol` — ERC-721 Agent Identity NFTs, micropayment fees, onchain memory verification.    | [`MemoriaRegistryV2.sol`](./contracts/MemoriaRegistryV2.sol) |
+| **0G Chain**   | `MemoriaRegistryV2.sol` - ERC-721 Agent Identity NFTs, micropayment fees, onchain memory verification.    | [`MemoriaRegistryV2.sol`](./contracts/MemoriaRegistryV2.sol) |
 | **0G Compute** | Backend broker via `@0glabs/0g-serving-broker` for TEE-verified sealed inference. Qwen 2.5 7B model.       | [`computeService.js`](./server/computeService.js)            |
 
 ### Deployed Contracts
@@ -66,7 +65,7 @@ Memoria DA is a full-stack decentralized memory protocol for AI agents. It solve
 | **0G Mainnet (Aristotle)** | `0xD896D59583C137D6ca2c5e3add025e143eD1030d` | [View on Explorer](https://chainscan.0g.ai/address/0xD896D59583C137D6ca2c5e3add025e143eD1030d)         |
 | **0G Testnet (Galileo)**   | `0x85d31A4a95035708972Ffbe1Be6f1c31a350b7f3` | [View on Explorer](https://chainscan-galileo.0g.ai/address/0x85d31A4a95035708972Ffbe1Be6f1c31a350b7f3) |
 
-### 🔥 Live Traction (0G Mainnet)
+### Live Traction (0G Mainnet)
 
 | Metric | Value | Proof |
 |--------|-------|-------|
@@ -79,21 +78,21 @@ Memoria DA is a full-stack decentralized memory protocol for AI agents. It solve
 | **Automated Test Coverage** | 19 tests across 5 categories | `npm test` |
 | **Private Testers Onboarded** | Active testing phase in progress | Feedback form live |
 
-> **All traction is verifiable onchain** at [chainscan.0g.ai/address/0xD896D...](https://chainscan.0g.ai/address/0xD896D59583C137D6ca2c5e3add025e143eD1030d). Every number above can be independently confirmed — no fabricated claims.
+> **All traction is verifiable onchain** at [chainscan.0g.ai/address/0xD896D...](https://chainscan.0g.ai/address/0xD896D59583C137D6ca2c5e3add025e143eD1030d). Every number above can be independently confirmed - no fabricated claims.
 
 ---
 
-## 🤝 Ecosystem — Built by the Team + Integration Partners
+## Ecosystem - Built by the Team + Integration Partners
 
-MemoriaDA is not just a standalone app — it's **infrastructure**. To prove this, **the MemoriaDA team built SolTutor as a second full application** that runs entirely on the MemoriaDA protocol. If the infrastructure wasn't real, SolTutor couldn't exist.
+MemoriaDA is not just a standalone app - it's **infrastructure**. To prove this, **the MemoriaDA team built SolTutor as a second full application** that runs entirely on the MemoriaDA protocol. If the infrastructure wasn't real, SolTutor couldn't exist.
 
 | App | Agent ID | Built By | Live URL | Description |
 |-----|----------|----------|----------|-------------|
-| **MemoriaDA Agent** | `agent_0xClaw_7f3a` | MemoriaDA Team | [memoriada.xyz/app](https://memoriada.xyz/app) | Flagship demo — full RAG pipeline with Data Terminal and onchain verification |
-| **SolTutor** | `soltutor_agent_v1` | MemoriaDA Team | [soltutor.memoriada.xyz](https://soltutor.memoriada.xyz) | AI Solidity tutor — built by the team to demonstrate the infra works as a shared memory layer |
-| **AlphaJournal** | `alpha_journal_agent_v1` | Integration Partner | [alphajournal.online](https://alphajournal.online) | AI trading diary — independent app using MemoriaDA as its persistence layer |
+| **MemoriaDA Agent** | `agent_0xClaw_7f3a` | MemoriaDA Team | [memoriada.xyz/app](https://memoriada.xyz/app) | Flagship demo - full RAG pipeline with Data Terminal and onchain verification |
+| **SolTutor** | `soltutor_agent_v1` | MemoriaDA Team | [soltutor.memoriada.xyz](https://soltutor.memoriada.xyz) | AI Solidity tutor - built by the team to demonstrate the infra works as a shared memory layer |
+| **AlphaJournal** | `alpha_journal_agent_v1` | Integration Partner | [alphajournal.online](https://alphajournal.online) | AI trading diary - independent app using MemoriaDA as its persistence layer |
 
-> **All 3 agents are visible on the [Global Explorer](https://memoriada.xyz/app)** — each with their own NFT ID, vector count, fee history, and Merkle root. This proves MemoriaDA works as a shared infrastructure layer, not just a single demo.
+> **All 3 agents are visible on the [Global Explorer](https://memoriada.xyz/app)** - each with their own NFT ID, vector count, fee history, and Merkle root. This proves MemoriaDA works as a shared infrastructure layer, not just a single demo.
 
 ### Developer Integration (3 API Calls)
 
@@ -110,7 +109,7 @@ await registry.updateMemoryRoot("my_agent_id", rootHash, vectorCount, {
 });
 ```
 
-### 🦞 OpenClaw Skill (Native Agent Integration)
+### OpenClaw Skill (Native Agent Integration)
 
 MemoriaDA ships an official **OpenClaw Skill** (`skills/memoria-da/SKILL.md`). Any OpenClaw agent that loads this skill gets persistent, decentralized memory automatically.
 
@@ -195,7 +194,7 @@ User Message
 
 - **Node.js** 18+ and npm
 - **MetaMask** browser extension
-- **0G tokens** — Testnet: [faucet.0g.ai](https://faucet.0g.ai) | Mainnet: real 0G tokens required
+- **0G tokens** - Testnet: [faucet.0g.ai](https://faucet.0g.ai) | Mainnet: real 0G tokens required
 
 ### Step 1: Clone & Install
 
@@ -231,8 +230,8 @@ PORT=3001
 npm run dev:all
 
 # Or run separately:
-npm run dev      # Frontend (Vite) — http://localhost:5173
-npm run server   # Backend (0G Compute) — http://localhost:3001
+npm run dev      # Frontend (Vite) - http://localhost:5173
+npm run server   # Backend (0G Compute) - http://localhost:3001
 ```
 
 ### Step 4: Test the App
@@ -278,8 +277,8 @@ After mainnet deployment, update `src/config/network.js` → `mainnet.registryAd
 ```
 memoria-app/
 ├── contracts/
-│   ├── MemoriaRegistry.sol       # V1 — Simple Agent → Root mapping
-│   └── MemoriaRegistryV2.sol     # V2 — ERC-721 NFTs + Micropayments + Verification
+│   ├── MemoriaRegistry.sol       # V1 - Simple Agent → Root mapping
+│   └── MemoriaRegistryV2.sol     # V2 - ERC-721 NFTs + Micropayments + Verification
 ├── scripts/
 │   ├── deploy.js                 # Deploy to Galileo testnet
 │   └── deploy-mainnet.js         # Deploy to 0G Mainnet
@@ -338,33 +337,33 @@ memoria-app/
 
 ## Key Features
 
-- **🧠 Decentralized Memory Storage** — Every agent conversation stored as a Merkle-verified blob on 0G Storage
-- **⛓️ onchain Audit Trail** — Root hashes anchored to 0G Chain via `MemoriaRegistryV2` smart contract
-- **🎨 Agent Identity NFTs (ERC-721)** — Every registered agent receives a unique, fully onchain SVG identity NFT
-- **💰 Micropayment Economy** — Each memory write charges a 0.001 0G fee, creating a self-sustaining protocol revenue model
-- **🔐 Cryptographic Verifier** — onchain verification tool to prove agent memory has not been tampered with
-- **📥 Memory Proof Export** — Download portable `.json` proof files containing Merkle roots, chain data, and verification status
-- **🔍 Semantic Memory Retrieval** — Cosine-similarity search across stored embeddings for context-aware AI
-- **🔒 Sealed AI Inference** — TEE-verified chat completions via 0G Compute Network
-- **🌐 Multi-Network Support** — Seamless switching between 0G Testnet and Mainnet
-- **📊 Global Memory Explorer** — Etherscan-style registry browser showing all agents, NFTs, roots, and fees
-- **🤝 Integration Partners** — Alpha Journal & SolTutor live on MemoriaDA infrastructure, proving it works as a shared protocol
-- **🔌 Developer SDK** — Real integration examples with "Developer Pays" (zero wallet friction) model
-- **🦞 OpenClaw Skill** — Official SKILL.md that gives any OpenClaw agent persistent memory with zero code changes
-- **📸 Agent State Snapshotting** — Save full agent state (goals, topics, mood) to 0G Storage + anchor onchain
-- **🌍 Cross-Agent Memory Queries** — Any agent can discover and query other agents on the Global Registry, enabling orchestration
+- **Decentralized Memory Storage** - Every agent conversation stored as a Merkle-verified blob on 0G Storage
+- **onchain Audit Trail** - Root hashes anchored to 0G Chain via `MemoriaRegistryV2` smart contract
+- **Agent Identity NFTs (ERC-721)** - Every registered agent receives a unique, fully onchain SVG identity NFT
+- **Micropayment Economy** - Each memory write charges a 0.001 0G fee, creating a self-sustaining protocol revenue model
+- **Cryptographic Verifier** - onchain verification tool to prove agent memory has not been tampered with
+- **Memory Proof Export** - Download portable `.json` proof files containing Merkle roots, chain data, and verification status
+- **Semantic Memory Retrieval** - Cosine-similarity search across stored embeddings for context-aware AI
+- **Sealed AI Inference** - TEE-verified chat completions via 0G Compute Network
+- **Multi-Network Support** - Seamless switching between 0G Testnet and Mainnet
+- **Global Memory Explorer** - Etherscan-style registry browser showing all agents, NFTs, roots, and fees
+- **Integration Partners** - Alpha Journal & SolTutor live on MemoriaDA infrastructure, proving it works as a shared protocol
+- **Developer SDK** - Real integration examples with "Developer Pays" (zero wallet friction) model
+- **OpenClaw Skill** - Official SKILL.md that gives any OpenClaw agent persistent memory with zero code changes
+- **Agent State Snapshotting** - Save full agent state (goals, topics, mood) to 0G Storage + anchor onchain
+- **Cross-Agent Memory Queries** - Any agent can discover and query other agents on the Global Registry, enabling orchestration
 
 ---
 
-## 💼 Business Model & Vision
+## Business Model & Vision
 
 ### The Problem
 
-AI agents today suffer from **amnesia**. Every restart wipes their context. Memory is locked inside centralized providers (OpenAI, Anthropic) — it's not portable, not verifiable, and not owned by the user. As autonomous agents become the backbone of Web3, this is a critical infrastructure gap.
+AI agents today suffer from **amnesia**. Every restart wipes their context. Memory is locked inside centralized providers (OpenAI, Anthropic) - it's not portable, not verifiable, and not owned by the user. As autonomous agents become the backbone of Web3, this is a critical infrastructure gap.
 
 ### The Solution
 
-Memoria DA is a **universal memory standard** that gives any AI agent permanent, verifiable, decentralized memory — regardless of the framework it runs on.
+Memoria DA is a **universal memory standard** that gives any AI agent permanent, verifiable, decentralized memory - regardless of the framework it runs on.
 
 ### Business Model Canvas
 
@@ -373,9 +372,9 @@ Memoria DA is a **universal memory standard** that gives any AI agent permanent,
 | **Target Users**      | AI agent developers (OpenClaw, ElizaOS, AutoGPT), enterprises running autonomous agent fleets                                                   |
 | **Pain Point**        | Agents lose context between sessions; memory is centralized, unverifiable, not user-owned                                                       |
 | **Value Proposition** | "Give any AI agent permanent, verifiable, decentralized memory with 3 API calls"                                                                |
-| **Revenue Model**     | **Micropayments** — every `updateMemoryRoot()` charges 0.001 0G. At scale: 1M agents × 100 writes/day = 100,000 0G/day in protocol revenue      |
+| **Revenue Model**     | **Micropayments** - every `updateMemoryRoot()` charges 0.001 0G. At scale: 1M agents × 100 writes/day = 100,000 0G/day in protocol revenue      |
 | **Distribution**      | npm SDK (`@memoria/sdk`), framework plugin marketplaces, developer documentation                                                                |
-| **Retention / Moat**  | Once an agent's lifetime memory is anchored onchain, switching protocols means losing all historical context — **strong data gravity lock-in** |
+| **Retention / Moat**  | Once an agent's lifetime memory is anchored onchain, switching protocols means losing all historical context - **strong data gravity lock-in** |
 | **Key Partners**      | 0G (infrastructure provider), OpenClaw, ElizaOS, AutoGPT (framework integrations)                                                               |
 | **Network Effects**   | More agents using the registry → more valuable the shared memory graph becomes                                                                  |
 
