@@ -402,6 +402,4 @@ Memoria DA **could not exist** without 0G's modular infrastructure:
 
 ---
 
-## 📜 License
 
-MIT License — © 2026 MRNETWORK
