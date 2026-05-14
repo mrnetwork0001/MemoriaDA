@@ -10,6 +10,13 @@
 > [!IMPORTANT]
 > **Memoria DA is live on 0G Aristotle Mainnet** with real users, real transactions, and real protocol revenue. All operations are verifiable onchain.
 
+### 🏆 0G Integration Proof & Hackathon Details
+
+- **GitHub Repository**: [https://github.com/mrnetwork0001/MemoriaDA](https://github.com/mrnetwork0001/MemoriaDA)
+- **Mainnet Contract Address**: `0xD896D59583C137D6ca2c5e3add025e143eD1030d` (0G Aristotle Mainnet)
+- **0G Explorer Link**: [View Verified On-Chain Activity →](https://chainscan.0g.ai/address/0xD896D59583C137D6ca2c5e3add025e143eD1030d)
+- **0G Components Integrated**: 0G Storage, 0G Chain, 0G Compute, Agent ID, Privacy / Secure Execution
+
 ### Live URLs
 
 | App | URL | Description |
@@ -30,8 +37,10 @@
 ### 0G Stack Components Used
 
 - **0G Storage** - Memory vector blobs stored as Merkle-verified data
-- **0G Chain** - Agent Identity NFTs (ERC-721) + memory root anchoring via smart contract
-- **0G Compute** - Sealed TEE inference (Qwen 2.5 7B) for AI responses
+- **0G Chain** - Memory root anchoring via `MemoriaRegistryV2` smart contract
+- **0G Compute** - Inference routing via `@0glabs/0g-serving-broker`
+- **Agent ID** - On-chain ERC-721 Agent Identity NFTs linking wallets to agent memory roots
+- **Privacy / Secure Execution** - Sealed TEE (Trusted Execution Environment) inference ensuring verifiable AI responses
 
 ---
 
