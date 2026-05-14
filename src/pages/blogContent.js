@@ -68,12 +68,27 @@ export const BLOG_ARTICLES = [
   <li>Click the <strong>MEMORIA_DA</strong> brand text anywhere - it should always return to the homepage</li>
 </ul>
 
-<h2 class="docs-h2">Test 1.2 - Agent Chat & Memory Storage</h2>
+<h2 class="docs-h2">Test 1.2 - Register Your Agent (Important!)</h2>
+
+<p class="docs-p">This is the most important step. Registering an agent creates an onchain ERC-721 Identity NFT and adds to the protocol's live stats.</p>
 
 <ul class="docs-list numbered">
-  <li>Open the <code class="ic">/app</code> dashboard and connect your MetaMask wallet</li>
+  <li>Navigate to <code class="ic">memoriada.xyz/app</code> and connect your MetaMask wallet</li>
   <li>Ensure the network badge shows <strong>MAINNET</strong></li>
-  <li>Send a message to the AI agent: <em>"My name is [your name] and I'm interested in DeFi yield farming"</em></li>
+  <li>Click <strong>Register Agent</strong> - this sends a transaction to the MemoriaRegistryV2 contract</li>
+  <li>Wait for the transaction to confirm - you should see a success message with your <strong>NFT Token ID</strong></li>
+  <li>Check the <strong>Data Terminal</strong> (right panel) for the registration confirmation log</li>
+</ul>
+
+<div class="docs-callout tip">
+  <div class="callout-label">WHY_THIS_MATTERS</div>
+  Every agent registration increases the protocol's live stats on the landing page. The more testers that register, the stronger our traction metrics look. Your agent is now permanently recorded onchain!
+</div>
+
+<h2 class="docs-h2">Test 1.3 - Agent Chat & Memory Storage</h2>
+
+<ul class="docs-list numbered">
+  <li>With your wallet connected and agent registered, send a message: <em>"My name is [your name] and I'm interested in DeFi yield farming"</em></li>
   <li>Watch the <strong>Data Terminal</strong> (right panel) - you should see real-time logs showing: EMBEDDING → STORAGE UPLOAD → CHAIN ANCHOR</li>
   <li>Send a second message: <em>"What do you remember about me?"</em></li>
   <li>The agent should recall your name and interest from the first message</li>
@@ -84,7 +99,7 @@ export const BLOG_ARTICLES = [
   Note the response latency, whether the Data Terminal shows successful operations, and whether the agent accurately recalls previous context.
 </div>
 
-<h2 class="docs-h2">Test 1.3 - Global Explorer</h2>
+<h2 class="docs-h2">Test 1.4 - Global Explorer</h2>
 
 <ul class="docs-list">
   <li>Navigate to the <strong>Global Explorer</strong> tab in the dashboard</li>
