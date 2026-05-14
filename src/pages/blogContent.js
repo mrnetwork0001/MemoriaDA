@@ -180,36 +180,27 @@ export const BLOG_ARTICLES = [
   If you can see SolTutor and AlphaJournal agents in the MemoriaDA Global Explorer, it proves the protocol works as a <strong>shared memory layer</strong> - not just a standalone app. This is the core value proposition: multiple independent apps sharing one decentralized registry.
 </div>
 
-<h2 class="docs-h2">Bug Report Template</h2>
+<h2 class="docs-h2">Submit Your Feedback</h2>
 
-<p class="docs-p">When reporting issues, please include:</p>
+<p class="docs-p">After testing, submit your findings, bugs, and suggestions through our official feedback form:</p>
 
-<div class="code-block-wrapper">
-  <div class="code-header">
-    <span class="code-lang">MARKDOWN</span>
-    <span class="code-file">bug-report-template.md</span>
-  </div>
-  <pre class="code-block">## Bug Report
+<p class="docs-p" style="text-align:center; margin: 2rem 0;">
+  <a href="https://forms.gle/PfNk73K2uLS79mmq8" target="_blank" rel="noopener noreferrer" class="text-link" style="font-size: 1.2rem; font-weight: bold;">📋 SUBMIT_TESTER_FEEDBACK_FORM ❯</a>
+</p>
 
-**App:** [MemoriaDA / SolTutor / AlphaJournal]
-**URL:** [exact URL where the issue occurred]
-**Wallet:** [your wallet address, first 6 + last 4 chars]
-**Network:** [Mainnet / Testnet]
-**Browser:** [Chrome / Firefox / Brave / etc.]
+<p class="docs-p">The form covers:</p>
 
-**Steps to Reproduce:**
-1. ...
-2. ...
-3. ...
+<ul class="docs-list">
+  <li>Which apps you tested and your overall experience</li>
+  <li>Bugs encountered (with severity and steps to reproduce)</li>
+  <li>UI/UX suggestions and feature requests</li>
+  <li>Performance and response time observations</li>
+  <li>General comments and impressions</li>
+</ul>
 
-**Expected Behavior:** What should have happened
-**Actual Behavior:** What actually happened
-**Screenshot/Console Errors:** [attach if available]
-
-**Severity:**
-- 🔴 Critical (app crashes, data loss, can't use core features)
-- 🟡 Major (feature broken but workaround exists)
-- 🟢 Minor (visual glitch, typo, minor UX issue)</pre>
+<div class="docs-callout tip">
+  <div class="callout-label">QUICK_TIP</div>
+  Take screenshots of any issues you find before submitting. The form accepts image attachments and detailed descriptions. The more detail you provide, the faster we can fix it.
 </div>
 
 <h2 class="docs-h2">Testing Checklist Summary</h2>
@@ -236,7 +227,7 @@ export const BLOG_ARTICLES = [
 
 <div class="docs-callout">
   <div class="callout-label">THANK_YOU</div>
-  Your testing helps us ship a production-quality protocol for the 0G APAC Hackathon. Every bug you find makes the ecosystem stronger. Report all findings to the team - no issue is too small.
+  Your testing helps us ship a production-quality protocol for the 0G APAC Hackathon. Every bug you find makes the ecosystem stronger. <a href="https://forms.gle/PfNk73K2uLS79mmq8" target="_blank" rel="noopener noreferrer" class="text-link">Submit your feedback here</a> - no issue is too small.
 </div>
 `
   },
