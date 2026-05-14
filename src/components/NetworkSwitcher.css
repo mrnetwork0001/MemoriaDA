@@ -143,3 +143,14 @@
   border-top: 1px solid var(--border-color);
   letter-spacing: 0.05em;
 }
+
+@media (max-width: 420px) {
+  .network-toggle {
+    font-size: 0.5rem;
+    padding: 4px 8px;
+    gap: 4px;
+    letter-spacing: 0.04em;
+  }
+  .network-name { font-size: 0.5rem; }
+  .network-chevron { display: none; }
+}

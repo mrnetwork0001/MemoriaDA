@@ -176,3 +176,19 @@
   max-width: 220px;
   text-align: right;
 }
+
+@media (max-width: 420px) {
+  .wallet-btn {
+    font-size: 0.55rem;
+    padding: 5px 8px;
+    gap: 4px;
+    letter-spacing: 0.04em;
+  }
+  .wallet-btn::before,
+  .wallet-btn::after { display: none; }
+  .wallet-dropdown {
+    width: 200px;
+    right: -8px;
+    padding: 12px;
+  }
+}

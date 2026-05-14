@@ -37,6 +37,16 @@ const Landing = () => {
       {/* Global HUD Overlay */}
       <div className="scanline" />
 
+      {/* Landing Navigation */}
+      <nav className="landing-nav">
+        <Link to="/" className="landing-nav-brand heading-font">MEMORIA_DA</Link>
+        <div className="landing-nav-links terminal-font">
+          <Link to="/app" className="landing-nav-link">SYSTEM</Link>
+          <Link to="/docs" className="landing-nav-link">DOCS</Link>
+          <Link to="/blog" className="landing-nav-link landing-nav-link--active">BLOG</Link>
+        </div>
+      </nav>
+
       {/* Hero Section */}
       <LandingHero />
 

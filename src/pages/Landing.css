@@ -9,6 +9,53 @@
   overflow-x: hidden;
 }
 
+/* ── Landing Nav ─────────────────────────────────────────── */
+.landing-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(248, 247, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.landing-nav-brand {
+  font-size: 0.95rem;
+  color: var(--accent-primary);
+  text-decoration: none;
+  letter-spacing: 1.5px;
+}
+
+.landing-nav-links {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+
+.landing-nav-link {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 1.5px;
+  padding: 4px 0;
+  transition: color 150ms ease;
+}
+
+.landing-nav-link:hover {
+  color: var(--text-primary);
+}
+
+.landing-nav-link--active {
+  color: var(--accent-primary);
+  font-weight: 700;
+  border-bottom: 2px solid var(--accent-primary);
+  padding-bottom: 2px;
+}
+
 /* ── Live Stats Banner ────────────────────────────────────── */
 .live-stats-banner {
   position: relative;
@@ -473,6 +520,9 @@
 
 /* ── Responsive ──────────────────────────────────────────── */
 @media (max-width: 768px) {
+  .landing-nav { padding: 12px 20px; }
+  .landing-nav-links { gap: 16px; }
+  .landing-nav-link { font-size: 0.65rem; }
   .stats-inner { flex-direction: column; }
   .stat-item { border-right: none; border-bottom: 1px solid var(--border-color); }
   .og-visual { flex-direction: column; }
