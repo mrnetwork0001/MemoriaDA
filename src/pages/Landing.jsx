@@ -17,11 +17,23 @@ const Landing = () => {
         const net = getActiveNetwork();
         const provider = new ethers.JsonRpcProvider(net.rpcUrl);
         const agents = await registryService.getAllAgents(provider);
-        const totalVectors = agents.reduce((sum, a) => sum + (a.vectorCount || 0), 0);
         const totalFees = agents.reduce((sum, a) => sum + parseFloat(a.totalFeePaid || '0'), 0);
+
+        // Read totalMemoryUpdates directly from the contract (always increments, never resets)
+        let memoryAnchors = 0;
+        try {
+          const contract = new ethers.Contract(net.registryAddress, [
+            'function totalMemoryUpdates() external view returns (uint256)'
+          ], provider);
+          memoryAnchors = Number(await contract.totalMemoryUpdates());
+        } catch {
+          // Fallback to summing vectorCount if the direct read fails
+          memoryAnchors = agents.reduce((sum, a) => sum + (a.vectorCount || 0), 0);
+        }
+
         setStats({
           agents: agents.length.toString(),
-          vectors: totalVectors.toString(),
+          vectors: memoryAnchors.toString(),
           fees: totalFees.toFixed(3),
           network: net.label.toUpperCase(),
         });
