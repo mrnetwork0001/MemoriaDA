@@ -64,10 +64,6 @@ const ProtocolMetrics = () => {
         <div className="metric-label">KNOWLEDGE ANCHORED</div>
       </div>
       <div className="metric-card">
-        <div className="metric-value">{stats.loading ? '...' : stats.users}</div>
-        <div className="metric-label">UNIQUE OWNERS</div>
-      </div>
-      <div className="metric-card">
         <div className="metric-value">{stats.loading ? '...' : stats.agents}</div>
         <div className="metric-label">ACTIVE AGENT NFTS</div>
       </div>
