@@ -150,17 +150,41 @@ class ComputeService {
     return this._chatDirect(messages);
   }
 
-  // Router mode — simple OpenAI-style call
+  // Router mode — 0G Compute Router API with reasoning model handling
   async _chatRouter(messages) {
     const completion = await this.openai.chat.completions.create({
       model: this.model,
       messages,
-      max_tokens: 2048,
-      temperature: 0.7,
+      max_tokens: 2048,  // MUST be >= 2048 for reasoning models
+      temperature: 0.8,
     });
 
+    // 0GM is a reasoning model — it puts chain-of-thought into reasoning_content
+    // and the final answer into content. Handle both paths.
+    const choice = completion?.choices?.[0];
+    let content =
+      choice?.message?.content
+      || choice?.text
+      || null;
+
+    if (!content) {
+      // If only reasoning was produced, extract the useful part
+      const reasoning = choice?.message?.reasoning_content;
+      if (reasoning) {
+        console.warn('[Compute] No content but reasoning available — extracting from reasoning');
+        const draftMatch = reasoning.match(/(?:Draft|Final|Response|Answer)[^:]*:\s*([\s\S]+?)(?:\n\n\d\.|\n\n\*\*|$)/i);
+        content = draftMatch ? draftMatch[1].trim() : reasoning.slice(-500).trim();
+      }
+    }
+
+    if (!content) {
+      console.error('[Compute] Empty response. Full:', JSON.stringify(completion, null, 2));
+      throw new Error('AI returned an empty response. Please try again.');
+    }
+
+    console.log(`[Compute] Response OK (${content.length} chars)`);
     return {
-      content: completion.choices[0]?.message?.content || '',
+      content,
       model: completion.model || this.model,
       chatId: completion.id,
       usage: completion.usage,
@@ -183,12 +207,30 @@ class ComputeService {
         model: this.model,
         messages,
         max_tokens: 2048,
-        temperature: 0.7,
+        temperature: 0.8,
       },
       { headers }
     );
 
-    const responseContent = completion.choices[0]?.message?.content || '';
+    // Handle reasoning model null content
+    const choice = completion?.choices?.[0];
+    let responseContent =
+      choice?.message?.content
+      || choice?.text
+      || null;
+
+    if (!responseContent) {
+      const reasoning = choice?.message?.reasoning_content;
+      if (reasoning) {
+        console.warn('[Compute] No content but reasoning available — extracting from reasoning');
+        const draftMatch = reasoning.match(/(?:Draft|Final|Response|Answer)[^:]*:\s*([\s\S]+?)(?:\n\n\d\.|\n\n\*\*|$)/i);
+        responseContent = draftMatch ? draftMatch[1].trim() : reasoning.slice(-500).trim();
+      }
+    }
+
+    if (!responseContent) {
+      throw new Error('AI returned an empty response. Please try again.');
+    }
 
     // Process response for TEE verification
     try {

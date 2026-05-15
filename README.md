@@ -40,7 +40,7 @@
 
 - **0G Storage** - Memory vector blobs stored as Merkle-verified data
 - **0G Chain** - Memory root anchoring via `MemoriaRegistryV2` smart contract
-- **0G Compute** - Inference routing via `@0glabs/0g-serving-broker`
+- **0G Compute** - AI inference via 0G Compute Router API (`0GM-1.0-35B-A3B` reasoning model)
 - **Agent ID** - Onchain ERC-721 Agent Identity NFTs linking wallets to agent memory roots
 - **Privacy / Secure Execution** - Sealed TEE (Trusted Execution Environment) inference ensuring verifiable AI responses
 
@@ -56,7 +56,7 @@ Memoria DA is a full-stack decentralized memory protocol for AI agents. It solve
 2. The vector blob is uploaded to **0G Storage** with Merkle-tree verification
 3. The root hash is anchored on **0G Chain** via the `MemoriaRegistry` smart contract
 4. On future queries, the agent retrieves relevant memories via cosine-similarity search
-5. AI inference runs through **0G Compute** with sealed TEE verification (Qwen 2.5 7B)
+5. AI inference runs through **0G Compute** via the Router API using `0GM-1.0-35B-A3B` (35B MoE reasoning model)
 
 **Problem solved:** Agents get permanent, verifiable, decentralized memory that survives across sessions, frameworks, and ecosystems.
 
@@ -70,7 +70,7 @@ Memoria DA is a full-stack decentralized memory protocol for AI agents. It solve
 | -------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
 | **0G Storage** | Direct blob upload/download via `@0gfoundation/0g-ts-sdk`. Memory vectors serialized as JSON Merkle blobs. | [`storageService.js`](./src/services/storageService.js)      |
 | **0G Chain**   | `MemoriaRegistryV2.sol` - ERC-721 Agent Identity NFTs, micropayment fees, onchain memory verification.    | [`MemoriaRegistryV2.sol`](./contracts/MemoriaRegistryV2.sol) |
-| **0G Compute** | Backend broker via `@0glabs/0g-serving-broker` for TEE-verified sealed inference. Qwen 2.5 7B model.       | [`computeService.js`](./server/computeService.js)            |
+| **0G Compute** | 0G Compute Router API — `0GM-1.0-35B-A3B` (35B MoE reasoning model). Zero external AI dependency.          | [`computeService.js`](./server/computeService.js)            |
 
 ### Deployed Contracts
 
@@ -233,9 +233,9 @@ VITE_PRIVATE_KEY=0xYOUR_PRIVATE_KEY_HERE
 # 0G Compute Backend
 ZG_PRIVATE_KEY=0xYOUR_PRIVATE_KEY_HERE
 ZG_NETWORK=mainnet
-# AI Inference 0G Router API (Recommended - OpenAI-compatible)
-ZG_CHAT_API_KEY=your_key
-ZG_CHAT_BASE_URL=https://router-api.0g.ai/v1/chat/completions
+# AI Inference — 0G Compute Router API
+ZG_CHAT_API_KEY=your-0g-compute-api-key
+ZG_CHAT_BASE_URL=https://router-api.0g.ai/v1
 ZG_CHAT_MODEL=0GM-1.0-35B-A3B
 PORT=3001
 ```
@@ -345,8 +345,8 @@ memoria-app/
 | Styling        | Vanilla CSS (Cyberpunk design system)             |
 | Smart Contract | Solidity 0.8.20, Hardhat 3                        |
 | Storage        | 0G Storage SDK (`@0gfoundation/0g-ts-sdk`)        |
-| Compute        | 0G Compute Broker (`@0glabs/0g-serving-broker`)   |
-| AI Model       | Qwen 2.5 7B (sealed TEE inference via 0G Compute) |
+| Compute        | 0G Compute Router API (`https://router-api.0g.ai/v1`) |
+| AI Model       | `0GM-1.0-35B-A3B` (35B MoE reasoning model via 0G Compute) |
 | Wallet         | MetaMask (ethers.js v6)                           |
 | Embeddings     | 1536-dim deterministic hash vectors               |
 
@@ -412,8 +412,28 @@ Memoria DA **could not exist** without 0G's modular infrastructure:
 
 - **0G Storage** provides the high-throughput DA layer needed to store millions of memory vectors at low cost
 - **0G Chain** provides the settlement layer for anchoring tamper-proof Merkle roots
-- **0G Compute** provides sealed TEE inference, ensuring agent responses are cryptographically verifiable
+- **0G Compute** powers all AI inference natively via the `0GM-1.0-35B-A3B` reasoning model — zero dependency on external AI providers
 - No other L1/L2 offers all three components in a single, composable stack
+
+---
+
+## 🤖 0G Compute Integration (AI Inference)
+
+All AI chat inference runs through the **0G Compute Router API** — zero dependency on external AI providers.
+
+**Implementation** — [`server/computeService.js`](./server/computeService.js)
+- **Endpoint**: `https://router-api.0g.ai/v1` (OpenAI-compatible)
+- **Model**: `0GM-1.0-35B-A3B` — a 35B-parameter Mixture-of-Experts reasoning model hosted on the 0G network
+- **SDK**: Uses the standard `openai` npm package for seamless integration
+- **Fully native to the 0G stack** — no OpenAI, no Anthropic, no external AI dependency
+
+> **🧪 Technical Discovery: 0GM is a Reasoning Model**
+>
+> During integration, we discovered that `0GM-1.0-35B-A3B` operates as a **chain-of-thought reasoning model** (similar architecture to DeepSeek-R1). The model separates its output into two fields:
+> - `reasoning_content` — internal chain-of-thought (hidden from the user)
+> - `content` — the final synthesized answer
+>
+> This means the model *thinks before it responds*, producing higher-quality analysis. Our backend handles both response paths with a graceful fallback: if the model exhausts its token budget on reasoning, we extract the draft answer from the reasoning chain rather than failing.
 
 ---
 

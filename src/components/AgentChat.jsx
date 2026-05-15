@@ -531,7 +531,7 @@ const AgentChat = ({ onMemoryEvent, wallet, storage, registry }) => {
                   )}
                 </div>
                 <div className="message-content">
-                  {msg.content.split('\n').map((line, idx) => (
+                  {(msg.content || '').split('\n').map((line, idx) => (
                     <p key={idx} dangerouslySetInnerHTML={{
                       __html: line
                         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
