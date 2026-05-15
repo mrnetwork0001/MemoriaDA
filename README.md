@@ -28,11 +28,11 @@
 | **AlphaJournal** (Integration Partner) | [alphajournal.online](https://alphajournal.online) | AI trading diary - independent app using MemoriaDA protocol |
 | **0G Token Faucet** | [faucet.memoriada.xyz](https://faucet.memoriada.xyz) | Gasless mainnet faucet for testers |
 | **Blog & Testing Guide** | [memoriada.xyz/blog](https://memoriada.xyz/blog) | Architecture deep-dives, integration guide, tester instructions |
-| **Community (Telegram)** | [t.me/MemoriaDA_TG](https://t.me/MemoriaDA_TG) | 50+ active members, testers, and builders |
+| **Community (Telegram)** | [t.me/MemoriaDA_TG](https://t.me/MemoriaDA_TG) | 57+ active members, users, testers, and builders |
 
 ### Demo Video
 
-> **[Watch the demo →](TODO_ADD_DEMO_VIDEO_LINK)** (3 min walkthrough showing the full pipeline end-to-end)
+> **[Watch the demo →](https://youtu.be/_4x15No2eio?si=I8gFbVAKgtqCoVqN)** (3 min walkthrough showing the full pipeline end-to-end)
 
 > **[Watch the pitch →](TODO_ADD_DEMO_VIDEO_LINK)** (3 min walkthrough showing the full pipeline end-to-end)
 
@@ -41,7 +41,7 @@
 - **0G Storage** - Memory vector blobs stored as Merkle-verified data
 - **0G Chain** - Memory root anchoring via `MemoriaRegistryV2` smart contract
 - **0G Compute** - Inference routing via `@0glabs/0g-serving-broker`
-- **Agent ID** - On-chain ERC-721 Agent Identity NFTs linking wallets to agent memory roots
+- **Agent ID** - Onchain ERC-721 Agent Identity NFTs linking wallets to agent memory roots
 - **Privacy / Secure Execution** - Sealed TEE (Trusted Execution Environment) inference ensuring verifiable AI responses
 
 ---
@@ -83,15 +83,15 @@ Memoria DA is a full-stack decentralized memory protocol for AI agents. It solve
 
 | Metric | Value | Proof |
 |--------|-------|-------|
-| **Onchain Transactions** | 23+ | [View on ChainScan](https://chainscan.0g.ai/address/0xD896D59583C137D6ca2c5e3add025e143eD1030d) |
-| **Registered Agents** | 3 (mainnet) | Each minted as ERC-721 NFT |
+| **Onchain Transactions** | 106+ | [View on ChainScan](https://chainscan.0g.ai/address/0xD896D59583C137D6ca2c5e3add025e143eD1030d) |
+| **Registered Agents** | 15 (mainnet) | Each minted as ERC-721 NFT |
 | **Memory Anchors Committed** | 19+ `updateMemoryRoot` calls | Verifiable onchain |
-| **Protocol Revenue** | 0.019 0G collected | Contract balance on ChainScan |
+| **Protocol Revenue** | 0.092 0G collected | Contract balance on ChainScan |
 | **External Integration Partners** | 2 (AlphaJournal, SolTutor) | Both live on custom domains |
 | **Live Deployed Apps** | 4 (Protocol + SolTutor + AlphaJournal + Faucet) | All on custom domains |
 | **Automated Test Coverage** | 19 tests across 5 categories | `npm test` |
 | **Private Testers Onboarded** | Real tester feedback collected | [View Feedback Data](https://docs.google.com/spreadsheets/d/1p69eJC3RLS5xJw2dFh3EcdOfTrdfAjT9_8pPyAybROY/edit?usp=sharing) |
-| **Community** | 50+ active members on Telegram | [t.me/MemoriaDA_TG](https://t.me/MemoriaDA_TG) |
+| **Community** | 56+ active members on Telegram | [t.me/MemoriaDA_TG](https://t.me/MemoriaDA_TG) |
 
 > **All traction is verifiable onchain** at [chainscan.0g.ai/address/0xD896D...](https://chainscan.0g.ai/address/0xD896D59583C137D6ca2c5e3add025e143eD1030d). Every number above can be independently confirmed - no fabricated claims.
 
@@ -115,7 +115,7 @@ MemoriaDA is not just a standalone app - it's **infrastructure**. To prove this,
 // 1. Store memory on 0G Storage
 const { rootHash } = await uploadMemoryBlob(JSON.stringify(memoryPayload));
 
-// 2. Register agent onchain (mints ERC-721 NFT — one time only)
+// 2. Register agent onchain (mints ERC-721 NFT - one time only)
 await registry.registerAgent("my_agent_id", "MyFramework");
 
 // 3. Anchor memory root onchain
