@@ -90,7 +90,7 @@ Memoria DA is a full-stack decentralized memory protocol for AI agents. It solve
 | **External Integration Partners** | 2 (AlphaJournal, SolTutor) | Both live on custom domains |
 | **Live Deployed Apps** | 4 (Protocol + SolTutor + AlphaJournal + Faucet) | All on custom domains |
 | **Automated Test Coverage** | 19 tests across 5 categories | `npm test` |
-| **Private Testers Onboarded** | Active testing phase in progress | Feedback form live |
+| **Private Testers Onboarded** | Real tester feedback collected | [View Feedback Data](https://docs.google.com/spreadsheets/d/1p69eJC3RLS5xJw2dFh3EcdOfTrdfAjT9_8pPyAybROY/edit?usp=sharing) |
 | **Community** | 50+ active members on Telegram | [t.me/MemoriaDA_TG](https://t.me/MemoriaDA_TG) |
 
 > **All traction is verifiable onchain** at [chainscan.0g.ai/address/0xD896D...](https://chainscan.0g.ai/address/0xD896D59583C137D6ca2c5e3add025e143eD1030d). Every number above can be independently confirmed - no fabricated claims.
