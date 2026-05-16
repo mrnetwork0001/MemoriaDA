@@ -117,14 +117,6 @@ function MerkleVerifier({ wallet, networkHook }) {
       </div>
 
       <div className="verifier-form">
-        <button
-          className="autofill-btn terminal-font"
-          onClick={autoFillLatest}
-          type="button"
-        >
-          <IconBolt size={11} style={{marginRight:4}}/> AUTO-FILL LATEST MEMORY ROOT
-        </button>
-
         <div className="form-group">
           <label className="form-label terminal-font">AGENT_ID</label>
           <input

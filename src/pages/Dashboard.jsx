@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import AgentChat from '../components/AgentChat';
 import DataTerminal from '../components/DataTerminal';
 import MemoryExplorer from '../components/MemoryExplorer';
+import MerkleVerifier from '../components/MerkleVerifier';
 import DeveloperSDK from '../components/DeveloperSDK';
 
 import useWallet from '../hooks/useWallet';
@@ -79,6 +80,7 @@ function Dashboard() {
         {activeTab === 'explorer' && (
           <div className="full-width-tab">
             <MemoryExplorer wallet={wallet} networkHook={networkHook} />
+            <MerkleVerifier wallet={wallet} networkHook={networkHook} />
           </div>
         )}
         {activeTab === 'sdk' && (

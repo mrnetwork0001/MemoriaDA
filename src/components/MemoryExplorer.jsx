@@ -1,11 +1,34 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import registryService from '../services/registryService';
 import { ethers } from 'ethers';
 import './MemoryExplorer.css';
 
+const CopyIcon = () => (
+  <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="5" y="5" width="9" height="9" rx="1.5" />
+    <path d="M3 11V3a1.5 1.5 0 011.5-1.5H11" />
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M3 8.5l3.5 3.5 7-7" />
+  </svg>
+);
+
 function MemoryExplorer({ wallet, networkHook }) {
   const [agents, setAgents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [copiedId, setCopiedId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const AGENTS_PER_PAGE = 15;
+
+  const handleCopy = useCallback((text, id) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopiedId(id);
+      setTimeout(() => setCopiedId(null), 1500);
+    });
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -51,6 +74,12 @@ function MemoryExplorer({ wallet, networkHook }) {
     return `${Math.floor(seconds / 86400)}d ago`;
   };
 
+  const totalPages = Math.max(1, Math.ceil(agents.length / AGENTS_PER_PAGE));
+  const paginatedAgents = agents.slice(
+    (currentPage - 1) * AGENTS_PER_PAGE,
+    currentPage * AGENTS_PER_PAGE
+  );
+
   return (
     <div className="memory-explorer">
       <div className="explorer-header">
@@ -85,15 +114,39 @@ function MemoryExplorer({ wallet, networkHook }) {
               </tr>
             </thead>
             <tbody>
-              {agents.map((agent, index) => (
+              {paginatedAgents.map((agent, index) => (
                 <tr key={agent.id || index}>
                   <td className="mono nft-col">#{agent.tokenId || '?'}</td>
-                  <td className="agent-id-col text-gradient-cyan">{agent.id}</td>
+                  <td className="agent-id-col text-gradient-cyan">
+                    <span className="copiable-cell">
+                      {agent.id}
+                      <button
+                        className={`copy-btn ${copiedId === `agent-${agent.id}` ? 'copied' : ''}`}
+                        onClick={() => handleCopy(agent.id, `agent-${agent.id}`)}
+                        title="Copy Agent ID"
+                      >
+                        {copiedId === `agent-${agent.id}` ? <CheckIcon /> : <CopyIcon />}
+                      </button>
+                    </span>
+                  </td>
                   <td className="mono">{formatAddress(agent.owner)}</td>
                   <td><span className={`framework-badge ${agent.framework?.toLowerCase() || 'custom'}`}>{agent.framework || 'Custom'}</span></td>
                   <td className="mono vector-col">{agent.vectorCount}</td>
                   <td className="mono fee-col">{agent.totalFeePaid || '0'} 0G</td>
-                  <td className="mono hash-col">{formatHash(agent.currentRoot)}</td>
+                  <td className="mono hash-col">
+                    <span className="copiable-cell">
+                      {formatHash(agent.currentRoot)}
+                      {agent.currentRoot && agent.currentRoot !== '0x0000000000000000000000000000000000000000000000000000000000000000' && (
+                        <button
+                          className={`copy-btn ${copiedId === `root-${agent.id}` ? 'copied' : ''}`}
+                          onClick={() => handleCopy(agent.currentRoot, `root-${agent.id}`)}
+                          title="Copy full Merkle root"
+                        >
+                          {copiedId === `root-${agent.id}` ? <CheckIcon /> : <CopyIcon />}
+                        </button>
+                      )}
+                    </span>
+                  </td>
                   <td className="mono time-col">{timeAgo(agent.lastUpdated)}</td>
                 </tr>
               ))}
@@ -106,6 +159,30 @@ function MemoryExplorer({ wallet, networkHook }) {
           </table>
         )}
       </div>
+
+      {/* Pagination */}
+      {!loading && agents.length > AGENTS_PER_PAGE && (
+        <div className="explorer-pagination">
+          <button
+            className="pagination-btn terminal-font"
+            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+            disabled={currentPage === 1}
+          >
+            ← PREV
+          </button>
+          <span className="pagination-info terminal-font">
+            PAGE {currentPage} / {totalPages}
+            <span className="pagination-total">({agents.length} agents)</span>
+          </span>
+          <button
+            className="pagination-btn terminal-font"
+            onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+            disabled={currentPage === totalPages}
+          >
+            NEXT →
+          </button>
+        </div>
+      )}
     </div>
   );
 }

@@ -370,6 +370,10 @@ memoria-app/
 - **Agent State Snapshotting** - Save full agent state (goals, topics, mood) to 0G Storage + anchor onchain
 - **Cross-Agent Memory Queries** - Any agent can discover and query other agents on the Global Registry, enabling orchestration
 
+> **Note: "Uninitialized" Merkle Root in the Global Explorer**
+>
+> If an agent's Latest Merkle Root shows **"Uninitialized"**, it means the agent was successfully registered onchain (NFT minted), but **no memory has been anchored yet**. This happens when a user registers their agent but hasn't chatted with the AI afterward. The Merkle root is only generated and committed onchain when the agent stores its first memory — i.e., after the first conversation exchange. To initialize the root, simply chat with the agent and the memory pipeline will automatically upload to 0G Storage and anchor the root onchain.
+
 ---
 
 ## Business Model & Vision
