@@ -209,19 +209,23 @@ class RegistryService {
     try {
       // Use getAgentCount + getAgentIdByIndex for reliable enumeration
       const count = Number(await contract.getAgentCount());
-      const agents = [];
       
-      for (let i = 0; i < count; i++) {
-        try {
-          const agentId = await contract.getAgentIdByIndex(i);
-          const details = await this.getAgentFull(agentId, provider);
-          if (details) {
-            agents.push({ id: agentId, ...details });
-          }
-        } catch (err) {
-          console.warn(`Failed to fetch agent at index ${i}:`, err.message);
-        }
-      }
+      // Fetch all agent IDs in parallel
+      const idPromises = Array.from({ length: count }, (_, i) =>
+        contract.getAgentIdByIndex(i).catch(err => {
+          console.warn(`Failed to fetch agent ID at index ${i}:`, err.message);
+          return null;
+        })
+      );
+      const agentIds = (await Promise.all(idPromises)).filter(Boolean);
+
+      // Fetch all agent details in parallel
+      const detailPromises = agentIds.map(agentId =>
+        this.getAgentFull(agentId, provider)
+          .then(details => details ? { id: agentId, ...details } : null)
+          .catch(() => null)
+      );
+      const agents = (await Promise.all(detailPromises)).filter(Boolean);
       
       return agents.sort((a, b) => b.lastUpdated - a.lastUpdated);
     } catch (err) {
@@ -232,13 +236,12 @@ class RegistryService {
         const events = await contract.queryFilter(filter, -50000, "latest");
         const agentIds = [...new Set(events.map(e => e.args.agentId))];
         
-        const agents = [];
-        for (const id of agentIds) {
-          const details = await this.getAgentFull(id, provider);
-          if (details) {
-            agents.push({ id, ...details });
-          }
-        }
+        const detailPromises = agentIds.map(id =>
+          this.getAgentFull(id, provider)
+            .then(details => details ? { id, ...details } : null)
+            .catch(() => null)
+        );
+        const agents = (await Promise.all(detailPromises)).filter(Boolean);
         return agents.sort((a, b) => b.lastUpdated - a.lastUpdated);
     } catch {
         return [];

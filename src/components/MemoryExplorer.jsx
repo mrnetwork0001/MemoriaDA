@@ -8,25 +8,28 @@ function MemoryExplorer({ wallet, networkHook }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchAgents = async () => {
-      setLoading(true);
+    let isMounted = true;
+
+    const fetchAgents = async (isInitial = false) => {
+      // Only show loading spinner on the very first fetch
+      if (isInitial) setLoading(true);
       try {
         // Always use JsonRpcProvider for read-only explorer queries
         const provider = new ethers.JsonRpcProvider(networkHook.network.rpcUrl);
         const data = await registryService.getAllAgents(provider);
-        setAgents(data);
+        if (isMounted) setAgents(data);
       } catch (err) {
         console.error("Failed to fetch agents", err);
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     };
 
-    fetchAgents();
+    fetchAgents(true);
     
-    // Refresh every 30 seconds
-    const interval = setInterval(fetchAgents, 30000);
-    return () => clearInterval(interval);
+    // Refresh every 30 seconds — silently in the background
+    const interval = setInterval(() => fetchAgents(false), 30000);
+    return () => { isMounted = false; clearInterval(interval); };
   }, [wallet?.provider, networkHook.network.rpcUrl]);
 
   const formatAddress = (addr) => {
