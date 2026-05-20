@@ -12,7 +12,7 @@ export const BLOG_ARTICLES = [
     date: 'May 13, 2026',
     readTime: '12 min read',
     tags: ['TESTING', 'MAINNET', 'GUIDE'],
-    featured: true,
+    featured: false,
     coverLabel: 'TEST_GUIDE',
     content: `
 <p class="docs-p">Welcome to the <strong>MemoriaDA Mainnet Private Access Testing Program</strong>. You have been selected to test the first decentralized AI memory protocol running live on the 0G Aristotle Mainnet. This guide covers everything you need to test across all three apps in the ecosystem.</p>
@@ -694,6 +694,94 @@ metadata:
 <div class="docs-callout">
   <div class="callout-label">NEXT_STEPS</div>
   Ready to optimize your agent's performance and slash API costs? Check out our <a href="/blog/permanent-memory-5-minutes" class="text-link">5-Minute Integration Guide</a> to connect your agent to the MemoriaDA protocol on 0G Mainnet today.
+</div>
+`
+  },
+  {
+    id: 'memoriada-foundry-partnership',
+    slug: 'memoriada-foundry-partnership',
+    title: 'MemoriaDA ✕ Foundry: Sovereign Memory Meets Model Equity on 0G',
+    subtitle: 'Announcing a partnership to enable co-owned, revenue-generating AI agents with permanent decentralized memory.',
+    author: 'MrNetwork',
+    date: 'May 20, 2026',
+    readTime: '5 min read',
+    tags: ['PARTNERSHIP', '0G_LABS', 'DECENTRALIZED_AI', 'OWNERSHIP'],
+    featured: true,
+    coverLabel: 'PARTNERSHIP_001',
+    content: `
+<p class="docs-p">Today, we are proud to announce our official partnership with <strong>Foundry</strong>, the supply-side protocol on 0G Aristotle Mainnet. This partnership unites MemoriaDA’s long-term sovereign memory with Foundry’s co-owned model Ingots, shifting AI agents from renting closed APIs to co-owning decentralized intelligence.</p>
+
+<div class="docs-callout tip">
+  <div class="callout-label">THE_PARTNERSHIP_VISION</div>
+  We are moving away from Web2's "rented intelligence" model. By integrating <strong>MemoriaDA</strong> and <strong>Foundry</strong>, developers can now build AI agents that own their memory logs, train their own models, and earn permanent on-chain revenue splits.
+</div>
+
+<h2 class="docs-h2">Three Pillars of the Integration</h2>
+
+<ul class="docs-list">
+  <li><strong>1. Memory Logs as Equity (Data Smiths):</strong> MemoriaDA accumulates rich conversational traces and state profiles. By acting as a Data Smith, MemoriaDA contributes these anonymized memory logs to Foundry Forges. This translates our raw memories into on-chain shares of custom model Ingots.</li>
+  <li><strong>2. TEE-Attested Verification:</strong> Every inference call returns an on-chain receipt (<code class="ic">inferenceTxHash</code>) and a Trusted Execution Environment (TEE) proof. We link this receipt directly alongside MemoriaDA's memory anchors to provide a double-verifiable audit trail of what was retrieved and which model processed it.</li>
+  <li><strong>3. Native 0G Chain Execution:</strong> Because both protocols run natively on the 0G Aristotle mainnet, memory operations, training, and model queries interact flawlessly with zero gas overhead and zero cross-chain bridge dependencies.</li>
+</ul>
+
+<h2 class="docs-h2">Technical Integration: How It Works</h2>
+
+<p class="docs-p">Integrating sovereign memory and model equity requires just a few lines of code. Here is how a sovereign-memory agent retrieves context from MemoriaDA and runs inference on a co-owned Foundry Ingot:</p>
+
+<pre class="code-block">
+import { Foundry } from "@foundryprotocol/sdk";
+import { memoryStore } from "../services/memoryStore";
+
+// 1. Semantic search across MemoriaDA's long-term memory
+const queryEmbedding = await generateEmbedding(userQuery);
+const recalled = memoryStore.search(queryEmbedding, 3);
+const context = memoryStore.buildContextPrompt(recalled);
+
+// 2. Call the co-owned Ingot model via Foundry on 0G Aristotle
+const foundry = new Foundry({ contracts: "aristotle" });
+const { output, receipt } = await foundry.inference.run(
+  "ingot:0x8e2af4a000000000000000000000000000000001", // Co-owned Model Ingot ID
+  { input: \`\${context}\\n\\nUser: \${userQuery}\`, temperature: 0.7 }
+);
+
+// 3. Store the result along with the on-chain receipt
+await memoryStore.addMemory({
+  content: \`User: \${userQuery}\\nAgent: \${output}\`,
+  embedding: queryEmbedding,
+  metadata: {
+    inferenceTxHash: receipt.inferenceTxHash, // Provable TEE execution receipt
+    revenueTxHash: receipt.revenueTxHash      // Automated revenue share payout tx
+  }
+});
+</pre>
+
+<h2 class="docs-h2">The Inference & Payout Flow</h2>
+
+<pre class="ascii-diagram">
+  ┌─────────────────┐       1. Search      ┌─────────────────┐
+  │   User Query    │─────────────────────▶│   MemoriaDA     │
+  └────────┬────────┘                      │  (0G Storage)   │
+           │                               └────────┬────────┘
+           │ 2. Context Prompt                      │
+           ▼                                        ▼ (Recalls Top 3)
+  ┌─────────────────┐       3. Runs        ┌─────────────────┐
+  │  Foundry Ingot  │◀─────────────────────│ TEE Attestation │
+  │   (Inference)   │                      │  & Tx Receipts  │
+  └────────┬────────┘                      └─────────────────┘
+           │
+           ▼ 4. Revenue Dispatched
+  ┌─────────────────┐
+  │ RevenueSplitter │ ===> Co-owners pull earnings automatically!
+  └─────────────────┘
+</pre>
+
+<h2 class="docs-h2">What This Means for the 0G Ecosystem</h2>
+
+<p class="docs-p">By uniting memory and model training, we are building the groundwork for autonomous agent economies. Instead of paying continuous bills to centralized cloud providers, agents running on MemoriaDA and Foundry become productive capital assets that generate on-chain yield for their creators, data providers, and backers.</p>
+
+<div class="docs-callout">
+  <div class="callout-label">LAUNCH_DETAILS</div>
+  The partnership is officially live on the 0G Aristotle mainnet. The initial integration adapter is available in our developer SDK. Check out the <a href="/docs/build-on-foundry" class="text-link">Developer Docs</a> to start building.
 </div>
 `
   }
