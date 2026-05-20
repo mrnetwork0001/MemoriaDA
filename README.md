@@ -34,7 +34,7 @@
 
 > **[Watch the demo →](https://youtu.be/_4x15No2eio?si=I8gFbVAKgtqCoVqN)** (3 min walkthrough showing the full pipeline end-to-end)
 
-> **[Watch the pitch →](TODO_ADD_DEMO_VIDEO_LINK)** (3 min walkthrough showing the full pipeline end-to-end)
+> **[Watch the pitch →](https://youtu.be/VwE7kyPfaS0?si=BRhuVhHeSDmij4pp)** (3 min walkthrough showing the full pipeline end-to-end)
 
 ### 0G Stack Components Used
 
@@ -70,7 +70,7 @@ Memoria DA is a full-stack decentralized memory protocol for AI agents. It solve
 | -------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
 | **0G Storage** | Direct blob upload/download via `@0gfoundation/0g-ts-sdk`. Memory vectors serialized as JSON Merkle blobs. | [`storageService.js`](./src/services/storageService.js)      |
 | **0G Chain**   | `MemoriaRegistryV2.sol` - ERC-721 Agent Identity NFTs, micropayment fees, onchain memory verification.    | [`MemoriaRegistryV2.sol`](./contracts/MemoriaRegistryV2.sol) |
-| **0G Compute** | 0G Compute Router API — `0GM-1.0-35B-A3B` (35B MoE reasoning model). Zero external AI dependency.          | [`computeService.js`](./server/computeService.js)            |
+| **0G Compute** | 0G Compute Router API - `0GM-1.0-35B-A3B` (35B MoE reasoning model). Zero external AI dependency.          | [`computeService.js`](./server/computeService.js)            |
 
 ### Deployed Contracts
 
