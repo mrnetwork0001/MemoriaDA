@@ -706,7 +706,7 @@ metadata:
     date: 'May 20, 2026',
     readTime: '5 min read',
     tags: ['PARTNERSHIP', '0G_LABS', 'DECENTRALIZED_AI', 'OWNERSHIP'],
-    featured: true,
+    featured: false,
     coverLabel: 'PARTNERSHIP_001',
     content: `
 <p class="docs-p">Today, we are proud to announce our official partnership with <strong>Foundry</strong>, the supply-side protocol on 0G Aristotle Mainnet. This partnership unites MemoriaDA’s long-term sovereign memory with Foundry’s co-owned model Ingots, shifting AI agents from renting closed APIs to co-owning decentralized intelligence.</p>
@@ -782,6 +782,85 @@ await memoryStore.addMemory({
 <div class="docs-callout">
   <div class="callout-label">LAUNCH_DETAILS</div>
   The partnership is officially live on the 0G Aristotle mainnet. The initial integration adapter is available in our developer SDK. Check out the <a href="/docs/build-on-foundry" class="text-link">Developer Docs</a> to start building.
+</div>
+`
+  },
+  {
+    id: 'post-hackathon-roadmap',
+    slug: 'post-hackathon-roadmap',
+    title: 'Beyond the Hackathon: What’s Next for the MemoriaDA Ecosystem',
+    subtitle: 'Following our success in the 0G APAC Hackathon, we map out the road to TEE-sealed RAG, Agent Swarms, and intent-based memory subsidies.',
+    author: 'MrNetwork',
+    date: 'May 23, 2026',
+    readTime: '6 min read',
+    tags: ['ROADMAP', 'HACKATHON', '0G_COMPUTE', 'PRIVACY'],
+    featured: true,
+    coverLabel: 'ROADMAP_002',
+    content: `
+<p class="docs-p">We have officially wrapped up our journey in the <strong>0G APAC Hackathon 2026 (Track 1: Agentic Infrastructure & OpenClaw Lab)</strong>. But this is not the end of MemoriaDA—it is just the genesis. While many hackathon projects remain on testnets as static code repositories, MemoriaDA is already a living protocol deployed on the <strong>0G Aristotle Mainnet</strong> with real transactions, real protocol revenue, and active ecosystem partners.</p>
+
+<div class="docs-callout tip">
+  <div class="callout-label">HACKATHON_STATS</div>
+  Our submission has achieved significant initial traction: over <strong>100+ onchain transactions</strong>, <strong>21 registered mainnet agents</strong>, and a growing community of builders and integration partners like SolTutor and AlphaJournal.
+</div>
+
+<h2 class="docs-h2">Where We Are Today: The Triple-G Stack</h2>
+
+<p class="docs-p">During the hackathon, our goal was to prove the feasibility of decentralized agent memory using the unified 0G stack. We succeeded by integrating all three core layers:</p>
+
+<ul class="docs-list">
+  <li><strong>0G Storage (Data Layer):</strong> Storing high-dimensional vector embeddings as Merkle-verified data blobs.</li>
+  <li><strong>0G Chain (Audit Layer):</strong> Anchoring memory roots on the MemoriaRegistryV2 smart contract on the Aristotle Mainnet.</li>
+  <li><strong>0G Compute (Inference Layer):</strong> Running TEE-sealed inferences through the 0G Compute Router using the 0GM-1.0-35B-A3B reasoning model.</li>
+</ul>
+
+<p class="docs-p">With the foundation secure, we are moving directly into <strong>Phase 3: Sovereign Intelligence</strong> of our protocol roadmap. Here is what the community and developers can expect next.</p>
+
+<h2 class="docs-h2">The Post-Hackathon Roadmap: What to Expect</h2>
+
+<h3 class="docs-h3">1. Sealed RAG (Retrieval-Augmented Generation)</h3>
+<p class="docs-p">AI memories often contain sensitive personal data, API keys, or financial strategies. If these memories are sent to public AI routers, user privacy is compromised. We are rolling out full Trusted Execution Environment (TEE) support for our Retrieval-Augmented Generation pipeline. Memory extraction and model inference will happen inside cryptographically sealed sandboxes on the 0G Compute Network, preventing any third-party data leakage.</p>
+
+<h3 class="docs-h3">2. Agent Swarms & Shared Memory Graphs</h3>
+<p class="docs-p">Currently, agent memory roots are isolated by Agent IDs. In the next phase, we are adding support for shared memory roots and permissioned cross-agent queries. This enables cooperative agent swarms: a developer can deploy multiple specialized agents (e.g., a researcher, a writer, and a coder) that read and write to a unified, decentralized memory graph on 0G Storage.</p>
+
+<pre class="ascii-diagram">
+  ┌────────────────────────────────────────────────────────┐
+  │                    AGENT SWARM GRAPH                   │
+  │                                                        │
+  │   ┌──────────────┐   ┌──────────────┐   ┌──────────┐   │
+  │   │  Research    │   │  Writing     │   │ Coding   │   │
+  │   │  Agent       │   │  Agent       │   │ Agent    │   │
+  │   └──────┬───────┘   └──────┬───────┘   └────┬─────┘   │
+  │          │                  │                │         │
+  │          └───────────┐      │      ┌─────────┘         │
+  │                      ▼      ▼      ▼                   │
+  │                  ┌───────────────────┐                 │
+  │                  │ Shared Memory Root│                 │
+  │                  │    (0G Storage)   │                 │
+  │                  └───────────────────┘                 │
+  └────────────────────────────────────────────────────────┘
+</pre>
+
+<h3 class="docs-h3">3. Intent-Based Settlement via 0G Pay × Khalani</h3>
+<p class="docs-p">To make integration as frictionless as possible, we are introducing intent-based payment routing. Developers won't need to hold or manage mainnet 0G tokens to power memory updates. By integrating Khalani's solver network, developers can pay memory storage fees in stablecoins (like USDC) on any EVM chain, and solvers will settle the 0.001 0G anchoring fees on the Aristotle Mainnet automatically.</p>
+
+<h3 class="docs-h3">4. Launch of \`@memoria/sdk\` & Extended SDK Guides</h3>
+<p class="docs-p">We are package-compiling our integration layer into a standalone npm package: <code class="ic">@memoria/sdk</code>. This will allow any JS/TS developer to equip their agent with decentralized memory with a simple client initialization, bypassing raw REST API requests. We will also release drop-in integrations for popular agent frameworks like <strong>ElizaOS</strong> and <strong>Rig</strong>.</p>
+
+<h2 class="docs-h2">What This Means for the Community</h2>
+
+<p class="docs-p">We are committed to making MemoriaDA a key public utility in the deAI space. As we roll out these features, the community can expect:</p>
+
+<ul class="docs-list">
+  <li><strong>Expanded Tester Incentives:</strong> We will expand our mainnet private tester program, offering more free allocations from our 0G token faucet to active builders.</li>
+  <li><strong>Open SDK Grants:</strong> Small developer grants for teams building open-source plugins connecting MemoriaDA to external agent frameworks.</li>
+  <li><strong>Decentralized Governance:</strong> Long-term plans to transition the registry's fee configurations and framework whitelist to community-led governance.</li>
+</ul>
+
+<div class="docs-callout">
+  <div class="callout-label">GET_INVOLVED</div>
+  We invite all developers, AI enthusiasts, and testers to join our journey. Connect your wallet to the <a href="/app" class="text-link">Dashboard</a>, register an Agent NFT, and help us build the memory standard for the autonomous future. Connect with us on <a href="https://t.me/MemoriaDA_TG" class="text-link">Telegram</a> to get started.
 </div>
 `
   }

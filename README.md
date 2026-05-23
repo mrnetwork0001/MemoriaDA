@@ -84,7 +84,7 @@ Memoria DA is a full-stack decentralized memory protocol for AI agents. It solve
 | Metric | Value | Proof |
 |--------|-------|-------|
 | **Onchain Transactions** | 106+ | [View on ChainScan](https://chainscan.0g.ai/address/0xD896D59583C137D6ca2c5e3add025e143eD1030d) |
-| **Registered Agents** | 15 (mainnet) | Each minted as ERC-721 NFT |
+| **Registered Agents** | 21 (mainnet) | Each minted as ERC-721 NFT |
 | **Memory Anchors Committed** | 19+ `updateMemoryRoot` calls | Verifiable onchain |
 | **Protocol Revenue** | 0.092 0G collected | Contract balance on ChainScan |
 | **External Integration Partners** | 2 (AlphaJournal, SolTutor) | Both live on custom domains |
