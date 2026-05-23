@@ -801,7 +801,7 @@ await memoryStore.addMemory({
 
 <div class="docs-callout tip">
   <div class="callout-label">HACKATHON_STATS</div>
-  Our submission has achieved significant initial traction: over <strong>100+ onchain transactions</strong>, <strong>21 registered mainnet agents</strong>, and a growing community of builders and integration partners like SolTutor and AlphaJournal.
+  Our submission has achieved significant initial traction: over <strong>100+ onchain transactions</strong>, <strong>21 registered mainnet agents</strong>, and a growing community of builders and integration partners like SolTutor (built by MemoriaDA team), FoundryProtocol and AlphaJournal.
 </div>
 
 <h2 class="docs-h2">Where We Are Today: The Triple-G Stack</h2>
