@@ -17,7 +17,7 @@ export const BLOG_ARTICLES = [
     content: `
 <p class="docs-p">0G Labs just dropped a bombshell on the AI industry: their DiLoCoX framework successfully trained a 107B parameter decentralized model in 2025 alongside China Mobile, achieving 357x greater communication efficiency than legacy methods. But it's their roadmap that changes everything: <strong>700B+ parameters and a 100M context window.</strong></p>
 
-<p class="docs-p">In our previous post, <em>"Context Window Inflation,"</em> we argued that massive context windows were a trap—too slow, too expensive, and prone to the "lost in the middle" phenomenon. We advocated for MemoriaDA's decentralized semantic cache as the solution.</p>
+<p class="docs-p">In our previous post, <em>"<a href="https://memoriada.xyz/blog/context-window-inflation" class="text-link">Context Window Inflation</a>,"</em> we argued that massive context windows were a trap—too slow, too expensive, and prone to the "lost in the middle" phenomenon. We advocated for MemoriaDA's decentralized semantic cache as the solution.</p>
 
 <p class="docs-p">We are thrilled to say the paradigm has shifted again. <strong>0G's DiLoCoX framework and their decentralized compute layer just solved the cost and compute bottleneck of massive contexts.</strong></p>
 
