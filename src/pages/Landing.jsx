@@ -65,11 +65,17 @@ const Landing = () => {
       {/* Global HUD Overlay */}
       <div className="scanline" />
 
+      {/* Top Banner Alert */}
+      <div className="top-promo-banner terminal-font">
+        <span className="banner-pulse">●</span> STANDALONE_SDK_WAITLIST_IS_NOW_LIVE ➡️ <a href="#waitlist" className="banner-link">JOIN_WAITLIST__❯</a>
+      </div>
+
       {/* Landing Navigation */}
       <nav className="landing-nav">
         <Link to="/" className="landing-nav-brand heading-font">MEMORIA_DA</Link>
         <div className="landing-nav-links terminal-font">
           <Link to="/app" className="landing-nav-link">SYSTEM</Link>
+          <a href="#waitlist" className="landing-nav-link">WAITLIST</a>
           <Link to="/docs" className="landing-nav-link">DOCS</Link>
           <Link to="/blog" className="landing-nav-link landing-nav-link--active">BLOG</Link>
         </div>

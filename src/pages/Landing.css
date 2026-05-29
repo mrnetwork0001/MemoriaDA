@@ -653,6 +653,43 @@
   margin-top: 4px;
 }
 
+/* ── Top Promo Banner ─────────────────────────────────────── */
+.top-promo-banner {
+  background: #0d0d13;
+  color: #a5b4fc;
+  text-align: center;
+  padding: 10px 20px;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid var(--border-accent);
+  position: relative;
+  z-index: 101;
+}
+
+.banner-pulse {
+  color: #00f0ff;
+  margin-right: 8px;
+  animation: pulse-accent 2s ease-in-out infinite;
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: #00f0ff;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.banner-link {
+  color: #00f0ff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: opacity 150ms ease;
+  margin-left: 4px;
+}
+
+.banner-link:hover {
+  opacity: 0.8;
+}
+
 /* ── Responsive ──────────────────────────────────────────── */
 @media (max-width: 768px) {
   .landing-nav { padding: 12px 20px; }
