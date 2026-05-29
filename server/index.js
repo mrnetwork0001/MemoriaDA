@@ -13,6 +13,9 @@ import { uploadMemoryBlob } from './storageUpload.js';
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // Middleware
 const ALLOWED_ORIGINS = [
   /^https?:\/\/localhost(:\d+)?$/,
@@ -283,10 +286,122 @@ app.get('/api/memory/global', async (req, res) => {
   }
 });
 
+// SDK Waitlist signup
+app.post('/api/waitlist/signup', async (req, res) => {
+  try {
+    const { email, framework } = req.body;
+    if (!email) {
+      return res.status(400).json({ error: 'Email is required' });
+    }
+
+    const { promises: fs } = await import('fs');
+    const waitlistPath = path.join(__dirname, 'waitlist.json');
+    
+    let list = [];
+    try {
+      const data = await fs.readFile(waitlistPath, 'utf8');
+      list = JSON.parse(data);
+    } catch (err) {
+      // File doesn't exist yet, start with empty list
+    }
+
+    // Check duplicate
+    if (list.some(entry => entry.email.toLowerCase() === email.toLowerCase())) {
+      return res.status(400).json({ error: 'This email is already registered on the waitlist.' });
+    }
+
+    const newEntry = {
+      email,
+      framework: framework || 'Other',
+      timestamp: new Date().toISOString()
+    };
+
+    list.push(newEntry);
+    await fs.writeFile(waitlistPath, JSON.stringify(list, null, 2), 'utf8');
+    console.log(`[Waitlist] New developer signup logged locally: ${email} (${framework})`);
+
+    // Forward to Google Sheets Webhook if configured
+    const sheetUrl = process.env.WAITLIST_GOOGLE_SHEET_URL;
+    if (sheetUrl) {
+      try {
+        console.log(`[Waitlist] Forwarding ${email} to Google Sheets...`);
+        const sheetResponse = await fetch(sheetUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, framework: newEntry.framework })
+        });
+        if (!sheetResponse.ok) {
+          console.warn(`[Waitlist] Google Sheet webhook returned non-200 status: ${sheetResponse.status} ${sheetResponse.statusText}`);
+          const text = await sheetResponse.text().catch(() => '');
+          console.warn(`[Waitlist] Google Sheet error response: ${text.slice(0, 200)}`);
+        } else {
+          console.log('[Waitlist] Successfully synced with Google Sheets');
+        }
+      } catch (sheetErr) {
+        console.warn('[Waitlist] Failed to forward to Google Sheets:', sheetErr.message);
+      }
+    }
+
+    // Forward to Resend for Transactional Email if configured
+    const resendApiKey = process.env.RESEND_API_KEY;
+    if (resendApiKey) {
+      try {
+        console.log(`[Waitlist] Sending confirmation email to ${email} via Resend...`);
+        
+        const htmlBody = `
+        <div style="font-family: monospace, sans-serif; background-color: #0d0d13; color: #f8f7ff; padding: 30px; border: 1px solid #7c3aed; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #00f0ff; text-transform: uppercase; letter-spacing: 2px; margin-top: 0;">// INITIALIZING_NEURAL_LINK...</h2>
+          <p style="font-size: 14px; line-height: 1.6;">Welcome to the sprawl. Your email has been anchored to the early-access list for the standalone <strong>@memoria/sdk</strong>.</p>
+          
+          <table style="width: 100%; border-collapse: collapse; margin: 20px 0; border: 1px solid #7c3aed;">
+            <tr>
+              <td style="padding: 12px; border: 1px solid #7c3aed; font-weight: bold;">Framework</td>
+              <td style="padding: 12px; border: 1px solid #7c3aed; color: #00f0ff;">${newEntry.framework}</td>
+            </tr>
+          </table>
+          
+          <p style="font-size: 14px; line-height: 1.6;">We are currently live on the <strong>0G Aristotle Mainnet</strong>. Over the next few weeks, we will be rolling out SDK access codes to our waitlist developers so you can start giving your AI agents persistent, decentralized memory.</p>
+          <p style="font-size: 14px; line-height: 1.6;">To prepare for early integration, check out our tutorial: <a href="https://memoriada.xyz/blog/permanent-memory-5-minutes" style="color: #7c3aed; text-decoration: none;"><strong>Read the 5-Minute Guide ❯</strong></a></p>
+          
+          <hr style="border: 0; border-top: 1px dashed #7c3aed; margin: 20px 0;" />
+          <p style="font-size: 11px; color: #a5b4fc;">SYSTEM_STATUS: ACTIVE // 0G_APAC_TRACK_1 // © 2026 Memoria DA</p>
+        </div>
+        `;
+
+        const emailResponse = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${resendApiKey}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            from: 'Memoria DA <support@memoriada.xyz>',
+            to: [email],
+            subject: '🧠 Welcome to the Memoria DA SDK Waitlist!',
+            html: htmlBody
+          })
+        });
+
+        if (!emailResponse.ok) {
+          const emailErrText = await emailResponse.text().catch(() => '');
+          console.warn(`[Waitlist] Resend returned non-200 status: ${emailResponse.status} | ${emailErrText.slice(0, 200)}`);
+        } else {
+          console.log(`[Waitlist] Confirmation email sent successfully to ${email}`);
+        }
+      } catch (emailErr) {
+        console.warn('[Waitlist] Failed to send email via Resend:', emailErr.message);
+      }
+    }
+
+    res.json({ success: true, message: 'Welcome to the sprawl. Your neural link is established.' });
+  } catch (err) {
+    console.error('[Waitlist] Error:', err.message);
+    res.status(500).json({ error: 'Failed to record waitlist signup' });
+  }
+});
+
 // ─── Serve Frontend ─────────────────────────────────────────
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, '../dist')));
 
 // Fallback for SPA routing (Express 5.x compatible)

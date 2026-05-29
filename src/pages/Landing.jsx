@@ -32,6 +32,34 @@ const Landing = () => {
     fetchStats();
   }, []);
 
+  const [waitlistEmail, setWaitlistEmail] = useState('');
+  const [waitlistFramework, setWaitlistFramework] = useState('ElizaOS');
+  const [waitlistStatus, setWaitlistStatus] = useState({ loading: false, success: false, message: '' });
+
+  const handleWaitlistSubmit = async (e) => {
+    e.preventDefault();
+    if (!waitlistEmail) return;
+
+    setWaitlistStatus({ loading: true, success: false, message: '' });
+    try {
+      const response = await fetch('/api/waitlist/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: waitlistEmail, framework: waitlistFramework }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit. Please try again.');
+      }
+
+      setWaitlistStatus({ loading: false, success: true, message: data.message });
+      setWaitlistEmail('');
+    } catch (err) {
+      setWaitlistStatus({ loading: false, success: false, message: err.message });
+    }
+  };
+
   return (
     <div className="landing-page" id="landing-root">
       {/* Global HUD Overlay */}
@@ -175,6 +203,74 @@ const Landing = () => {
                 <a href="#og-integration" className="partner-link terminal-font">SDK_DOCS__❯</a>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SDK Waitlist Section */}
+      <section className="landing-section waitlist-section" id="waitlist">
+        <div className="section-container">
+          <div className="waitlist-box cyber-chamfer">
+            <div className="waitlist-glow" />
+            <div className="waitlist-header">
+              <h2 className="section-title heading-font cyber-glitch-text" data-text="JOIN_SDK_WAITLIST__❯">
+                JOIN_SDK_WAITLIST__❯
+              </h2>
+              <p className="terminal-font waitlist-subtitle">
+                Access the standalone `@memoria/sdk` for ElizaOS, Rig, & OpenClaw agents. Integrate permanent decentralized memory in 3 lines of code.
+              </p>
+            </div>
+            
+            {!waitlistStatus.success ? (
+              <form onSubmit={handleWaitlistSubmit} className="waitlist-form">
+                {waitlistStatus.message && (
+                  <div className="waitlist-error terminal-font">
+                    ERR_PROTOCOL: {waitlistStatus.message}
+                  </div>
+                )}
+                <div className="form-row">
+                  <div className="form-group flex-2">
+                    <label className="terminal-font">EMAIL_ADDRESS_</label>
+                    <input 
+                      type="email" 
+                      placeholder="netrunner@sprawl.net"
+                      value={waitlistEmail}
+                      onChange={(e) => setWaitlistEmail(e.target.value)}
+                      required 
+                      className="cyber-input terminal-font"
+                    />
+                  </div>
+                  <div className="form-group flex-1">
+                    <label className="terminal-font">AGENT_FRAMEWORK_</label>
+                    <select 
+                      value={waitlistFramework}
+                      onChange={(e) => setWaitlistFramework(e.target.value)}
+                      className="cyber-select terminal-font"
+                    >
+                      <option value="ElizaOS">ElizaOS</option>
+                      <option value="OpenClaw">OpenClaw</option>
+                      <option value="Rig">Rig</option>
+                      <option value="LangChain">LangChain</option>
+                      <option value="Autogen">Autogen</option>
+                      <option value="Other">Other Framework</option>
+                    </select>
+                  </div>
+                  <div className="form-group align-end">
+                    <button type="submit" disabled={waitlistStatus.loading} className="btn-cyber btn-waitlist terminal-font">
+                      {waitlistStatus.loading ? 'SUBMITTING...' : 'JOIN_WAITLIST__❯'}
+                    </button>
+                  </div>
+                </div>
+              </form>
+            ) : (
+              <div className="waitlist-success terminal-font">
+                <div className="success-icon">✓</div>
+                <div className="success-message">
+                  <strong>SYSTEM_CONFIRMATION: SIGNUP_SUCCESSFUL</strong>
+                  <p>{waitlistStatus.message}</p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
